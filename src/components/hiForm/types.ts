@@ -3,13 +3,16 @@ import type { HiFormInputController } from '@/components/hiForm/controller/hiFor
 import type { HiFormSelectController } from '@/components/hiForm/controller/hiFormSelectController'
 import type { THiDicChildren } from '@/components/hiDic/types'
 import type { HiDicController } from '@/components/hiDic/controller/hiDicController'
+import type { FormProps } from 'ant-design-vue'
 
 export type TFormItemControllers = HiFormInputController | HiFormSelectController
 
-export type TFormItemType = 'input' | 'select'
+export type TFormItemType = 'input' | 'select' | 'checkbox' | 'radio'
 
 export type TFormItemStatus = 'error' | 'warning' | undefined
 type Size = 'large' | 'middle' | 'small'
+
+export interface IHiForm extends FormProps {}
 
 export interface IFormItemRule {
   len?: number
@@ -47,6 +50,8 @@ export interface IFormItemBase {
   label?: string
   model: string
   rules?: boolean | IFormItemRule | IFormItemRule[]
+  width?: string | number
+  style?: Partial<CSSStyleDeclaration>
 }
 
 export interface IFormInput extends IFormItemBase {
@@ -58,9 +63,20 @@ export interface IFormInput extends IFormItemBase {
 export interface IFormSelect extends IFormItemBase {
   showSearch?: boolean
   children?: THiDicChildren | HiDicController
+  onChange?: (value: any) => void
 }
 
-export type TFormItem = IFormInput | IFormSelect
+export interface IFormCheckbox extends IFormItemBase {
+  children?: THiDicChildren | HiDicController
+  onChange?: (value: any) => void
+}
+
+export interface IFormRadio extends IFormItemBase {
+  children?: THiDicChildren | HiDicController
+  onChange?: (value: any) => void
+}
+
+export type TFormItem = IFormInput | IFormSelect | IFormCheckbox | IFormRadio
 
 export type TFormData = { [k: string]: any }
 

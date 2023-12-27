@@ -1,7 +1,7 @@
 import type { IHiDicOption, THiDicChildren, THiDicValue } from '@/components/hiDic/types'
 
 export class HiDicController {
-  private children: THiDicChildren
+  private readonly children: THiDicChildren
 
   constructor(children: THiDicChildren) {
     this.children = children

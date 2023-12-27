@@ -12,6 +12,26 @@ export class HiFormItemController<T extends IFormItemBase> {
     this.key = generateKey()
     this.controllerType = controllerType
     this.model = config.model
+
+    this.setDefaultValue()
+  }
+
+  private setDefaultValue() {
+    this.setDefaultStyle()
+  }
+
+  private setDefaultStyle() {
+    const { style } = this.config
+    this.config.style = {
+      ...(style || {}),
+      minWidth: '200px',
+      width: this.setStyleWidth()
+    }
+  }
+
+  private setStyleWidth() {
+    const { width } = this.config
+    return width ? (typeof width === 'number' ? `${width}px` : width) : ''
   }
 
   private changeDisabled(val: boolean) {
@@ -73,7 +93,7 @@ export class HiFormItemController<T extends IFormItemBase> {
     return this.config
   }
 
-  getDefaultValue() {
+  getDefaultValue(): string | undefined | [] | number {
     return ''
   }
 }

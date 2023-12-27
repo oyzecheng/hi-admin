@@ -1,4 +1,14 @@
-import { Button, Space, Form, FormItem, Input, Select, ConfigProvider } from 'ant-design-vue'
+import {
+  Button,
+  Space,
+  Form,
+  Input,
+  Select,
+  ConfigProvider,
+  Checkbox,
+  Radio,
+  Table
+} from 'ant-design-vue'
 import type { App } from 'vue'
 
 const useAntd = (app: App<Element>) => {
@@ -6,9 +16,11 @@ const useAntd = (app: App<Element>) => {
   app.use(Button)
   app.use(Space)
   app.use(Form)
-  app.use(FormItem)
   app.use(Input)
   app.use(Select)
+  app.use(Checkbox)
+  app.use(Radio)
+  app.use(Table)
 }
 
 export default useAntd

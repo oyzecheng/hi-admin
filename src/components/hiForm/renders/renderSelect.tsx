@@ -8,7 +8,18 @@ interface IRenderSelectProps {
 
 export const renderSelect = ({ controller, formData }: IRenderSelectProps) => {
   const config = controller?.getConfig()
-  const { allowClear, disabled, bordered, size, placeholder, status, showSearch, children } = config
+  const {
+    allowClear,
+    disabled,
+    bordered,
+    size,
+    placeholder,
+    status,
+    showSearch,
+    children,
+    style,
+    onChange
+  } = config
 
   const selectChildren =
     children && 'getChildren' in children ? children.getChildren() : children || []
@@ -23,6 +34,8 @@ export const renderSelect = ({ controller, formData }: IRenderSelectProps) => {
       placeholder={placeholder}
       status={status?.value}
       showSearch={showSearch}
+      style={style}
+      onChange={onChange}
     >
       {selectChildren &&
         selectChildren.map((item) => (

@@ -1,17 +1,25 @@
 import { generateKey } from '@/utils'
-import type { TFormItemControllers, TFormData, TFormRules } from '@/components/hiForm/types'
+import type {
+  TFormItemControllers,
+  TFormData,
+  TFormRules,
+  IHiForm
+} from '@/components/hiForm/types'
 
 export class HiFormController {
   private readonly configList: TFormItemControllers[]
   readonly key: string
   private readonly formData: TFormData
   private readonly rules: TFormRules
+  private readonly config: IHiForm
+  private formRef: any
 
-  constructor(configList: TFormItemControllers[], formData: TFormData) {
+  constructor(configList: TFormItemControllers[], formData: TFormData, config: IHiForm) {
     this.configList = configList
     this.key = generateKey()
     this.formData = this.generateFormData(formData)
     this.rules = this.generateRules()
+    this.config = config
   }
 
   private generateRules() {
@@ -35,6 +43,10 @@ export class HiFormController {
     }
   }
 
+  setFormRef(formRef: any) {
+    this.formRef = formRef
+  }
+
   generateFormData(formData: TFormData): TFormData {
     this.configList.forEach((item) => {
       formData[item.model] = item.getDefaultValue()
@@ -52,5 +64,40 @@ export class HiFormController {
 
   getRules() {
     return this.rules
+  }
+
+  getConfig() {
+    console.log('this.config', this.config)
+    return this.config
+  }
+
+  validate() {
+    return new Promise((resolve, reject) => {
+      this.formRef
+        ?.validate()
+        .then((res: any) => {
+          const { outOfDate } = res
+          if ('outOfDate' in res && !outOfDate) {
+            reject(res)
+          } else {
+            resolve(res)
+          }
+        })
+        .catch((err: any) => {
+          reject(err)
+        })
+    })
+  }
+
+  resetFields() {
+    this.formRef?.resetFields()
+  }
+
+  validateFields(nameList: string[]) {
+    this.formRef?.validateFields(nameList)
+  }
+
+  scrollToField(name: string) {
+    this.formRef?.scrollToField(name)
   }
 }
