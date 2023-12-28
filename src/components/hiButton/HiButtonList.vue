@@ -7,15 +7,35 @@
 <script lang="ts" setup>
 import HiButton from '@/components/hiButton/HiButton.vue'
 import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
+import { onMounted, watch } from 'vue'
 
 const props = defineProps({
   configList: {
     type: Array<HiButtonController>,
     required: true
+  },
+  clickParams: {
+    type: Object,
+    default: null
   }
 })
 
-const { configList } = props
+const { configList, clickParams } = props
+
+onMounted(() => {
+  setClickParams(clickParams)
+})
+watch(
+  () => clickParams,
+  (value) => setClickParams(value),
+  { deep: true }
+)
+
+const setClickParams = (params: any) => {
+  configList?.forEach((item) => {
+    item.setClickParams(params)
+  })
+}
 </script>
 
 <style scoped></style>

@@ -67,7 +67,6 @@ export class HiFormController {
   }
 
   getConfig() {
-    console.log('this.config', this.config)
     return this.config
   }
 

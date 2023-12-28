@@ -3,13 +3,15 @@ import { generateKey } from '@/utils'
 
 export class HiButtonController {
   private readonly config: IHIButton
-  private readonly key: string
+  readonly key: string
   click: () => void
+  clickParams: { [k: string]: any }
 
   constructor(config: IHIButton) {
     this.config = config
     this.click = () => {}
     this.key = generateKey()
+    this.clickParams = {}
   }
 
   private changeLoading(val: boolean) {
@@ -28,6 +30,10 @@ export class HiButtonController {
     if (this.config.isShow) {
       this.config.isShow.value = val
     }
+  }
+
+  setClickParams(params: { [k: string]: any }) {
+    this.clickParams = { ...this.clickParams, ...params }
   }
 
   showLoading() {
@@ -54,8 +60,8 @@ export class HiButtonController {
     this.changeIsShow(false)
   }
 
-  onClick(callback: (buttonConfig: HiButton) => void) {
-    this.click = () => callback(this)
+  onClick(callback: (controller: HiButtonController, clickParams: { [k: string]: any }) => void) {
+    this.click = () => callback(this, this.clickParams)
   }
 
   getConfig() {
