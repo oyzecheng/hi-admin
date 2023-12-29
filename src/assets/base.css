@@ -9,6 +9,9 @@
   --color-text: #212B36;
   --color-content-text: #637481;
   --color-border: #E8ECEE;
+
+  --color-hover-bg: #F7F7F8;
+  --color-hover-primary-bg: #EFF8F4;
 }
 
 *,

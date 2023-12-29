@@ -1,9 +1,13 @@
 <template>
   <a-layout-header>
-    <div class="search-box"></div>
+    <div class="search-box">
+      <a-button type="dashed" shape="circle" :icon="h(SearchOutlined)" @click="handleSearchClick" />
+    </div>
     <div>
-      <a-dropdown trigger="click" arrow>
-        <a-avatar>Y</a-avatar>
+      <a-dropdown trigger="click" arrow v-model:open="state.menuOpen">
+        <div :class="{ avatar: true, 'avatar-active': state.menuOpen }">
+          <a-avatar>Y</a-avatar>
+        </div>
         <template #overlay>
           <div class="user-container">
             <div class="info">
@@ -15,12 +19,38 @@
           </div>
         </template>
       </a-dropdown>
+      <!-- search -->
+      <a-modal
+        class="search-modal"
+        v-model:open="state.searchBoxOpen"
+        :footer="null"
+        :closable="false"
+        :width="600"
+      >
+        <SearchModalContent @onMenuClick="handleMenuClick" />
+      </a-modal>
     </div>
   </a-layout-header>
 </template>
 
 <script setup lang="ts">
+import SearchModalContent from '@/layout/components/SearchModalContent.vue'
+import { SearchOutlined } from '@ant-design/icons-vue'
+import { reactive, h } from 'vue'
+
 const outLogin = [{ key: 'outLogin', label: '退出登录' }]
+
+const state = reactive({
+  menuOpen: false,
+  searchBoxOpen: false
+})
+
+const handleSearchClick = () => {
+  state.searchBoxOpen = true
+}
+const handleMenuClick = () => {
+  state.searchBoxOpen = false
+}
 </script>
 
 <style scoped lang="less">
@@ -35,9 +65,33 @@ const outLogin = [{ key: 'outLogin', label: '退出登录' }]
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .ant-avatar {
-    background-color: var(--color-primary);
+  padding: 0 40px;
+  .search-box {
+    .ant-btn {
+      background-color: transparent;
+    }
+  }
+  .avatar {
+    border: 2px solid var(--color-hover-bg);
+    border-radius: 50%;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    transition: all 0.3s ease-out;
+    &:hover {
+      transform: scale(1.06);
+    }
+    .ant-avatar {
+      top: 2px;
+      left: 2px;
+      display: inline-block;
+      position: absolute;
+      background-color: var(--color-primary);
+    }
+    &-active {
+      border-color: var(--color-primary);
+    }
   }
 }
 </style>
@@ -66,6 +120,11 @@ const outLogin = [{ key: 'outLogin', label: '退出登录' }]
       color: var(--color-error);
       font-weight: 500;
     }
+  }
+}
+.search-modal {
+  .ant-modal-content {
+    padding: 0;
   }
 }
 </style>

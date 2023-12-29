@@ -19,7 +19,7 @@ export const routes = [
   },
   {
     name: 'user',
-    path: '/',
+    path: '/user',
     component: () => import('@/layout/RouterView.vue'),
     redirect() {
       return { name: 'userList' }
@@ -28,7 +28,7 @@ export const routes = [
     children: [
       {
         name: 'userList',
-        path: 'user',
+        path: '',
         component: () => import('@/views/user/UserView.vue'),
         meta: { title: '列表' }
       },

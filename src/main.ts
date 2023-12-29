@@ -1,9 +1,10 @@
 import './assets/main.css'
+import './assets/antdOverrite.less'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import useAntd from "@/plugins/antd";
+import useAntd from '@/plugins/antd'
 
 import App from './App.vue'
 import router from './router'

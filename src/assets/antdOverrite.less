@@ -1,0 +1,45 @@
+
+.ant-menu-light:not(.ant-menu-horizontal) {
+  color: var(--color-content-text);
+  .ant-menu-sub.ant-menu-inline {
+    background-color: #fff !important;
+  }
+  .ant-menu-item {
+    :hover {
+      color: var(--color-content-text);
+    }
+    .ant-menu-title-content {
+      font-weight: 500;
+    }
+  }
+  .ant-menu-item-selected {
+    background-color: #EFF8F4;
+  }
+  .ant-menu-item:not(.ant-menu-item-selected):hover {
+    background-color: var(--color-hover-bg);
+  }
+  .ant-menu-submenu-inline {
+    .ant-menu-submenu-title:hover:not(.ant-menu-item-selected):not(.ant-menu-submenu-selected) {
+      color: var(--color-primary);
+      background-color: var(--color-hover-bg);
+    }
+  }
+}
+
+.ant-dropdown {
+  .ant-dropdown-menu {
+    .ant-dropdown-menu-item:hover {
+      background-color: var(--color-hover-bg);
+    }
+  }
+}
+
+.anticon {
+  color: var(--color-content-text);
+}
+
+.ant-modal {
+  .ant-modal-content {
+    border-radius: 20px;
+  }
+}

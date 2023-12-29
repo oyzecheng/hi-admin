@@ -13,10 +13,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "ant-design-vue": "^4.0.7",
     "less": "^4.2.0",
     "less-loader": "^11.1.4",
     "pinia": "^2.1.7",
+    "simplebar-vue": "^2.3.3",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5"
   },

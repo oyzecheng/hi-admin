@@ -12,7 +12,9 @@ import {
   Menu,
   Avatar,
   Dropdown,
-  Divider
+  Divider,
+  Modal,
+  Tag
 } from 'ant-design-vue'
 import type { App } from 'vue'
 
@@ -31,6 +33,8 @@ const useAntd = (app: App<Element>) => {
   app.use(Avatar)
   app.use(Dropdown)
   app.use(Divider)
+  app.use(Modal)
+  app.use(Tag)
 }
 
 export default useAntd

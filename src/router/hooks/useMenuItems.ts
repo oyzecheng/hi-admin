@@ -7,8 +7,9 @@ const generateItems = (list: RouteRecordRaw[] = [], parent: any = null): any[] =
     key: item.name,
     label: item.meta?.title || '',
     title: item.meta?.title || '',
-    path: `${parent?.path || ''}/${item.path}`,
-    children: item.children ? generateItems(item.children) : undefined
+    parentLabel: parent?.meta?.title || '',
+    path: `${parent?.path ? `${parent.path}/` : ''}${item.path}`,
+    children: item.children ? generateItems(item.children, item) : undefined
   }))
 }
 
