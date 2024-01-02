@@ -1,13 +1,17 @@
 <template>
   <a-space>
-    <hi-button v-for="config in configList" :key="config.key" :config="config"></hi-button>
+    <hi-button
+      v-for="config in configList"
+      :key="config.key"
+      :controller="config"
+      :click-params="clickParams"
+    ></hi-button>
   </a-space>
 </template>
 
 <script lang="ts" setup>
 import HiButton from '@/components/hiButton/HiButton.vue'
 import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
-import { onMounted, watch } from 'vue'
 
 const props = defineProps({
   configList: {
@@ -21,21 +25,6 @@ const props = defineProps({
 })
 
 const { configList, clickParams } = props
-
-onMounted(() => {
-  setClickParams(clickParams)
-})
-watch(
-  () => clickParams,
-  (value) => setClickParams(value),
-  { deep: true }
-)
-
-const setClickParams = (params: any) => {
-  configList?.forEach((item) => {
-    item.setClickParams(params)
-  })
-}
 </script>
 
 <style scoped></style>

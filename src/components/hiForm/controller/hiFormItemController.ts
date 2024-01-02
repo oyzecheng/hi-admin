@@ -17,6 +17,9 @@ export class HiFormItemController<T extends IFormItemBase> {
   }
 
   private setDefaultValue() {
+    if (this.config.allowClear == undefined) {
+      this.config.allowClear = true
+    }
     this.setDefaultStyle()
   }
 
@@ -91,6 +94,14 @@ export class HiFormItemController<T extends IFormItemBase> {
 
   getConfig() {
     return this.config
+  }
+
+  getConfigItemByKey(key: keyof T) {
+    return this.config[key]
+  }
+
+  setConfigItemByKey(key: keyof T, value: any) {
+    this.config[key] = value
   }
 
   getDefaultValue(): string | undefined | [] | number {

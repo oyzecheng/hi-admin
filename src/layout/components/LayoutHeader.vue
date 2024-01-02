@@ -96,16 +96,13 @@ const handleMenuClick = () => {
 }
 </style>
 <style lang="less">
+@import '@/assets/css/common';
+
 .user-container {
   padding: 8px;
   min-width: 220px;
   color: var(--color-content-text);
-  backdrop-filter: blur(20px);
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
-  box-shadow:
-    rgba(145, 158, 171, 0.24) 0px 0px 2px 0px,
-    rgba(145, 158, 171, 0.24) -20px 20px 40px -4px;
+  .image-bg();
   .info {
     padding: 10px 16px;
     h6 {
@@ -116,6 +113,7 @@ const handleMenuClick = () => {
   }
   .out-login-menu {
     box-shadow: none;
+    background: none;
     .ant-dropdown-menu-title-content {
       color: var(--color-error);
       font-weight: 500;

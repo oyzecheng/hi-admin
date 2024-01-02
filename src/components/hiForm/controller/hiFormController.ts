@@ -5,6 +5,7 @@ import type {
   TFormRules,
   IHiForm
 } from '@/components/hiForm/types'
+import type { THiButtonClickCallback } from '@/components/hiButton/types'
 
 export class HiFormController {
   private readonly configList: TFormItemControllers[]
@@ -14,12 +15,18 @@ export class HiFormController {
   private readonly config: IHiForm
   private formRef: any
 
+  defaultConfirm: THiButtonClickCallback | null
+  defaultCancel: THiButtonClickCallback | null
+
   constructor(configList: TFormItemControllers[], formData: TFormData, config: IHiForm) {
     this.configList = configList
     this.key = generateKey()
     this.formData = this.generateFormData(formData)
     this.rules = this.generateRules()
     this.config = config
+
+    this.defaultConfirm = null
+    this.defaultCancel = null
   }
 
   private generateRules() {
@@ -98,5 +105,13 @@ export class HiFormController {
 
   scrollToField(name: string) {
     this.formRef?.scrollToField(name)
+  }
+
+  onDefaultConfirm(callback: THiButtonClickCallback) {
+    this.defaultConfirm = callback
+  }
+
+  onDefaultCancel(callback: THiButtonClickCallback) {
+    this.defaultCancel = callback
   }
 }

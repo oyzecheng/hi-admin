@@ -6,6 +6,6 @@ import { ref } from 'vue'
 export const useHiButton = (label: string | VNode, config: IUseHiButtonConfig = {}) => {
   const loading = ref(config.loading || false)
   const disabled = ref(config.disabled || false)
-  const isShow = ref(config.isShow || true)
+  const isShow = ref(config.isShow === undefined ? true : config.isShow)
   return new HiButtonController({ label, ...config, loading, disabled, isShow })
 }

@@ -1,7 +1,7 @@
 <template>
   <a-button
     v-if="isShow"
-    @click="config.click"
+    @click="handleButtonClick"
     :loading="loading"
     :disabled="disabled"
     :block="block"
@@ -14,6 +14,7 @@
     :shape="shape"
     :size="size"
     :target="target"
+    :class="className"
   >
     {{ label }}
   </a-button>
@@ -22,15 +23,20 @@
 <script lang="ts" setup>
 import { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
 const props = defineProps({
-  config: {
+  controller: {
     type: HiButtonController,
     required: true
+  },
+  clickParams: {
+    type: Object,
+    default: null
   }
 })
 
-const config = props.config
-const buttonConfig = config?.getConfig()
+const { controller, clickParams } = props
+const buttonConfig = controller?.getConfig()
 const {
+  className,
   label,
   loading,
   disabled,
@@ -46,6 +52,11 @@ const {
   type,
   isShow
 } = buttonConfig
+
+const handleButtonClick = () => {
+  controller?.setClickParams(clickParams)
+  controller?.click?.()
+}
 </script>
 
 <style scoped></style>

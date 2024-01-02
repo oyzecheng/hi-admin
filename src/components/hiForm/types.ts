@@ -58,6 +58,7 @@ export interface IFormInput extends IFormItemBase {
   type?: string
   defaultValue?: string
   showCount?: boolean
+  onChange?: (value: any) => void
 }
 
 export interface IFormSelect extends IFormItemBase {

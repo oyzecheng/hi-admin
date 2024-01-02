@@ -14,7 +14,7 @@
       :rules="rules[item.model]"
     />
     <a-form-item v-if="setButtonConfig">
-      <HiButtonList :config-list="[confirmButton, cancelButton]" />
+      <HiButtonList :config-list="setButtonConfig" />
     </a-form-item>
   </a-form>
 </template>
@@ -26,8 +26,15 @@ import HiFormItem from '@/components/hiForm/HiFormItem'
 import { useHiButton } from '@/components/hiButton'
 import { computed, nextTick, ref } from 'vue'
 
-const confirmButton = useHiButton('confirm', { type: 'primary', htmlType: 'submit' })
-const cancelButton = useHiButton('cancel')
+const confirmButton = useHiButton('确定', { type: 'primary', htmlType: 'submit' })
+const cancelButton = useHiButton('取消')
+
+confirmButton.onClick((button) => {
+  controller.defaultConfirm && controller.defaultConfirm(button)
+})
+cancelButton.onClick((button) => {
+  controller.defaultCancel && controller.defaultCancel(button)
+})
 
 const emit = defineEmits(['onFinish'])
 
@@ -50,7 +57,7 @@ const rules = controller?.getRules()
 const configList = controller?.getConfigList()
 const formConfig = controller?.getConfig()
 
-const setButtonConfig = computed(() => {
+const setButtonConfig = computed((): any[] | null => {
   return buttonConfig ? (buttonConfig.length ? buttonConfig : [confirmButton, cancelButton]) : null
 })
 

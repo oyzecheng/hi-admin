@@ -1,4 +1,5 @@
 import type { Ref, VNode } from 'vue'
+import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
 
 export interface IHIButton {
   label?: string | VNode
@@ -15,6 +16,7 @@ export interface IHIButton {
   target?: string
   type?: 'primary' | 'ghost' | 'dashed' | 'link' | 'text' | 'default'
   isShow?: Ref<boolean>
+  className?: string
 }
 
 export interface IUseHiButtonConfig extends Omit<IHIButton, 'loading' | 'disabled' | 'isShow'> {
@@ -22,3 +24,5 @@ export interface IUseHiButtonConfig extends Omit<IHIButton, 'loading' | 'disable
   disabled?: boolean
   isShow?: boolean
 }
+
+export type THiButtonClickCallback = (controller: HiButtonController) => void

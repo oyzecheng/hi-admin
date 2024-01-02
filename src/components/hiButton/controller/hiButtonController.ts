@@ -1,4 +1,4 @@
-import type { IHIButton } from '@/components/hiButton/types'
+import type { IHIButton, THiButtonClickCallback } from '@/components/hiButton/types'
 import { generateKey } from '@/utils'
 
 export class HiButtonController {
@@ -32,7 +32,7 @@ export class HiButtonController {
     }
   }
 
-  setClickParams(params: { [k: string]: any }) {
+  setClickParams(params: { [k: string]: any } = {}) {
     this.clickParams = { ...this.clickParams, ...params }
   }
 
@@ -60,8 +60,8 @@ export class HiButtonController {
     this.changeIsShow(false)
   }
 
-  onClick(callback: (controller: HiButtonController, clickParams: { [k: string]: any }) => void) {
-    this.click = () => callback(this, this.clickParams)
+  onClick(callback: THiButtonClickCallback) {
+    this.click = () => callback(this)
   }
 
   getConfig() {

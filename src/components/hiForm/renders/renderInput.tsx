@@ -7,7 +7,13 @@ interface IRenderInputProps {
 }
 export const renderInput = ({ controller, formData }: IRenderInputProps) => {
   const config = controller?.getConfig()
-  const { size, disabled, allowClear, bordered, placeholder, status, type, showCount } = config
+  const { size, disabled, allowClear, bordered, placeholder, status, type, showCount, onChange } =
+    config
+
+  const handleChange = (e: any) => {
+    const { value } = e.target
+    onChange && onChange(value)
+  }
 
   return (
     <a-input
@@ -20,6 +26,7 @@ export const renderInput = ({ controller, formData }: IRenderInputProps) => {
       status={status?.value}
       type={type}
       showCount={showCount}
-    ></a-input>
+      onChange={handleChange}
+    />
   )
 }

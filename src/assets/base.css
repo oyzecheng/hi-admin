@@ -10,8 +10,9 @@
   --color-content-text: #637481;
   --color-border: #E8ECEE;
 
-  --color-hover-bg: #F7F7F8;
-  --color-hover-primary-bg: #EFF8F4;
+  --color-hover-bg: rgba(145, 158, 171, 0.08);
+  --color-hover-primary-bg: rgba(0, 167, 111, 0.08);
+  --color-hover-selected-primary-bg: rgba(0, 167, 111, 0.16);
 }
 
 *,

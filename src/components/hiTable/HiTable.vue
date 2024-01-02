@@ -1,5 +1,5 @@
 <template>
-  <a-table :columns="columns" :data-source="tableData.list">
+  <a-table :columns="columns" :data-source="tableData.list" v-bind="config" :loading="loading">
     <template #bodyCell="{ column, record }">
       <template v-if="column.buttonConfigList && column.buttonConfigList.length">
         <HiButtonList :config-list="column.buttonConfigList" :click-params="{ record }" />
@@ -8,6 +8,10 @@
     </template>
     <template #headerCell="{ column }">
       <slot name="headerCell" :column="column" />
+    </template>
+    <template #buildOptionText="props">
+      <span v-if="props.value !== '50'">{{ props.value }}条/页</span>
+      <span v-else>全部</span>
     </template>
   </a-table>
 </template>
@@ -25,10 +29,16 @@ const props = defineProps({
 })
 
 const { controller } = props
-const { tableData, columns } = controller
+const { tableData } = controller
+const columns = controller?.getColumns()
+const config = controller?.getConfig()
+const { pagination } = config
+const { current, pageSize } = pagination || {}
+
+const { loading } = config
 
 onMounted(() => {
-  controller?.reloadData()
+  controller?.reloadData({ page: current || 1, pageSize: pageSize || 10 })
 })
 </script>
 
