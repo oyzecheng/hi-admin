@@ -8,12 +8,19 @@
       />
       <HiButtonList v-if="topButtonController" :config-list="topButtonController" />
     </div>
-    <HiTable :controller="tableController" />
+    <HiTable ref="tableRef" :controller="tableController">
+      <template #bodyCell="{ column, record }">
+        <slot name="bodyCell" :column="column" :record="record"></slot>
+      </template>
+      <template #headerCell="{ column }">
+        <slot name="headerCell" :column="column"></slot>
+      </template>
+    </HiTable>
   </div>
 </template>
 
 <script setup>
-import { h } from 'vue'
+import { h, onBeforeUnmount, onMounted, ref } from 'vue'
 import HiTable from '@/components/hiTable/HiTable.vue'
 import HiForm from '@/components/hiForm/HiForm.vue'
 import HiButtonList from '@/components/hiButton/HiButtonList.vue'
@@ -40,6 +47,8 @@ const props = defineProps({
 
 const { tableController, searchFormController } = props
 const changeMap = new Map()
+const tableRef = ref(null)
+let resizeObserver = null
 
 const clearButton = useHiButton('clear', {
   danger: true,
@@ -52,6 +61,17 @@ clearButton.onClick(() => {
   searchFormController && searchFormController.resetFields()
   clearButtonIsShow()
   tableController.reloadData()
+})
+
+onMounted(() => {
+  resizeObserver = new ResizeObserver(() => {
+    setScroll()
+  })
+  resizeObserver.observe(document.body)
+  setScroll()
+})
+onBeforeUnmount(() => {
+  resizeObserver && resizeObserver.disconnect()
 })
 
 const clearButtonIsShow = () => {
@@ -83,6 +103,15 @@ const overrideSearchFormItemOnChange = () => {
   }
 }
 overrideSearchFormItemOnChange()
+
+const setScroll = () => {
+  const table = tableRef.value.$el
+  const tbody = table.querySelector('.ant-table-tbody')
+  const rect = tbody.getBoundingClientRect()
+  const value = window.innerHeight - rect.top - 100
+  const scroll = tableController.getConfigItemByKey('scroll')
+  scroll.y = value
+}
 </script>
 
 <style scoped lang="less">

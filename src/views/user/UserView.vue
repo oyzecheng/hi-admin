@@ -1,10 +1,25 @@
 <template>
-  <div>
+  <div class="user-view">
     <HiPage
       :table-controller="table"
       :search-form-controller="form"
       :top-button-controller="[newButton]"
-    />
+    >
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.dataIndex === 'name'">
+          <div class="user-name-box">
+            <a-avatar size="large" :src="record.avatar" />
+            <div>
+              <p class="name">{{ record.name }}</p>
+              <p class="email">{{ record.email }}</p>
+            </div>
+          </div>
+        </template>
+        <template v-if="column.dataIndex === 'status'">
+          <a-tag :bordered="false" color="success">{{ record.status }}</a-tag>
+        </template>
+      </template>
+    </HiPage>
   </div>
 </template>
 
@@ -28,47 +43,52 @@ const loadData = (params) => {
         pageSize,
         count: 89,
         list: new Array(pageSize).fill('').map((_, index) => ({
-          id: (page - 1) * pageSize + index + 1,
-          one: '张三',
-          two: `22${index}`,
-          three: 'man'
+          id: (page - 1) * pageSize + index + 1 + '',
+          name: '张三',
+          avatar: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_17.jpg',
+          email: 'oouzc@gmail.com',
+          role: '管理员',
+          status: '启用'
         }))
       }
     })
   })
 }
 
-const show = useHiButton('show', { size: 'small', type: 'primary', ghost: true })
+const show = useHiButton('查看', { size: 'small', type: 'text' })
 show.onClick((controller) => {
   const { record } = controller.clickParams
   controller.showLoading()
   console.log('record', record)
   controller.hideLoading()
 })
-const edit = useHiButton('edit', { size: 'small', type: 'primary', ghost: true })
-const del = useHiButton('del', { size: 'small', danger: true })
-const table = useHiTable(loadData, [
-  { title: 'id', key: 'id' },
-  { title: 'one', key: 'one' },
-  { title: 'two', key: 'two' },
-  { title: 'three', key: 'three' },
-  {
-    title: 'action',
-    key: 'action',
-    width: 200,
-    buttonConfigList: [show, edit, del]
-  }
-])
+const edit = useHiButton('编辑', { size: 'small', type: 'text' })
+const del = useHiButton('删除', { size: 'small', type: 'text', danger: true })
+const table = useHiTable(
+  loadData,
+  [
+    { title: '名称', key: 'name' },
+    { title: '角色', key: 'role' },
+    { title: '状态', key: 'status' },
+    {
+      title: 'action',
+      key: 'action',
+      width: 200,
+      buttonConfigList: [show, edit, del]
+    }
+  ],
+  { selection: true }
+)
 
 const selectChildren = useDic([
   { label: 'test', value: 'test' },
   { label: 'test2', value: 'test2' }
 ])
 
-const input = useFormInput('input', 'input', {
+const input = useFormInput('名称', 'input', {
   disabled: false
 })
-const select = useFormSelect('select', 'select', {
+const select = useFormSelect('状态', 'select', {
   children: selectChildren
 })
 const form = useHiForm([input, select], { layout: 'inline' })
@@ -79,4 +99,18 @@ newButton.onClick(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.user-view {
+  .user-name-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .name {
+      font-weight: 500;
+    }
+    .email {
+      color: var(--color-content-text);
+    }
+  }
+}
+</style>

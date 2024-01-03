@@ -65,6 +65,32 @@
         }
       }
     }
+    .ant-table-body {
+      .ant-table-row-selected {
+        td {
+          background-color: rgba(0, 120, 103, 0.04);
+        }
+        &:hover {
+          td {
+            background-color: rgba(0, 120, 103, 0.08);
+          }
+        }
+        .ant-checkbox {
+          .ant-checkbox-inner {
+            border-color: var(--color-primary);
+          }
+        }
+      }
+    }
+    tr {
+      .ant-table-selection-column {
+        .ant-checkbox {
+          .ant-checkbox-inner {
+            border-color: #637481;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -81,5 +107,13 @@
   gap: 16px;
   .ant-form-item {
     margin-right: 0;
+  }
+}
+
+.ant-tag {
+  font-weight: 500;
+  &.ant-tag-success {
+    color: var(--color-primary);
+    background-color: var(--color-primary-bg);
   }
 }

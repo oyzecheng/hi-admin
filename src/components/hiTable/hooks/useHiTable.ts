@@ -1,5 +1,10 @@
 import { HiTableController } from '@/components/hiTable/controller/hiTableController'
-import type { IHiTableConfig, THiTableColumns, THiTableLoadData } from '@/components/hiTable/types'
+import type {
+  IHiTableConfig,
+  IHiTableSelectedData,
+  THiTableColumns,
+  THiTableLoadData
+} from '@/components/hiTable/types'
 import { reactive, ref } from 'vue'
 
 interface IUseHiTableConfig extends Omit<IHiTableConfig, 'loading'> {
@@ -15,6 +20,17 @@ export const useHiTable = (
 
   const loading = ref(config.loading || false)
   const pagination = reactive(config.pagination || {})
+  const scroll = reactive(config.scroll || {})
+  const selectedData = reactive<IHiTableSelectedData>({
+    selectedRowKeys: [],
+    selectedRows: [],
+    selectionConfig: config.rowSelection || {}
+  })
 
-  return new HiTableController(loadData, columns, tableData, { ...config, loading, pagination })
+  return new HiTableController(loadData, columns, tableData, selectedData, {
+    ...config,
+    loading,
+    pagination,
+    scroll
+  })
 }

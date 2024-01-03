@@ -2,8 +2,11 @@
 /* semantic color variables for this project */
 :root {
   --color-primary: #01A76F;
+  --color-primary-bg: rgba(34, 197, 94, 0.16);
   --color-error: #FF5631;
+  --color-error-bg: rgba(255, 86, 48, 0.16);
   --color-warning: #FFAB00;
+  --color-warning-bg: rgba(255, 171, 0, 0.16);
 
   --color-background: #fff;
   --color-text: #212B36;

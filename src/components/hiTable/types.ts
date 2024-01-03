@@ -19,6 +19,13 @@ export interface IHiTableData {
 
 export interface IHiTableConfig extends Omit<TableProps, 'loading'> {
   loading: Ref<boolean>
+  selection?: boolean
 }
 
 export type THiTableLoadData = (params: any) => Promise<IHiTableData>
+
+export interface IHiTableSelectedData {
+  selectedRowKeys: (string | number)[]
+  selectedRows: any[]
+  selectionConfig: IHiTableConfig['rowSelection']
+}
