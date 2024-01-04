@@ -102,6 +102,16 @@
   }
 }
 
+.ant-form {
+  .ant-form-item-has-error {
+    .ant-upload {
+      .upload-avatar {
+        border-color: var(--color-error) !important;
+      }
+    }
+  }
+}
+
 .ant-form-inline {
   display: flex;
   gap: 16px;
@@ -115,5 +125,9 @@
   &.ant-tag-success {
     color: var(--color-primary);
     background-color: var(--color-primary-bg);
+  }
+  &.ant-tag-blue {
+    color: var(--color-blue);
+    background-color: var(--color-blur-bg);
   }
 }

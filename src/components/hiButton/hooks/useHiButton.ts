@@ -9,3 +9,7 @@ export const useHiButton = (label: string | VNode, config: IUseHiButtonConfig = 
   const isShow = ref(config.isShow === undefined ? true : config.isShow)
   return new HiButtonController({ label, ...config, loading, disabled, isShow })
 }
+
+export const useHiPrimaryButton = (label: string | VNode, config: IUseHiButtonConfig = {}) => {
+  return useHiButton(label, { ...config, type: 'primary' })
+}

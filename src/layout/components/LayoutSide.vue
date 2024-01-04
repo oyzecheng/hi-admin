@@ -1,5 +1,13 @@
 <template>
-  <a-layout-sider :width="280" theme="light">
+  <a-layout-sider
+    v-model:collapsed="appStore.sideCollapsible"
+    :defaultCollapsed="true"
+    :trigger="null"
+    :width="280"
+    theme="light"
+    collapsible
+    breakpoint="lg"
+  >
     <HiScrollView height="100%" style="padding: 0 10px">
       <div class="logo"></div>
       <a-menu
@@ -10,18 +18,25 @@
         v-model:open-keys="state.openKeys"
       />
     </HiScrollView>
+    <div class="side-controller" @click="handleSideController">
+      <LeftOutlined v-if="!appStore.sideCollapsible" />
+      <RightOutlined v-else />
+    </div>
   </a-layout-sider>
 </template>
 
 <script setup>
 import HiScrollView from '@/components/hiScrollView/HiScrollView.vue'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMenuItems } from '@/router/hooks/useMenuItems.ts'
 import { reactive, watch } from 'vue'
+import { useAppStore } from '@/stores/app.ts'
 
 const router = useRouter()
 const route = useRoute()
 const items = useMenuItems()
+const appStore = useAppStore()
 const state = reactive({
   selectedKeys: [],
   openKeys: []
@@ -34,6 +49,12 @@ watch(
     state.openKeys = findOpenKeysByName(value)
   }
 )
+
+const handleSideController = () => {
+  appStore.setSideCollapsible(!appStore.sideCollapsible)
+}
+
+const handleBreakpoint = (e) => {}
 
 const handleMenuClick = ({ key, item }) => {
   const params = item.path.includes(':id') ? { id: 'abc' } : undefined
@@ -81,6 +102,21 @@ const findOpenKeysByName = (name) => {
   }
   .ant-menu {
     border: none;
+  }
+  .side-controller {
+    position: absolute;
+    right: -13px;
+    top: 66px;
+    border: 1px dashed var(--color-border);
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    border-radius: 100px;
+    cursor: pointer;
+    color: var(--color-content-text);
+    font-size: 12px;
+    background-color: #fff;
   }
 }
 </style>

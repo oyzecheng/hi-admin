@@ -6,16 +6,21 @@
     v-bind="formConfig"
     ref="formRef"
   >
-    <HiFormItem
-      v-for="item in configList"
-      :key="item.key"
-      :controller="item"
-      :formData="formData"
-      :rules="rules[item.model]"
-    />
-    <a-form-item v-if="setButtonConfig">
-      <HiButtonList :config-list="setButtonConfig" />
-    </a-form-item>
+    <template v-if="slots.content">
+      <slot name="content" :formData="formData" :rules="rules" :controllerList="configList" />
+    </template>
+    <template v-else>
+      <HiFormItem
+        v-for="item in configList"
+        :key="item.key"
+        :controller="item"
+        :formData="formData"
+        :rules="rules[item.model]"
+      />
+      <a-form-item :wrapper-col="{ offset: wrapperColOffset }" v-if="setButtonConfig">
+        <HiButtonList :config-list="setButtonConfig" />
+      </a-form-item>
+    </template>
   </a-form>
 </template>
 
@@ -24,19 +29,10 @@ import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import { HiFormController } from '@/components/hiForm/controller/hiFormController'
 import HiFormItem from '@/components/hiForm/HiFormItem'
 import { useHiButton } from '@/components/hiButton'
-import { computed, nextTick, ref } from 'vue'
-
-const confirmButton = useHiButton('确定', { type: 'primary', htmlType: 'submit' })
-const cancelButton = useHiButton('取消')
-
-confirmButton.onClick((button) => {
-  controller.defaultConfirm && controller.defaultConfirm(button)
-})
-cancelButton.onClick((button) => {
-  controller.defaultCancel && controller.defaultCancel(button)
-})
+import { computed, nextTick, ref, useSlots } from 'vue'
 
 const emit = defineEmits(['onFinish'])
+const slots = useSlots()
 
 const formRef = ref(null)
 
@@ -56,6 +52,17 @@ const formData = controller?.getFormData()
 const rules = controller?.getRules()
 const configList = controller?.getConfigList()
 const formConfig = controller?.getConfig()
+const wrapperColOffset = formConfig.labelCol?.span || 4
+
+const confirmButton = useHiButton('确定', { type: 'primary', htmlType: 'submit' })
+const cancelButton = useHiButton('取消')
+
+confirmButton.onClick((button) => {
+  controller.defaultConfirm && controller.defaultConfirm(button)
+})
+cancelButton.onClick((button) => {
+  controller.defaultCancel && controller.defaultCancel(button)
+})
 
 const setButtonConfig = computed((): any[] | null => {
   return buttonConfig ? (buttonConfig.length ? buttonConfig : [confirmButton, cancelButton]) : null

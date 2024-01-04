@@ -8,32 +8,32 @@ export class HiFormItemController<T extends IFormItemBase> {
   readonly controllerType: TFormItemType | undefined
 
   constructor(config: T, controllerType: TFormItemType) {
-    this.config = config
+    this.config = this.setDefaultConfig(config)
     this.key = generateKey()
     this.controllerType = controllerType
     this.model = config.model
-
-    this.setDefaultValue()
   }
 
-  private setDefaultValue() {
-    if (this.config.allowClear == undefined) {
-      this.config.allowClear = true
+  private setDefaultConfig(config: T) {
+    if (config.allowClear == undefined) {
+      config.allowClear = true
     }
-    this.setDefaultStyle()
+    this.setDefaultStyle(config)
+
+    return config
   }
 
-  private setDefaultStyle() {
-    const { style } = this.config
-    this.config.style = {
+  private setDefaultStyle(config: T) {
+    const { style } = config
+    config.style = {
       ...(style || {}),
       minWidth: '200px',
-      width: this.setStyleWidth()
+      width: this.setStyleWidth(config)
     }
   }
 
-  private setStyleWidth() {
-    const { width } = this.config
+  private setStyleWidth(config: T) {
+    const { width } = config
     return width ? (typeof width === 'number' ? `${width}px` : width) : ''
   }
 

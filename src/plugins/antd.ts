@@ -14,7 +14,10 @@ import {
   Dropdown,
   Divider,
   Modal,
-  Tag
+  Tag,
+  Row,
+  Col,
+  Upload
 } from 'ant-design-vue'
 import type { App } from 'vue'
 
@@ -35,6 +38,9 @@ const useAntd = (app: App<Element>) => {
   app.use(Divider)
   app.use(Modal)
   app.use(Tag)
+  app.use(Row)
+  app.use(Col)
+  app.use(Upload)
 }
 
 export default useAntd

@@ -7,10 +7,13 @@
   --color-error-bg: rgba(255, 86, 48, 0.16);
   --color-warning: #FFAB00;
   --color-warning-bg: rgba(255, 171, 0, 0.16);
+  --color-blue: rgb(0, 108, 156);
+  --color-blur-bg: rgba(0, 184, 217, 0.16);
 
   --color-background: #fff;
   --color-text: #212B36;
   --color-content-text: #637481;
+  --color-sub-content-text: rgb(145, 158, 171);
   --color-border: #E8ECEE;
 
   --color-hover-bg: rgba(145, 158, 171, 0.08);

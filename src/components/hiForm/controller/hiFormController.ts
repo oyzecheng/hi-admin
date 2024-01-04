@@ -23,10 +23,14 @@ export class HiFormController {
     this.key = generateKey()
     this.formData = this.generateFormData(formData)
     this.rules = this.generateRules()
-    this.config = config
+    this.config = this.setDefaultConfig(config)
 
     this.defaultConfirm = null
     this.defaultCancel = null
+  }
+
+  private setDefaultConfig(config: IHiForm): IHiForm {
+    return { labelAlign: 'right', labelCol: { span: 4 }, ...config }
   }
 
   private generateRules() {

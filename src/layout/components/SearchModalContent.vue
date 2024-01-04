@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import HiScrollView from '@/components/hiScrollView/HiScrollView.vue'
 import { SearchOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
@@ -43,12 +43,12 @@ const state = reactive({
   menuFlatList: [...menuFlatList]
 })
 
-const handleMenuClick = (name: string) => {
+const handleMenuClick = (name) => {
   router.push({ name })
   emit('onMenuClick')
 }
 
-const handleInputChange = (e: any) => {
+const handleInputChange = (e) => {
   const value = e.target.value
   if (value) {
     state.menuFlatList = filterMenuListByLabel(value, menuFlatList)
@@ -57,7 +57,7 @@ const handleInputChange = (e: any) => {
   }
 }
 
-const filterMenuListByLabel = debounce((label: string, list: any[]) => {
+const filterMenuListByLabel = debounce((label, list) => {
   state.menuFlatList = list.filter(
     (item) => item.label.includes(label) || item.parentLabel.includes(label)
   )
