@@ -1,13 +1,11 @@
 <template>
   <div class="home-view">
-    <hi-button :config="button1"></hi-button>
     <HiButtonList :config-list="[button2, button1]"></HiButtonList>
     <div class="container"></div>
   </div>
 </template>
 
 <script setup>
-import hiButton from '@/components/hiButton/HiButton.vue'
 import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import { useHiButton } from '@/components/hiButton/index.ts'
 import { useRouter } from 'vue-router'

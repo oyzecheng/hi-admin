@@ -6,6 +6,7 @@
     :width="280"
     theme="light"
     collapsible
+    @breakpoint="handleBreakpoint"
     breakpoint="lg"
   >
     <HiScrollView height="100%" style="padding: 0 10px">
@@ -18,7 +19,7 @@
         v-model:open-keys="state.openKeys"
       />
     </HiScrollView>
-    <div class="side-controller" @click="handleSideController">
+    <div v-if="!appStore.isLgLayout" class="side-controller" @click="handleSideController">
       <LeftOutlined v-if="!appStore.sideCollapsible" />
       <RightOutlined v-else />
     </div>
@@ -54,7 +55,9 @@ const handleSideController = () => {
   appStore.setSideCollapsible(!appStore.sideCollapsible)
 }
 
-const handleBreakpoint = (e) => {}
+const handleBreakpoint = (val) => {
+  appStore.setIsLgLayout(val)
+}
 
 const handleMenuClick = ({ key, item }) => {
   const params = item.path.includes(':id') ? { id: 'abc' } : undefined

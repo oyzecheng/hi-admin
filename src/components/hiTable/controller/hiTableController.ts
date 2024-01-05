@@ -9,13 +9,13 @@ import type {
 export class HiTableController {
   tableData: IHiTableData['data']
   private readonly selectedData: IHiTableSelectedData
-  private readonly loadData: THiTableLoadData
+  private loadData: THiTableLoadData | undefined
   private readonly columns: THiTableColumns
   private readonly config: IHiTableConfig
   private oldParams: { [k: string]: any }
 
   constructor(
-    loadData: THiTableLoadData,
+    loadData: THiTableLoadData | undefined,
     columns: THiTableColumns,
     tableData: IHiTableData['data'],
     selectedData: IHiTableSelectedData,
@@ -47,6 +47,9 @@ export class HiTableController {
       onChange: (page, pageSize) => {
         this.reloadData({ ...this.oldParams, page: page, pageSize })
       }
+    }
+    if (config.scroll) {
+      config.scroll.x = config.scroll?.x || 1000
     }
     this.setRowSelection(config)
     return config
@@ -94,7 +97,6 @@ export class HiTableController {
       }
 
       config.rowSelection = this.selectedData.selectionConfig
-      console.log('config', config.rowSelection)
     }
   }
 
@@ -103,18 +105,22 @@ export class HiTableController {
   }
 
   async reloadData(params: any = {}) {
-    this.showLoading()
-    try {
-      const { data } = await this.loadData(params)
-      this.oldParams = params
-      const { page, pageSize, count, list } = data
-      this.tableData.list = list
-      this.tableData.page = page
-      this.tableData.pageSize = pageSize
-      this.tableData.count = count
-      this.setPagination({ total: count, current: page, pageSize })
-    } finally {
-      this.hideLoading()
+    if (this.loadData) {
+      this.showLoading()
+      try {
+        const { data } = await this.loadData(params)
+        this.oldParams = params
+        const { page, pageSize, count, list } = data
+        this.tableData.list = list
+        this.tableData.page = page
+        this.tableData.pageSize = pageSize
+        this.tableData.count = count
+        this.setPagination({ total: count, current: page, pageSize })
+      } finally {
+        this.hideLoading()
+      }
+    } else {
+      throw new Error('请配置loadData')
     }
   }
 
@@ -140,5 +146,9 @@ export class HiTableController {
 
   setConfigItemByKey(key: keyof IHiTableConfig, value: never) {
     this.config[key] = value
+  }
+
+  setLoadData(loadData: THiTableLoadData) {
+    this.loadData = loadData
   }
 }

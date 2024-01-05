@@ -38,17 +38,21 @@ show.onClick((controller, { record }) => {
 })
 const edit = useHiButton('edit', { size: 'small', type: 'primary', ghost: true })
 const del = useHiButton('del', { size: 'small', danger: true })
-const table = useHiTable(loadData, [
-  { title: 'one', key: 'one' },
-  { title: 'two', key: 'two' },
-  { title: 'three', key: 'three' },
-  {
-    title: 'action',
-    key: 'action',
-    width: 200,
-    buttonConfigList: [show, edit, del]
-  }
-])
+const table = useHiTable(
+  [
+    { title: 'one', key: 'one' },
+    { title: 'two', key: 'two' },
+    { title: 'three', key: 'three' },
+    {
+      title: 'action',
+      key: 'action',
+      width: 200,
+      buttonConfigList: [show, edit, del]
+    }
+  ],
+  {},
+  loadData
+)
 </script>
 
 <style scoped></style>

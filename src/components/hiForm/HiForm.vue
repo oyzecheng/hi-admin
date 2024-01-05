@@ -29,7 +29,7 @@ import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import { HiFormController } from '@/components/hiForm/controller/hiFormController'
 import HiFormItem from '@/components/hiForm/HiFormItem'
 import { useHiButton } from '@/components/hiButton'
-import { computed, nextTick, ref, useSlots } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, useSlots } from 'vue'
 
 const emit = defineEmits(['onFinish'])
 const slots = useSlots()
@@ -56,6 +56,10 @@ const wrapperColOffset = formConfig.labelCol?.span || 4
 
 const confirmButton = useHiButton('确定', { type: 'primary', htmlType: 'submit' })
 const cancelButton = useHiButton('取消')
+
+onBeforeUnmount(() => {
+  controller?.resetFields()
+})
 
 confirmButton.onClick((button) => {
   controller.defaultConfirm && controller.defaultConfirm(button)

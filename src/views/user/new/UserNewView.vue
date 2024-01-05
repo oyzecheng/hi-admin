@@ -37,9 +37,13 @@ import HiForm from '@/components/hiForm/HiForm.vue'
 import HiFormItem from '@/components/hiForm/HiFormItem'
 import HiButton from '@/components/hiButton/HiButton.vue'
 import { newUserForm, newUserButton } from './pageConfig.ts'
+import { useRouter } from 'vue-router'
 
-newUserButton.onClick(() => {
-  newUserForm.validate()
+const router = useRouter()
+
+newUserButton.onClick(async () => {
+  const formData = await newUserForm.validate()
+  router.push({ name: 'user' })
 })
 </script>
 

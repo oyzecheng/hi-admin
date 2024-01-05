@@ -3,12 +3,15 @@ import { ref } from 'vue'
 
 export const useAppStore = defineStore('app', () => {
   const sideCollapsible = ref(false)
+  const isLgLayout = ref(false)
 
   const setSideCollapsible = (value = false) => {
     sideCollapsible.value = value
   }
 
-  console.log('sideCollapsible', sideCollapsible)
+  const setIsLgLayout = (value = false) => {
+    isLgLayout.value = value
+  }
 
-  return { sideCollapsible, setSideCollapsible }
+  return { sideCollapsible, setSideCollapsible, isLgLayout, setIsLgLayout }
 })

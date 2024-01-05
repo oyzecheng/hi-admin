@@ -12,9 +12,9 @@ interface IUseHiTableConfig extends Omit<IHiTableConfig, 'loading'> {
 }
 
 export const useHiTable = (
-  loadData: THiTableLoadData,
   columns: THiTableColumns,
-  config: IUseHiTableConfig = {}
+  config: IUseHiTableConfig = {},
+  loadData?: THiTableLoadData
 ) => {
   const tableData = reactive({ page: 0, pageSize: 0, count: 0, list: [] })
 

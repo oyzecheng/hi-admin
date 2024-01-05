@@ -2,7 +2,7 @@
   <div class="user-view">
     <HiPage
       :table-controller="table"
-      :search-form-controller="form"
+      :search-form-controller="searchForm"
       :top-button-controller="[newButton]"
     >
       <template #bodyCell="{ column, record }">
@@ -25,10 +25,7 @@
 
 <script setup>
 import HiPage from '@/components/hiPage/HiPage.vue'
-import { useHiTable } from '@/components/hiTable/hooks/useHiTable.ts'
-import { useDic } from '@/components/hiDic/index.ts'
-import { useFormInput, useFormSelect, useHiForm } from '@/components/hiForm/index.ts'
-import { useHiButton } from '@/components/hiButton/index.ts'
+import { newButton, show, edit, del, table, searchForm } from './pageConfig.ts'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -54,46 +51,17 @@ const loadData = (params) => {
     })
   })
 }
+table.setLoadData(loadData)
 
-const show = useHiButton('查看', { size: 'small', type: 'text' })
 show.onClick((controller) => {
   const { record } = controller.clickParams
-  controller.showLoading()
-  console.log('record', record)
-  controller.hideLoading()
+  router.push({ name: 'userDetail', params: { id: 123 } })
 })
-const edit = useHiButton('编辑', { size: 'small', type: 'text' })
-const del = useHiButton('删除', { size: 'small', type: 'text', danger: true })
-const table = useHiTable(
-  loadData,
-  [
-    { title: '名称', key: 'name' },
-    { title: '角色', key: 'role' },
-    { title: '状态', key: 'status' },
-    {
-      title: 'action',
-      key: 'action',
-      width: 200,
-      buttonConfigList: [show, edit, del]
-    }
-  ],
-  { selection: true }
-)
 
-const selectChildren = useDic([
-  { label: 'test', value: 'test' },
-  { label: 'test2', value: 'test2' }
-])
-
-const input = useFormInput('名称', 'input', {
-  disabled: false
+edit.onClick(() => {
+  router.push({ name: 'userNew' })
 })
-const select = useFormSelect('状态', 'select', {
-  children: selectChildren
-})
-const form = useHiForm([input, select], { layout: 'inline' })
 
-const newButton = useHiButton('新建', { type: 'primary' })
 newButton.onClick(() => {
   router.push({ name: 'userNew' })
 })
@@ -105,6 +73,9 @@ newButton.onClick(() => {
     display: flex;
     align-items: center;
     gap: 10px;
+    .ant-avatar {
+      min-width: 38px;
+    }
     .name {
       font-weight: 500;
     }

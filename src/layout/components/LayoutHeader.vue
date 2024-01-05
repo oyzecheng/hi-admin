@@ -1,6 +1,7 @@
 <template>
   <a-layout-header>
-    <div class="search-box">
+    <div class="icon-box">
+      <a-button v-if="appStore.isLgLayout" type="dashed" shape="circle" :icon="h(MenuOutlined)" />
       <a-button type="dashed" shape="circle" :icon="h(SearchOutlined)" @click="handleSearchClick" />
     </div>
     <div>
@@ -33,10 +34,13 @@
   </a-layout-header>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import SearchModalContent from '@/layout/components/SearchModalContent.vue'
-import { SearchOutlined } from '@ant-design/icons-vue'
+import { SearchOutlined, MenuOutlined } from '@ant-design/icons-vue'
 import { reactive, h } from 'vue'
+import { useAppStore } from '@/stores/app.ts'
+
+const appStore = useAppStore()
 
 const outLogin = [{ key: 'outLogin', label: '退出登录' }]
 
@@ -66,9 +70,10 @@ const handleMenuClick = () => {
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
-  .search-box {
+  .icon-box {
     .ant-btn {
       background-color: transparent;
+      margin-right: 16px;
     }
   }
   .avatar {
