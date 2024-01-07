@@ -1,17 +1,17 @@
-import type { IFormInput, TFormItemStatus } from '@/components/hiForm/types'
+import type { IFormUpload, TFormItemStatus } from '@/components/hiForm/types'
 import { ref } from 'vue'
 import { HiFormUploadController } from '@/components/hiForm/controller/hiFormUploadController'
 
 interface IUseFormUploadConfig
-  extends Omit<IFormInput, 'label' | 'model' | 'status' | 'isShow' | 'disabled'> {
+  extends Omit<IFormUpload, 'label' | 'model' | 'status' | 'isShow' | 'disabled'> {
   isShow?: boolean
   disabled?: boolean
   status?: TFormItemStatus
 }
 
 export const useFormUpload = (
-  label: IFormInput['label'],
-  model: IFormInput['model'],
+  label: IFormUpload['label'],
+  model: IFormUpload['model'],
   config: IUseFormUploadConfig = {}
 ) => {
   const disabled = ref(config.disabled || false)

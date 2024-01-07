@@ -36,3 +36,26 @@ export const debounce = <T extends (...args: any[]) => void>(func: T, delay = 50
     }, delay)
   }
 }
+
+export const validateFileType = (fileType: string, accept: string): boolean => {
+  if (accept.includes('/')) {
+    // 处理通配符，例如 image/*
+    const [mainType, subType] = accept.split('/');
+
+    if (mainType === 'image' && (subType === '*' || fileType.startsWith('image/'))) {
+      return true;
+    }
+  } else {
+    // 处理具体的 MIME 类型，例如 image/jpeg
+    const acceptedTypes = accept.split(',');
+
+    for (const type of acceptedTypes) {
+      const trimmedType = type.trim();
+      if (fileType.toLowerCase() === trimmedType.toLowerCase()) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}

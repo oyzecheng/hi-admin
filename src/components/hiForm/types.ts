@@ -86,9 +86,11 @@ export interface IFormRadio extends IFormItemBase {
 
 export interface IFormUpload extends IFormItemBase {
   accept?: string
+  acceptErrorMessage?: string
   maxCount?: number
   multiple?: boolean
-  maxSize?: number
+  maxSize?: number  // kb
+  maxSizeErrorMessage?: string
   type?: 'avatar' | 'image' | 'imageList' | 'file'
 }
 

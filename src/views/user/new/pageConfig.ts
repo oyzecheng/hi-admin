@@ -9,7 +9,9 @@ const role = useFormSelect('角色', 'role', { rules: true })
 const uploadAvatar = useFormUpload('', 'avatar', {
   rules: { message: '请上传照片' },
   type: 'avatar',
-  placeholder: '允许*.jpeg, *.jpg, *.png, *.gif\n最大3Mb'
+  placeholder: '允许*.jpeg, *.jpg, *.png, *.gif\n最大3Mb',
+  maxSize: 3 * 1024,
+  maxSizeErrorMessage: '文件大小超过3Mb'
 })
 
 export const newUserForm = useHiForm([uploadAvatar, username, email, role, address], {

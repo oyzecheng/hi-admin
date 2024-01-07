@@ -43,6 +43,7 @@ const router = useRouter()
 
 newUserButton.onClick(async () => {
   const formData = await newUserForm.validate()
+  console.log(formData)
   router.push({ name: 'user' })
 })
 </script>

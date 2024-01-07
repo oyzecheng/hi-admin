@@ -17,6 +17,8 @@ import { computed, type PropType } from 'vue'
 import { HiFormUploadController } from '@/components/hiForm/controller/hiFormUploadController'
 import UploadAvatar from '@/components/hiForm/renders/renderUpload/UploadAvatar.vue'
 import type { TFormData } from '@/components/hiForm/types'
+import { message } from 'ant-design-vue'
+import { validateFileType } from '@/utils'
 
 const props = defineProps({
   controller: {
@@ -31,7 +33,7 @@ const props = defineProps({
 
 const { controller, formData } = props
 const config = controller.getConfig()
-const { type, onChange, placeholder } = config
+const { type, onChange, placeholder, maxSize, maxSizeErrorMessage, accept, acceptErrorMessage } = config
 
 const fileList = computed(() => formData[controller.model])
 
@@ -46,7 +48,21 @@ const customRequest = () => {
   }
   fileList.value.push(item)
 }
-const beforeUpload = () => {}
+const beforeUpload = (file: File) => {
+  console.log(file)
+  const { size, type } = file
+  if (maxSize && size > maxSize * 1024) {
+    message.error(maxSizeErrorMessage || `文件超过${maxSize}Kb`)
+    return false
+  }
+
+  if (accept && !validateFileType(type, accept)) {
+    message.error(acceptErrorMessage || `文件不是${accept}类型`)
+    return false
+  }
+
+  return true
+}
 </script>
 
 <style scoped lang="less">
