@@ -33,7 +33,8 @@ const props = defineProps({
 
 const { controller, formData } = props
 const config = controller.getConfig()
-const { type, onChange, placeholder, maxSize, maxSizeErrorMessage, accept, acceptErrorMessage } = config
+const { type, onChange, placeholder, maxSize, maxSizeErrorMessage, accept, acceptErrorMessage } =
+  config
 
 const fileList = computed(() => formData[controller.model])
 
@@ -49,15 +50,15 @@ const customRequest = () => {
   fileList.value.push(item)
 }
 const beforeUpload = (file: File) => {
-  console.log(file)
-  const { size, type } = file
-  if (maxSize && size > maxSize * 1024) {
-    message.error(maxSizeErrorMessage || `文件超过${maxSize}Kb`)
+  const { size } = file
+
+  if (accept && !validateFileType(file, accept)) {
+    message.error(acceptErrorMessage || `文件不是${accept}类型`)
     return false
   }
 
-  if (accept && !validateFileType(type, accept)) {
-    message.error(acceptErrorMessage || `文件不是${accept}类型`)
+  if (maxSize && size > maxSize * 1024) {
+    message.error(maxSizeErrorMessage || `文件超过${maxSize}Kb`)
     return false
   }
 

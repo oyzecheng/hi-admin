@@ -1,5 +1,6 @@
 import type { IFormItemRule, TFormData, TFormItemControllers } from '@/components/hiForm/types'
 import { renderItem } from '@/components/hiForm/renders'
+import RenderItem from '@/components/hiForm/renders/RenderItem.vue'
 
 interface IHiFormItemProps {
   controller: TFormItemControllers
@@ -13,7 +14,7 @@ const HiFormItem = ({ controller, formData, rules }: IHiFormItemProps) => {
 
   return isShow?.value ? (
     <a-form-item label={label} name={model} rules={rules}>
-      {renderItem({ controller, formData })}
+      <RenderItem controller={controller} formData={formData} />
     </a-form-item>
   ) : null
 }

@@ -21,25 +21,26 @@ export class HiFormController {
   constructor(configList: TFormItemControllers[], formData: TFormData, config: IHiForm) {
     this.configList = configList
     this.key = generateKey()
-    this.formData = this.generateFormData(formData)
-    this.rules = this.generateRules()
+    this.formData = formData
+    this.rules = {}
     this.config = this.setDefaultConfig(config)
 
     this.defaultConfirm = null
     this.defaultCancel = null
+
+    this.init()
+  }
+
+  private init() {
+    this.configList.forEach((item) => {
+      this.rules[item.model] = this.getItemRules(item)
+      this.formData[item.model] = item.getDefaultValue()
+      item.setDefaultConfig()
+    })
   }
 
   private setDefaultConfig(config: IHiForm): IHiForm {
     return { labelAlign: 'right', labelCol: { span: 4 }, ...config }
-  }
-
-  private generateRules() {
-    const rules: TFormRules = {}
-    this.configList.forEach((item) => {
-      rules[item.model] = this.getItemRules(item)
-    })
-
-    return rules
   }
 
   private getItemRules(itemController: TFormItemControllers) {
@@ -56,13 +57,6 @@ export class HiFormController {
 
   setFormRef(formRef: any) {
     this.formRef = formRef
-  }
-
-  generateFormData(formData: TFormData): TFormData {
-    this.configList.forEach((item) => {
-      formData[item.model] = item.getDefaultValue()
-    })
-    return formData
   }
 
   getConfigList() {

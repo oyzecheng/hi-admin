@@ -37,25 +37,26 @@ export const debounce = <T extends (...args: any[]) => void>(func: T, delay = 50
   }
 }
 
-export const validateFileType = (fileType: string, accept: string): boolean => {
+export const validateFileType = (file: File, accept: string): boolean => {
+  const fileName = file.name
+
   if (accept.includes('/')) {
-    // 处理通配符，例如 image/*
-    const [mainType, subType] = accept.split('/');
+    // 处理通配符，例如 image/* 或 video/*
+    const [mainType, subType] = accept.split('/')
+    const regex = new RegExp(`^${mainType}/${subType.replace('*', '.*')}$`, 'i')
 
-    if (mainType === 'image' && (subType === '*' || fileType.startsWith('image/'))) {
-      return true;
-    }
+    return regex.test(file.type)
   } else {
-    // 处理具体的 MIME 类型，例如 image/jpeg
-    const acceptedTypes = accept.split(',');
+    // 处理具体的扩展名，例如 .jpg, .jpeg
+    const acceptedExtensions = accept.split(',')
 
-    for (const type of acceptedTypes) {
-      const trimmedType = type.trim();
-      if (fileType.toLowerCase() === trimmedType.toLowerCase()) {
-        return true;
+    for (const extension of acceptedExtensions) {
+      const trimmedExtension = extension.trim()
+      if (fileName.toLowerCase().endsWith(trimmedExtension.toLowerCase())) {
+        return true
       }
     }
   }
 
-  return false;
+  return false
 }

@@ -8,26 +8,17 @@ export class HiFormItemController<T extends IFormItemBase> {
   readonly controllerType: TFormItemType | undefined
 
   constructor(config: T, controllerType: TFormItemType) {
-    this.config = this.setDefaultConfig(config)
+    this.config = config
     this.key = generateKey()
     this.controllerType = controllerType
     this.model = config.model
-  }
-
-  private setDefaultConfig(config: T) {
-    if (config.allowClear == undefined) {
-      config.allowClear = true
-    }
-    this.setDefaultStyle(config)
-
-    return config
   }
 
   private setDefaultStyle(config: T) {
     const { style } = config
     config.style = {
       ...(style || {}),
-      minWidth: '200px',
+      minWidth: '150px',
       width: this.setStyleWidth(config)
     }
   }
@@ -53,6 +44,14 @@ export class HiFormItemController<T extends IFormItemBase> {
     if (this.config.isShow) {
       this.config.isShow.value = val
     }
+  }
+
+  setDefaultConfig() {
+    const config = this.config
+    if (config.allowClear == undefined) {
+      config.allowClear = true
+    }
+    this.setDefaultStyle(config)
   }
 
   getDefaultRule(): IFormItemRule {
