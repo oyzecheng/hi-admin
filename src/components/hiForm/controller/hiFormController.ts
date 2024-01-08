@@ -40,7 +40,8 @@ export class HiFormController {
   }
 
   private setDefaultConfig(config: IHiForm): IHiForm {
-    return { labelAlign: 'right', labelCol: { span: 4 }, ...config }
+    const { layout } = config
+    return { labelAlign: layout === 'inline' ? undefined : 'right', labelCol: layout === 'inline' ? undefined : { span: 4 }, ...config }
   }
 
   private getItemRules(itemController: TFormItemControllers) {

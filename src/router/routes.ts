@@ -45,5 +45,19 @@ export const routes = [
         meta: { title: '详情' }
       }
     ]
+  },
+  {
+    name: 'error',
+    path: '/error',
+    component: () => import('@/layout/RouterView.vue'),
+    meta: { title: '错误页' },
+    children: [
+      {
+        name: 'error404',
+        path: '404',
+        component: () => import('@/views/errors/Error404View.vue'),
+        meta: { title: '404' }
+      }
+    ]
   }
 ]

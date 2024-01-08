@@ -4,7 +4,8 @@
       <a-button v-if="appStore.isLgLayout" type="dashed" shape="circle" :icon="h(MenuOutlined)" />
       <a-button type="dashed" shape="circle" :icon="h(SearchOutlined)" @click="handleSearchClick" />
     </div>
-    <div>
+    <div class="system-operation">
+      <SettingFilled class="setting" @click="handleSettingClick" />
       <a-dropdown trigger="click" arrow v-model:open="state.menuOpen">
         <div :class="{ avatar: true, 'avatar-active': state.menuOpen }">
           <a-avatar>Y</a-avatar>
@@ -20,23 +21,31 @@
           </div>
         </template>
       </a-dropdown>
-      <!-- search -->
-      <a-modal
-        class="search-modal"
-        v-model:open="state.searchBoxOpen"
-        :footer="null"
-        :closable="false"
-        :width="600"
-      >
-        <SearchModalContent @onMenuClick="handleMenuClick" />
-      </a-modal>
     </div>
+    <!-- search -->
+    <a-modal
+      class="search-modal"
+      v-model:open="state.searchBoxOpen"
+      :footer="null"
+      :closable="false"
+      :width="600"
+    >
+      <SearchModalContent @onMenuClick="handleMenuClick" />
+    </a-modal>
+    <!-- setting -->
+    <a-drawer
+      v-model:open="state.settingBoxOpen"
+      :closable="false"
+      :maskStyle="{ backgroundColor: 'transparent' }"
+      :width="280"
+      @close="handleSettingDrawerClose"
+    ></a-drawer>
   </a-layout-header>
 </template>
 
 <script setup>
 import SearchModalContent from '@/layout/components/SearchModalContent.vue'
-import { SearchOutlined, MenuOutlined } from '@ant-design/icons-vue'
+import { SearchOutlined, MenuOutlined, SettingFilled } from '@ant-design/icons-vue'
 import { reactive, h } from 'vue'
 import { useAppStore } from '@/stores/app.ts'
 
@@ -46,7 +55,8 @@ const outLogin = [{ key: 'outLogin', label: '退出登录' }]
 
 const state = reactive({
   menuOpen: false,
-  searchBoxOpen: false
+  searchBoxOpen: false,
+  settingBoxOpen: false
 })
 
 const handleSearchClick = () => {
@@ -55,9 +65,24 @@ const handleSearchClick = () => {
 const handleMenuClick = () => {
   state.searchBoxOpen = false
 }
+const handleSettingClick = () => {
+  state.settingBoxOpen = true
+}
+const handleSettingDrawerClose = () => {
+  state.settingBoxOpen = false
+}
 </script>
 
 <style scoped lang="less">
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .ant-layout-header {
   background-color: #eee;
   position: sticky;
@@ -74,6 +99,26 @@ const handleMenuClick = () => {
     .ant-btn {
       background-color: transparent;
       margin-right: 16px;
+    }
+  }
+  .system-operation {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+    .setting {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: var(--color-background);
+      border-radius: 50%;
+      padding: 10px;
+      transition: all 0.3s ease-out;
+      transform: rotate(360deg);
+      animation: spin 10s linear infinite;
+      color: var(--color-sub-content-text);
+      &:hover {
+        background-color: var(--color-hover-bg);
+        transform: scale(1.06);
+      }
     }
   }
   .avatar {

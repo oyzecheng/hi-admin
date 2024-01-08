@@ -1,3 +1,4 @@
+@import "./css/common";
 
 .ant-menu-light:not(.ant-menu-horizontal) {
   color: var(--color-content-text);
@@ -129,5 +130,15 @@
   &.ant-tag-blue {
     color: var(--color-blue);
     background-color: var(--color-blur-bg);
+  }
+}
+
+.ant-drawer {
+  .ant-drawer-content-wrapper {
+    box-shadow: rgba(145, 158, 171, 0.24) -40px 40px 80px -8px;
+    .ant-drawer-content {
+      .image-bg();
+      box-shadow: none;
+    }
   }
 }
