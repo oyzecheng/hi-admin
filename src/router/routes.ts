@@ -3,19 +3,19 @@ export const routes = [
     name: 'home',
     path: '/',
     component: () => import('@/views/home/HomeView.vue'),
-    meta: { title: '首页' }
+    meta: { title: '首页', icon: 'home' }
   },
   {
     name: 'form',
     path: '/form',
     component: () => import('@/views/form/FormView.vue'),
-    meta: { title: '表单' }
+    meta: { title: '表单', icon: 'form' }
   },
   {
     name: 'table',
     path: '/table',
     component: () => import('@/views/table/TableView.vue'),
-    meta: { title: '表格' }
+    meta: { title: '表格', icon: 'table' }
   },
   {
     name: 'user',
@@ -24,7 +24,7 @@ export const routes = [
     redirect() {
       return { name: 'userList' }
     },
-    meta: { title: '用户' },
+    meta: { title: '用户', icon: 'user' },
     children: [
       {
         name: 'userList',
@@ -50,7 +50,7 @@ export const routes = [
     name: 'error',
     path: '/error',
     component: () => import('@/layout/RouterView.vue'),
-    meta: { title: '错误页' },
+    meta: { title: '错误页', icon: 'error' },
     children: [
       {
         name: 'error404',

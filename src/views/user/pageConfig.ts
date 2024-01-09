@@ -1,4 +1,4 @@
-import { useHiButton, useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
+import { useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
 import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
 import { useDic } from '@/components/hiDic'
 import { useFormInput, useFormSelect, useHiForm } from '@/components/hiForm'

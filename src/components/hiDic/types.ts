@@ -1,9 +1,8 @@
-import type { Ref } from 'vue'
-
 export interface IHiDicOption {
   label: string
   value: THiDicValue
   disabled?: boolean
+  children?: IHiDicOption[]
 }
 
 export type THiDicValue = string | number

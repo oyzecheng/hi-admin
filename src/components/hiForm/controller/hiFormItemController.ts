@@ -103,7 +103,7 @@ export class HiFormItemController<T extends IFormItemBase> {
     this.config[key] = value
   }
 
-  getDefaultValue(): string | undefined | [] | number {
-    return ''
+  getDefaultValue(): string | undefined | [] | number | boolean {
+    return undefined
   }
 }

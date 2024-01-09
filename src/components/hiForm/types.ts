@@ -1,12 +1,19 @@
-import type { Ref } from 'vue'
+import type { Ref, VNode } from 'vue'
 import type { HiFormInputController } from '@/components/hiForm/controller/hiFormInputController'
 import type { HiFormSelectController } from '@/components/hiForm/controller/hiFormSelectController'
 import type { THiDicChildren } from '@/components/hiDic/types'
 import type { HiDicController } from '@/components/hiDic/controller/hiDicController'
-import type { FormProps } from 'ant-design-vue'
+import type { CascaderProps, DatePickerProps, FormProps } from 'ant-design-vue'
 import type { HiFormUploadController } from '@/components/hiForm/controller/hiFormUploadController'
 import type { HiFormRadioController } from '@/components/hiForm/controller/hiFormRadioController'
 import type { HiFormCheckboxController } from '@/components/hiForm/controller/hiFormCheckboxController'
+import type { HiFormSwitchController } from '@/components/hiForm/controller/hiFormSwitchController'
+import type { HiFormInputNumberController } from '@/components/hiForm/controller/hiFormInputNumberController'
+import type { HiFormCascaderController } from '@/components/hiForm/controller/hiFormCascaderController'
+import type { HiFormRateController } from '@/components/hiForm/controller/hiFormRateController'
+import type { RangePickerProps } from 'ant-design-vue/es/vc-picker'
+import type { HiFormDatePickerController } from '@/components/hiForm/controller/hiFormDatePickerController'
+import type { HiFormDateRangePickerController } from '@/components/hiForm/controller/hiFormDateRangePickerController'
 
 export type TFormItemControllers =
   | HiFormInputController
@@ -14,8 +21,25 @@ export type TFormItemControllers =
   | HiFormUploadController
   | HiFormRadioController
   | HiFormCheckboxController
+  | HiFormSwitchController
+  | HiFormInputNumberController
+  | HiFormCascaderController
+  | HiFormRateController
+  | HiFormDatePickerController
+  | HiFormDateRangePickerController
 
-export type TFormItemType = 'input' | 'select' | 'checkbox' | 'radio' | 'upload'
+export type TFormItemType =
+  | 'input'
+  | 'select'
+  | 'checkbox'
+  | 'radio'
+  | 'upload'
+  | 'switch'
+  | 'inputNumber'
+  | 'rate'
+  | 'cascader'
+  | 'datePicker'
+  | 'dateRangePicker'
 
 export type TFormItemStatus = 'error' | 'warning' | undefined
 type Size = 'large' | 'middle' | 'small'
@@ -63,6 +87,7 @@ export interface IFormItemBase {
   width?: string | number
   style?: Partial<CSSStyleDeclaration>
   onChange?: (value: any) => void
+  autofocus?: boolean
 }
 
 export interface IFormInput extends IFormItemBase {
@@ -84,17 +109,104 @@ export interface IFormRadio extends IFormItemBase {
   children?: THiDicChildren | HiDicController
 }
 
+export interface IFormSwitch extends IFormItemBase {
+  checkedValue?: boolean | string | number
+  unCheckedValue?: boolean | string | number
+  checkedChildren?: string | VNode
+  unCheckedChildren?: string | VNode
+  loading?: boolean
+}
+
 export interface IFormUpload extends IFormItemBase {
   accept?: string
   acceptErrorMessage?: string
   maxCount?: number
   multiple?: boolean
-  maxSize?: number  // kb
+  maxSize?: number // kb
   maxSizeErrorMessage?: string
   type?: 'avatar' | 'image' | 'imageList' | 'file'
 }
 
-export type TFormItem = IFormInput | IFormSelect | IFormCheckbox | IFormRadio | IFormUpload
+export interface IFormInputNumber extends IFormItemBase {
+  controls?: boolean
+  decimalSeparator?: string
+  formatter?: (value: number | string, info: { userTyping: boolean; input: string }) => string
+  parser?: (value: string) => number
+  keyboard?: boolean
+  max?: number
+  min?: number
+  precision?: number
+  prefix?: VNode
+  step?: string | number
+  stringMode?: boolean
+  addonAfter?: VNode
+  addonBefore?: VNode
+}
+
+export interface IFormRate extends IFormItemBase {
+  allowHalf?: boolean
+  character?: string | VNode
+  count?: number
+  tooltips?: string[]
+}
+
+export interface IFormCascader extends IFormItemBase {
+  changeOnSelect?: boolean
+  displayRender?: CascaderProps['displayRender']
+  expandTrigger?: 'click' | 'hover'
+  fieldNames?: CascaderProps['fieldNames']
+  loadData?: CascaderProps['loadData']
+  maxTagCount?: CascaderProps['maxTagCount']
+  maxTagPlaceholder?: CascaderProps['maxTagPlaceholder']
+  multiple?: boolean
+  notFoundContent?: string | VNode
+  open?: boolean
+  children?: THiDicChildren | HiDicController
+  showCheckedStrategy?: CascaderProps['showCheckedStrategy']
+  showSearch?: CascaderProps['showSearch']
+  searchValue?: string
+  suffixIcon?: CascaderProps['suffixIcon']
+}
+
+export interface IFormDate extends IFormItemBase {
+  disabledDate?: DatePickerProps['disabledDate']
+  format?: DatePickerProps['format']
+  inputReadOnly?: boolean
+  mode?: DatePickerProps['mode']
+  open?: boolean
+  picker?: DatePickerProps['picker']
+  presets?: DatePickerProps['presets']
+}
+
+export interface IFormDatePicker extends IFormDate {
+  disabledTime?: (date: any) => boolean
+  format?: DatePickerProps['format']
+  showNow?: boolean
+  showTime?: DatePickerProps['showTime']
+  showToday?: boolean
+}
+
+export interface IFormDateRangePicker extends IFormDate {
+  allowEmpty?: [boolean, boolean]
+  disabledTime?: RangePickerProps<any>['disabledTime']
+  format?: RangePickerProps<any>['format']
+  ranges?: RangePickerProps<any>['ranges']
+  separator?: RangePickerProps<any>['separator']
+  showTime?: boolean
+}
+
+export type TFormItem =
+  | IFormInput
+  | IFormSelect
+  | IFormCheckbox
+  | IFormRadio
+  | IFormUpload
+  | IFormSwitch
+  | IFormInputNumber
+  | IFormRate
+  | IFormCascader
+  | IFormDatePicker
+  | IFormDateRangePicker
 
 export type TFormData = { [k: string]: any }
 

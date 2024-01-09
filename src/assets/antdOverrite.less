@@ -129,7 +129,7 @@
   }
   &.ant-tag-blue {
     color: var(--color-blue);
-    background-color: var(--color-blur-bg);
+    background-color: var(--color-blue-bg);
   }
 }
 
@@ -139,6 +139,26 @@
     .ant-drawer-content {
       .image-bg();
       box-shadow: none;
+    }
+  }
+}
+
+.ant-rate {
+  .ant-rate-star {
+    .anticon {
+      color: #CBD0D7;
+    }
+  }
+  .ant-rate-star-full {
+    .anticon {
+      color: var(--color-warning);
+    }
+  }
+  .ant-rate-star-half {
+    .ant-rate-star-first {
+      .anticon {
+        color: var(--color-warning);
+      }
     }
   }
 }

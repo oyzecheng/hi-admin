@@ -1,6 +1,6 @@
 import { useFormInput, useFormSelect, useHiForm } from '@/components/hiForm'
 import { useHiPrimaryButton } from '@/components/hiButton'
-import { useFormUpload } from '@/components/hiForm/hooks/useUpload'
+import { useFormUpload } from '@/components/hiForm/hooks/useFormUpload'
 
 const username = useFormInput('用户名', 'username', { rules: true })
 const email = useFormInput('邮箱', 'email', { rules: { type: 'email' } })

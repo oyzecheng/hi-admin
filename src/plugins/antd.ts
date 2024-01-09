@@ -18,7 +18,12 @@ import {
   Row,
   Col,
   Upload,
-  Drawer
+  Drawer,
+  Switch,
+  InputNumber,
+  Rate,
+  Cascader,
+  DatePicker
 } from 'ant-design-vue'
 import type { App } from 'vue'
 
@@ -43,6 +48,11 @@ const useAntd = (app: App<Element>) => {
   app.use(Col)
   app.use(Upload)
   app.use(Drawer)
+  app.use(Switch)
+  app.use(InputNumber)
+  app.use(Rate)
+  app.use(Cascader)
+  app.use(DatePicker)
 }
 
 export default useAntd

@@ -1,6 +1,7 @@
 import { routes } from '@/router/routes'
 import { reactive } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
+import RouterIcon from '@/router/routerIcon'
 
 const generateItems = (list: RouteRecordRaw[] = [], parent: any = null): any[] => {
   return list.map((item) => ({
@@ -9,7 +10,8 @@ const generateItems = (list: RouteRecordRaw[] = [], parent: any = null): any[] =
     title: item.meta?.title || '',
     parentLabel: parent?.meta?.title || '',
     path: `${parent?.path ? `${parent.path}/` : ''}${item.path}`,
-    children: item.children ? generateItems(item.children, item) : undefined
+    children: item.children ? generateItems(item.children, item) : undefined,
+    icon: RouterIcon[item.meta?.icon as string]
   }))
 }
 
