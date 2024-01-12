@@ -3,12 +3,13 @@ import type {
   TFormItemControllers,
   TFormData,
   TFormRules,
-  IHiForm
+  IHiForm,
+  TFormConfigList
 } from '@/components/hiForm/types'
 import type { THiButtonClickCallback } from '@/components/hiButton/types'
 
 export class HiFormController {
-  private readonly configList: TFormItemControllers[]
+  private readonly configList: TFormConfigList
   readonly key: string
   private readonly formData: TFormData
   private readonly rules: TFormRules
@@ -18,7 +19,7 @@ export class HiFormController {
   defaultConfirm: THiButtonClickCallback | null
   defaultCancel: THiButtonClickCallback | null
 
-  constructor(configList: TFormItemControllers[], formData: TFormData, config: IHiForm) {
+  constructor(configList: TFormConfigList, formData: TFormData, config: IHiForm) {
     this.configList = configList
     this.key = generateKey()
     this.formData = formData
@@ -28,20 +29,28 @@ export class HiFormController {
     this.defaultConfirm = null
     this.defaultCancel = null
 
-    this.init()
+    this.init(this.configList)
   }
 
-  private init() {
-    this.configList.forEach((item) => {
-      this.rules[item.model] = this.getItemRules(item)
-      this.formData[item.model] = item.getDefaultValue()
-      item.setDefaultConfig()
+  private init(list: TFormConfigList) {
+    list.forEach((item) => {
+      if (item instanceof Array) {
+        this.init(item)
+      } else {
+        this.rules[item.model] = this.getItemRules(item)
+        this.formData[item.model] = item.getDefaultValue()
+        item.setDefaultConfig()
+      }
     })
   }
 
   private setDefaultConfig(config: IHiForm): IHiForm {
-    const { layout } = config
-    return { labelAlign: layout === 'inline' ? undefined : 'right', labelCol: layout === 'inline' ? undefined : { span: 4 }, ...config }
+    const { layout, layoutCol = 0 } = config
+    return {
+      labelAlign: layout === 'inline' ? undefined : 'right',
+      labelCol: layout === 'inline' ? undefined : { span: 4 + layoutCol },
+      ...config
+    }
   }
 
   private getItemRules(itemController: TFormItemControllers) {
@@ -60,8 +69,27 @@ export class HiFormController {
     this.formRef = formRef
   }
 
-  getConfigList() {
-    return this.configList
+  getConfigList(): TFormConfigList {
+    const { layoutCol } = this.config
+    if (layoutCol) {
+      const result = []
+      let tempList = []
+      for (let i = 0; i < this.configList.length; i += 1) {
+        const item = this.configList[i]
+        if (Array.isArray(item)) {
+          result.push(item)
+        } else {
+          tempList.push(item)
+        }
+        if (tempList.length >= layoutCol) {
+          result.push([...tempList])
+          tempList = []
+        }
+      }
+      return result
+    } else {
+      return this.configList
+    }
   }
 
   getFormData() {

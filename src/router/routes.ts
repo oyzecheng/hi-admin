@@ -50,6 +50,9 @@ export const routes = [
     name: 'error',
     path: '/error',
     component: () => import('@/layout/RouterView.vue'),
+    redirect() {
+      return { name: 'error404' }
+    },
     meta: { title: '错误页', icon: 'error' },
     children: [
       {

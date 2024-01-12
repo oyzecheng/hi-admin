@@ -3,10 +3,11 @@ import { ref } from 'vue'
 import { HiFormUploadController } from '@/components/hiForm/controller/hiFormUploadController'
 
 interface IUseFormUploadConfig
-  extends Omit<IFormUpload, 'label' | 'model' | 'status' | 'isShow' | 'disabled'> {
+  extends Omit<IFormUpload, 'label' | 'model' | 'status' | 'isShow' | 'disabled' | 'type'> {
   isShow?: boolean
   disabled?: boolean
   status?: TFormItemStatus
+  type?: IFormUpload['type']
 }
 
 export const useFormUpload = (
@@ -17,5 +18,13 @@ export const useFormUpload = (
   const disabled = ref(config.disabled || false)
   const status = ref(config.status)
   const isShow = ref(config.isShow || true)
-  return new HiFormUploadController({ label, model, ...config, disabled, status, isShow })
+  return new HiFormUploadController({
+    label,
+    model,
+    type: 'imageList',
+    ...config,
+    disabled,
+    status,
+    isShow
+  })
 }

@@ -3,7 +3,13 @@ import type { HiFormInputController } from '@/components/hiForm/controller/hiFor
 import type { HiFormSelectController } from '@/components/hiForm/controller/hiFormSelectController'
 import type { THiDicChildren } from '@/components/hiDic/types'
 import type { HiDicController } from '@/components/hiDic/controller/hiDicController'
-import type { CascaderProps, DatePickerProps, FormProps } from 'ant-design-vue'
+import type {
+  CascaderProps,
+  DatePickerProps,
+  FormItemProps,
+  FormProps,
+  RowProps
+} from 'ant-design-vue'
 import type { HiFormUploadController } from '@/components/hiForm/controller/hiFormUploadController'
 import type { HiFormRadioController } from '@/components/hiForm/controller/hiFormRadioController'
 import type { HiFormCheckboxController } from '@/components/hiForm/controller/hiFormCheckboxController'
@@ -27,6 +33,8 @@ export type TFormItemControllers =
   | HiFormRateController
   | HiFormDatePickerController
   | HiFormDateRangePickerController
+
+export type TFormConfigList = Array<TFormItemControllers | TFormItemControllers[]>
 
 export type TFormItemType =
   | 'input'
@@ -88,6 +96,16 @@ export interface IFormItemBase {
   style?: Partial<CSSStyleDeclaration>
   onChange?: (value: any) => void
   autofocus?: boolean
+  // form item
+  colon?: boolean
+  extra?: string | VNode
+  labelAlign?: 'left' | 'right'
+  labelCol?: FormItemProps['labelCol']
+  wrapperCol?: FormItemProps['wrapperCol']
+  tooltip?: string | VNode
+  // row col
+  colSpan?: number
+  rowGutter?: RowProps['gutter']
 }
 
 export interface IFormInput extends IFormItemBase {
@@ -121,10 +139,12 @@ export interface IFormUpload extends IFormItemBase {
   accept?: string
   acceptErrorMessage?: string
   maxCount?: number
+  maxCountError?: string
   multiple?: boolean
   maxSize?: number // kb
   maxSizeErrorMessage?: string
-  type?: 'avatar' | 'image' | 'imageList' | 'file'
+  uploadText?: string
+  type: 'avatar' | 'image' | 'imageList' | 'file'
 }
 
 export interface IFormInputNumber extends IFormItemBase {
@@ -211,3 +231,9 @@ export type TFormItem =
 export type TFormData = { [k: string]: any }
 
 export type TFormRules = { [k: string]: IFormItemRule[] | undefined }
+
+export interface IFormUploadItem {
+  id: string
+  url: string
+  name: string
+}

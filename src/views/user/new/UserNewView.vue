@@ -6,7 +6,7 @@
           <a-col :span="24" :lg="8">
             <div class="module-container user-avatar-module">
               <HiFormItem
-                :controller="controllerList[0]"
+                :config="controllerList[0]"
                 :formData="formData"
                 :rules="rules[controllerList[0].model]"
               />
@@ -19,7 +19,7 @@
                 :key="controller.key"
                 :formData="formData"
                 :rules="rules[controller.model]"
-                :controller="controller"
+                :config="controller"
               />
               <a-form-item :wrapper-col="{ offset: 4 }">
                 <HiButton :controller="newUserButton" />

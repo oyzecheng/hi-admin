@@ -11,8 +11,6 @@ const uploadAvatar = useFormUpload('', 'avatar', {
   type: 'avatar'
 })
 
-export const newUserForm = useHiForm([uploadAvatar, username, email, role, address], {
-  layoutCol: 2
-})
+export const newUserForm = useHiForm([uploadAvatar, username, email, role, address], {})
 
 export const newUserButton = useHiPrimaryButton('创建新用户')

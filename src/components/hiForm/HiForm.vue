@@ -11,11 +11,11 @@
     </template>
     <template v-else>
       <HiFormItem
-        v-for="item in configList"
-        :key="item.key"
-        :controller="item"
+        v-for="(item, index) in configList"
+        :key="index"
+        :config="item"
         :formData="formData"
-        :rules="rules[item.model]"
+        :rules="rules"
       />
       <a-form-item :wrapper-col="{ offset: wrapperColOffset }" v-if="setButtonConfig">
         <HiButtonList :config-list="setButtonConfig" />

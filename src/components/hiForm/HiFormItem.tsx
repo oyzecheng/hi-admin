@@ -1,19 +1,59 @@
-import type { IFormItemRule, TFormData, TFormItemControllers } from '@/components/hiForm/types'
-import { renderItem } from '@/components/hiForm/renders'
+import type {
+  IFormItemRule,
+  TFormData,
+  TFormItemControllers,
+  TFormRules
+} from '@/components/hiForm/types'
 import RenderItem from '@/components/hiForm/renders/RenderItem.vue'
 
 interface IHiFormItemProps {
-  controller: TFormItemControllers
+  // controller: TFormItemControllers
+  config: TFormItemControllers | TFormItemControllers[]
   formData: TFormData
-  rules: IFormItemRule[] | undefined
+  rules: TFormRules
 }
 
-const HiFormItem = ({ controller, formData, rules }: IHiFormItemProps) => {
+const HiFormItem = ({ config, formData, rules }: IHiFormItemProps) => {
+  if (config instanceof Array) {
+    return (
+      <a-row gutter={[16, 16]}>
+        {config.map((controller) => {
+          const { colSpan } = controller.getConfig()
+          return (
+            <a-col key={controller.model} span={colSpan || 24 / config.length}>
+              {renderItem({ controller, formData, itemRules: rules[controller.model] })}
+            </a-col>
+          )
+        })}
+      </a-row>
+    )
+  } else {
+    return renderItem({ controller: config, formData, itemRules: rules[config.model] })
+  }
+}
+
+interface IRenderItemProps {
+  controller: TFormItemControllers
+  formData: TFormData
+  itemRules: IFormItemRule[] | undefined
+}
+
+const renderItem = ({ controller, formData, itemRules }: IRenderItemProps) => {
   const config = controller.getConfig()
-  const { label, model, isShow } = config
+  const { label, model, isShow, colon, extra, labelAlign, labelCol, wrapperCol, tooltip } = config
 
   return isShow?.value ? (
-    <a-form-item label={label} name={model} rules={rules}>
+    <a-form-item
+      label={label}
+      name={model}
+      rules={itemRules}
+      colon={colon}
+      extra={extra}
+      labelAlign={labelAlign}
+      labelCol={labelCol}
+      wrapperCol={wrapperCol}
+      tooltip={tooltip}
+    >
       <RenderItem controller={controller} formData={formData} />
     </a-form-item>
   ) : null

@@ -2,23 +2,39 @@
   <div class="render-upload">
     <a-upload
       :file-list="type === 'avatar' ? [] : fileList"
+      :list-type="['image', 'imageList'].includes(type) ? 'picture-card' : undefined"
       :custom-request="customRequest"
       :before-upload="beforeUpload"
+      :multiple="multiple"
       @change="handleChange"
+      @remove="handleRemove"
     >
-      <UploadAvatar :file-list="fileList" />
+      <UploadAvatar v-if="type === 'avatar'" :file-list="fileList" />
+      <div
+        v-else-if="
+          ['image', 'imageList'].includes(type) &&
+          (maxCount == undefined || (maxCount && fileList.length < maxCount))
+        "
+      >
+        <PlusOutlined />
+        <div style="margin-top: 8px">{{ uploadText || 'Upload' }}</div>
+      </div>
+      <HiButton v-if="type === 'file'" :controller="uploadButton" />
     </a-upload>
     <pre class="placeholder">{{ placeholder }}</pre>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType } from 'vue'
+import HiButton from '@/components/hiButton/HiButton.vue'
+import { computed, h, type PropType } from 'vue'
 import { HiFormUploadController } from '@/components/hiForm/controller/hiFormUploadController'
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons-vue'
 import UploadAvatar from '@/components/hiForm/renders/renderUpload/UploadAvatar.vue'
-import type { TFormData } from '@/components/hiForm/types'
+import type { IFormUploadItem, TFormData } from '@/components/hiForm/types'
 import { message } from 'ant-design-vue'
-import { validateFileType } from '@/utils'
+import { generateKey, validateFileType } from '@/utils'
+import { useHiButton } from '@/components/hiButton'
 
 const props = defineProps({
   controller: {
@@ -33,19 +49,37 @@ const props = defineProps({
 
 const { controller, formData } = props
 const config = controller.getConfig()
-const { type, onChange, placeholder, maxSize, maxSizeErrorMessage, accept, acceptErrorMessage } =
-  config
+const {
+  type,
+  onChange,
+  placeholder,
+  maxSize,
+  maxSizeErrorMessage,
+  accept,
+  acceptErrorMessage,
+  maxCount,
+  multiple,
+  maxCountError,
+  uploadText
+} = config
 
-const fileList = computed(() => formData[controller.model])
+const fileList = computed<IFormUploadItem[]>(() => formData[controller.model])
+const uploadButton = useHiButton(uploadText || 'Upload', { icon: h(UploadOutlined) })
 
 const handleChange = () => {
   onChange && onChange(fileList)
 }
 
 const customRequest = () => {
+  if (maxCount && fileList.value.length >= maxCount) {
+    maxCountError && message.error(maxCountError)
+    return false
+  }
+
   const item = {
-    id: 1,
-    url: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_17.jpg'
+    id: generateKey(),
+    url: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_17.jpg',
+    name: 'file name'
   }
   fileList.value.push(item)
 }
@@ -63,6 +97,14 @@ const beforeUpload = (file: File) => {
   }
 
   return true
+}
+
+const handleRemove = (file: IFormUploadItem) => {
+  const { id } = file
+  fileList.value.splice(
+    fileList.value.findIndex((item: IFormUploadItem) => item.id === id),
+    1
+  )
 }
 </script>
 

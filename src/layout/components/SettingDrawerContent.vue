@@ -1,7 +1,11 @@
 <template>
-  <div class="setting-drawer-content"></div>
+  <div class="setting-drawer-content">
+    <SettingDrawerTheme />
+  </div>
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+import SettingDrawerTheme from '@/layout/components/SettingDrawerTheme.vue'
+</script>
 
 <style scoped lang="less"></style>

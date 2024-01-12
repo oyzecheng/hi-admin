@@ -39,12 +39,15 @@
       :maskStyle="{ backgroundColor: 'transparent' }"
       :width="280"
       @close="handleSettingDrawerClose"
-    ></a-drawer>
+    >
+      <SettingDrawerContent />
+    </a-drawer>
   </a-layout-header>
 </template>
 
 <script setup>
 import SearchModalContent from '@/layout/components/SearchModalContent.vue'
+import SettingDrawerContent from '@/layout/components/SettingDrawerContent.vue'
 import { SearchOutlined, MenuOutlined, SettingFilled } from '@ant-design/icons-vue'
 import { reactive, h } from 'vue'
 import { useAppStore } from '@/stores/app.ts'

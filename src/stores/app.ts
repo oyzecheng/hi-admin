@@ -4,6 +4,7 @@ import { ref } from 'vue'
 export const useAppStore = defineStore('app', () => {
   const sideCollapsible = ref(false)
   const isLgLayout = ref(false)
+  const themeColor = ref('#01A76F')
 
   const setSideCollapsible = (value = false) => {
     sideCollapsible.value = value
@@ -13,5 +14,16 @@ export const useAppStore = defineStore('app', () => {
     isLgLayout.value = value
   }
 
-  return { sideCollapsible, setSideCollapsible, isLgLayout, setIsLgLayout }
+  const setThemeColor = (value: string) => {
+    themeColor.value = value
+  }
+
+  return {
+    sideCollapsible,
+    setSideCollapsible,
+    isLgLayout,
+    setIsLgLayout,
+    themeColor,
+    setThemeColor
+  }
 })

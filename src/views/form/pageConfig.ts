@@ -48,7 +48,7 @@ const select = useFormSelect('select', 'select', {
 })
 const checkbox = useFormCheckbox('checkbox', 'checkbox', { children: selectChildren })
 const radio = useFormRadio('radio', 'radio', { children: selectChildren })
-const upload = useFormUpload('upload', 'upload')
+const upload = useFormUpload('upload', 'upload', { type: 'file', maxCount: 3 })
 const formSwitch = useFormSwitch('switch', 'switch')
 const inputNumber = useFormInputNumber('inputNumber', 'inputNumber')
 const rate = useFormRate('rate', 'rate', { allowHalf: true })

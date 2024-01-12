@@ -19,6 +19,7 @@
   --color-hover-bg: rgba(145, 158, 171, 0.08);
   --color-hover-primary-bg: rgba(0, 167, 111, 0.08);
   --color-hover-selected-primary-bg: rgba(0, 167, 111, 0.16);
+  --color-mask-bg: rgba(22, 28, 36, 0.8);
 }
 
 *,

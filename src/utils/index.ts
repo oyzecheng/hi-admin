@@ -60,3 +60,8 @@ export const validateFileType = (file: File, accept: string): boolean => {
 
   return false
 }
+
+export const changeThemeColor = (themeColor: string) => {
+  const root = document.documentElement
+  root.style.setProperty('--color-primary', themeColor)
+}
