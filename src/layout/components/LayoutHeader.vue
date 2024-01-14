@@ -40,7 +40,7 @@
       :width="280"
       @close="handleSettingDrawerClose"
     >
-      <SettingDrawerContent />
+      <SettingDrawerContent :changeColor="changeColor" />
     </a-drawer>
   </a-layout-header>
 </template>
@@ -52,6 +52,14 @@ import { SearchOutlined, MenuOutlined, SettingFilled } from '@ant-design/icons-v
 import { reactive, h } from 'vue'
 import { useAppStore } from '@/stores/app.ts'
 
+const props = defineProps({
+  changeColor: {
+    type: Function,
+    default: null
+  }
+})
+
+const { changeColor } = props
 const appStore = useAppStore()
 
 const outLogin = [{ key: 'outLogin', label: '退出登录' }]

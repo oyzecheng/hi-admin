@@ -64,4 +64,16 @@ export const validateFileType = (file: File, accept: string): boolean => {
 export const changeThemeColor = (themeColor: string) => {
   const root = document.documentElement
   root.style.setProperty('--color-primary', themeColor)
+  root.style.setProperty('--color-hover-primary-bg', replaceAlpha(themeColor, 0.08))
+  root.style.setProperty('--color-hover-selected-primary-bg', replaceAlpha(themeColor, 0.16))
+}
+
+export const replaceAlpha = (colorString: string, newAlpha: number) => {
+  const rgbaRegex = /^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)$/
+  const match = colorString.match(rgbaRegex)
+  if (!match) {
+    throw new Error('Invalid RGBA color string format')
+  }
+  const [, r, g, b, _] = match
+  return `rgba(${r}, ${g}, ${b}, ${newAlpha})`
 }

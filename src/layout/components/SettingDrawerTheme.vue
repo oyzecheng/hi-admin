@@ -17,22 +17,28 @@
 import SettingDrawerModule from '@/layout/components/SettingDrawerModule.vue'
 import { useAppStore } from '@/stores/app'
 import { changeThemeColor } from '@/utils'
-import { useAntdTheme } from '@/hooks/useAntdTheme'
 
+const props = defineProps({
+  changeColor: {
+    type: Function,
+    default: null
+  }
+})
+
+const { changeColor } = props
 const appStore = useAppStore()
-const antdTheme = useAntdTheme()
 
 const themeList = [
-  { id: 1, value: '#01A76F' },
-  { id: 2, value: '#098DEE' },
-  { id: 3, value: '#7635DC' },
-  { id: 4, value: '#2165D1' },
-  { id: 5, value: '#FDA92C' },
-  { id: 6, value: '#FF2F30' }
+  { id: 1, value: 'rgba(1,167,111,1)' },
+  { id: 2, value: 'rgba(9,141,238,1)' },
+  { id: 3, value: 'rgba(118,53,220,1)' },
+  { id: 4, value: 'rgba(33,101,209,1)' },
+  { id: 5, value: 'rgba(253,169,44,1)' },
+  { id: 6, value: 'rgba(255,47,48,1)' }
 ]
 
 const handleClickThemeColor = (themeColor: string) => {
-  antdTheme.changeThemeColorPrimary('red')
+  changeColor && changeColor(themeColor) // TODO 这里的changeColor需要优化
   appStore.setThemeColor(themeColor)
   changeThemeColor(themeColor)
 }
