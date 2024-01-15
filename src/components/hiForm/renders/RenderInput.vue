@@ -1,5 +1,6 @@
 <template>
-  <a-input
+  <component
+    :is="currentComponent"
     v-model:value="formData[controller.model]"
     :size="size"
     :disabled="disabled"
@@ -15,8 +16,9 @@
 </template>
 
 <script setup lang="ts">
+import { InputPassword, Input, Textarea } from 'ant-design-vue'
 import { HiFormInputController } from '@/components/hiForm/controller/hiFormInputController'
-import type { PropType } from 'vue'
+import { type PropType, ref } from 'vue'
 import type { TFormData } from '@/components/hiForm/types'
 
 const props = defineProps({
@@ -42,8 +44,21 @@ const {
   type,
   showCount,
   onChange,
-  style
+  style,
+  modalType
 } = config
+const currentComponent = ref<any>()
+
+switch (modalType) {
+  case 'password':
+    currentComponent.value = InputPassword
+    break
+  case 'textarea':
+    currentComponent.value = Textarea
+    break
+  default:
+    currentComponent.value = Input
+}
 
 const handleChange = (e: any) => {
   const { value } = e.target

@@ -1,7 +1,13 @@
 <template>
   <a-layout-header>
     <div class="icon-box">
-      <a-button v-if="appStore.isLgLayout" type="dashed" shape="circle" :icon="h(MenuOutlined)" />
+      <a-button
+        v-if="appStore.isLgLayout"
+        type="dashed"
+        shape="circle"
+        :icon="h(MenuOutlined)"
+        @click="handleShowMenu"
+      />
       <a-button type="dashed" shape="circle" :icon="h(SearchOutlined)" @click="handleSearchClick" />
     </div>
     <div class="system-operation">
@@ -40,7 +46,7 @@
       :width="280"
       @close="handleSettingDrawerClose"
     >
-      <SettingDrawerContent :changeColor="changeColor" />
+      <SettingDrawerContent />
     </a-drawer>
   </a-layout-header>
 </template>
@@ -52,14 +58,6 @@ import { SearchOutlined, MenuOutlined, SettingFilled } from '@ant-design/icons-v
 import { reactive, h } from 'vue'
 import { useAppStore } from '@/stores/app.ts'
 
-const props = defineProps({
-  changeColor: {
-    type: Function,
-    default: null
-  }
-})
-
-const { changeColor } = props
 const appStore = useAppStore()
 
 const outLogin = [{ key: 'outLogin', label: '退出登录' }]
@@ -81,6 +79,10 @@ const handleSettingClick = () => {
 }
 const handleSettingDrawerClose = () => {
   state.settingBoxOpen = false
+}
+const handleShowMenu = () => {
+  appStore.setLgLayoutSideShow(true)
+  appStore.setSideCollapsible(false)
 }
 </script>
 

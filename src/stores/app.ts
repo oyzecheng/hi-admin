@@ -6,6 +6,7 @@ import { THEME_COLOR } from '@/constant/app'
 export const useAppStore = defineStore('app', () => {
   const sideCollapsible = ref(false)
   const isLgLayout = ref(false)
+  const lgLayoutSideShow = ref(false)
   const themeColor = ref(GetItem(THEME_COLOR) || 'rgba(1,167,111,1)')
 
   const setSideCollapsible = (value = false) => {
@@ -21,12 +22,18 @@ export const useAppStore = defineStore('app', () => {
     SetItem(THEME_COLOR, value)
   }
 
+  const setLgLayoutSideShow = (value = false) => {
+    lgLayoutSideShow.value = value
+  }
+
   return {
     sideCollapsible,
     setSideCollapsible,
     isLgLayout,
     setIsLgLayout,
     themeColor,
-    setThemeColor
+    setThemeColor,
+    lgLayoutSideShow,
+    setLgLayoutSideShow
   }
 })

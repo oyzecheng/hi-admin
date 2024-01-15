@@ -16,16 +16,7 @@
 <script setup lang="ts">
 import SettingDrawerModule from '@/layout/components/SettingDrawerModule.vue'
 import { useAppStore } from '@/stores/app'
-import { changeThemeColor } from '@/utils'
 
-const props = defineProps({
-  changeColor: {
-    type: Function,
-    default: null
-  }
-})
-
-const { changeColor } = props
 const appStore = useAppStore()
 
 const themeList = [
@@ -38,9 +29,7 @@ const themeList = [
 ]
 
 const handleClickThemeColor = (themeColor: string) => {
-  changeColor && changeColor(themeColor) // TODO 这里的changeColor需要优化
   appStore.setThemeColor(themeColor)
-  changeThemeColor(themeColor)
 }
 </script>
 
@@ -58,7 +47,7 @@ const handleClickThemeColor = (themeColor: string) => {
     align-items: center;
     justify-content: center;
     background-color: var(--color-background);
-    transition: background-color 0.3s ease-out;
+    transition: all 0.3s ease-out;
     span {
       width: 12px;
       height: 12px;
@@ -69,6 +58,7 @@ const handleClickThemeColor = (themeColor: string) => {
   }
   .theme-item-active {
     background-color: var(--color-hover-primary-bg);
+    border-color: transparent;
     span {
       width: 24px;
       height: 24px;

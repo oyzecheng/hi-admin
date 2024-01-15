@@ -29,7 +29,8 @@ import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import { HiFormController } from '@/components/hiForm/controller/hiFormController'
 import HiFormItem from '@/components/hiForm/HiFormItem'
 import { useHiButton } from '@/components/hiButton'
-import { computed, nextTick, onBeforeUnmount, ref, useSlots } from 'vue'
+import { computed, nextTick, onBeforeUnmount, type PropType, ref, useSlots } from 'vue'
+import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
 
 const emit = defineEmits(['onFinish'])
 const slots = useSlots()
@@ -42,7 +43,7 @@ const props = defineProps({
     required: true
   },
   buttonConfig: {
-    type: Array,
+    type: Array as PropType<Array<HiButtonController> | null>,
     default: () => []
   }
 })

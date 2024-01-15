@@ -1,11 +1,13 @@
 <template>
   <a-layout-sider
-    v-model:collapsed="appStore.sideCollapsible"
+    :style="{ left: appStore.isLgLayout ? (appStore.lgLayoutSideShow ? '0px' : '-280px') : '0px' }"
+    :collapsed="appStore.sideCollapsible"
     :defaultCollapsed="true"
     :trigger="null"
     :width="280"
     theme="light"
     collapsible
+    :collapsedWidth="appStore.isLgLayout ? 280 : 80"
     @breakpoint="handleBreakpoint"
     breakpoint="lg"
   >
@@ -57,11 +59,13 @@ const handleSideController = () => {
 
 const handleBreakpoint = (val) => {
   appStore.setIsLgLayout(val)
+  appStore.setLgLayoutSideShow(!val)
 }
 
 const handleMenuClick = ({ key, item }) => {
   const params = item.path.includes(':id') ? { id: 'abc' } : undefined
   router.push({ name: key, params })
+  appStore.setLgLayoutSideShow()
 }
 const findOpenKeysByName = (name) => {
   const findKey = (item, keys) => {
@@ -97,7 +101,7 @@ const findOpenKeysByName = (name) => {
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 9;
   .logo {
     height: 32px;
     background: var(--color-primary);

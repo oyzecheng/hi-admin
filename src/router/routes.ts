@@ -1,5 +1,11 @@
 export const routes = [
   {
+    name: 'login',
+    path: '/login',
+    component: () => import('@/views/login/LoginView.vue'),
+    meta: { title: '登陆', hidden: true }
+  },
+  {
     name: 'home',
     path: '/',
     component: () => import('@/views/home/HomeView.vue'),

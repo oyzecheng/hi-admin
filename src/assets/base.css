@@ -9,6 +9,8 @@
   --color-warning-bg: rgba(255, 171, 0, 0.16);
   --color-blue: rgb(0, 108, 156);
   --color-blue-bg: rgba(0, 184, 217, 0.16);
+  --color-success: rgba(1,167,111,1);
+  --color-success-bg: rgba(1,167,111,0.16);
 
   --color-background: #fff;
   --color-text: #212B36;
