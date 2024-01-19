@@ -23,7 +23,7 @@
               <p>demo@minimals.cc</p>
             </div>
             <a-divider dashed style="border-color: var(--color-border); margin: 5px" />
-            <a-menu class="out-login-menu" :items="outLogin"></a-menu>
+            <a-menu class="out-login-menu" :items="outLogin" @click="handleMenuClick" />
           </div>
         </template>
       </a-dropdown>
@@ -36,7 +36,7 @@
       :closable="false"
       :width="600"
     >
-      <SearchModalContent @onMenuClick="handleMenuClick" />
+      <SearchModalContent @onSearchMenuClick="handleSearchMenuClick" />
     </a-modal>
     <!-- setting -->
     <a-drawer
@@ -57,7 +57,10 @@ import SettingDrawerContent from '@/layout/components/SettingDrawerContent.vue'
 import { SearchOutlined, MenuOutlined, SettingFilled } from '@ant-design/icons-vue'
 import { reactive, h } from 'vue'
 import { useAppStore } from '@/stores/app.ts'
+import { RemoveAll } from '@/utils/storage.ts'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const appStore = useAppStore()
 
 const outLogin = [{ key: 'outLogin', label: '退出登录' }]
@@ -71,7 +74,7 @@ const state = reactive({
 const handleSearchClick = () => {
   state.searchBoxOpen = true
 }
-const handleMenuClick = () => {
+const handleSearchMenuClick = () => {
   state.searchBoxOpen = false
 }
 const handleSettingClick = () => {
@@ -83,6 +86,12 @@ const handleSettingDrawerClose = () => {
 const handleShowMenu = () => {
   appStore.setLgLayoutSideShow(true)
   appStore.setSideCollapsible(false)
+}
+const handleMenuClick = ({ key }) => {
+  if (key === 'outLogin') {
+    RemoveAll()
+    router.push({ name: 'login' })
+  }
 }
 </script>
 

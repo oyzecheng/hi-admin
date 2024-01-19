@@ -14,7 +14,7 @@
     <HiScrollView height="100%" style="padding: 0 10px">
       <div class="logo"></div>
       <a-menu
-        :items="items"
+        :items="userStore.info.userMenus"
         @click="handleMenuClick"
         mode="inline"
         v-model:selectedKeys="state.selectedKeys"
@@ -32,26 +32,18 @@
 import HiScrollView from '@/components/hiScrollView/HiScrollView.vue'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useMenuItems } from '@/router/hooks/useMenuItems.ts'
 import { reactive, watch } from 'vue'
 import { useAppStore } from '@/stores/app.ts'
+import { useUserStore } from '@/stores/user.ts'
 
 const router = useRouter()
 const route = useRoute()
-const items = useMenuItems()
 const appStore = useAppStore()
+const userStore = useUserStore()
 const state = reactive({
   selectedKeys: [],
   openKeys: []
 })
-
-watch(
-  () => route.name,
-  (value) => {
-    state.selectedKeys = [value]
-    state.openKeys = findOpenKeysByName(value)
-  }
-)
 
 const handleSideController = () => {
   appStore.setSideCollapsible(!appStore.sideCollapsible)
@@ -82,7 +74,7 @@ const findOpenKeysByName = (name) => {
     return null
   }
 
-  for (const item of items) {
+  for (const item of userStore.info.userMenus) {
     const result = findKey(item, [])
     if (result) {
       return result
@@ -91,6 +83,15 @@ const findOpenKeysByName = (name) => {
 
   return []
 }
+
+watch(
+  () => route.name,
+  (value) => {
+    state.selectedKeys = [value]
+    state.openKeys = findOpenKeysByName(value)
+  },
+  { immediate: true }
+)
 </script>
 
 <style scoped lang="less">

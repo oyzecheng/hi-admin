@@ -1,7 +1,9 @@
 import { reactive } from 'vue'
+import { theme } from 'ant-design-vue'
 
 export const useAntdTheme = () => {
-  const theme = reactive({
+  const antfTheme = reactive({
+    // algorithm: theme.darkAlgorithm,
     token: {
       colorPrimary: '#01A76F',
       colorError: '#FF5631',
@@ -17,8 +19,8 @@ export const useAntdTheme = () => {
   })
 
   const changeThemeColorPrimary = (color: string) => {
-    theme.token.colorPrimary = color
+    antfTheme.token.colorPrimary = color
   }
 
-  return { theme, changeThemeColorPrimary }
+  return { theme: antfTheme, changeThemeColorPrimary }
 }

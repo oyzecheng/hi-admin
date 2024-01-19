@@ -25,7 +25,7 @@
 
 <script setup>
 import HiPage from '@/components/hiPage/HiPage.vue'
-import { newButton, show, edit, del, table, searchForm } from './pageConfig.ts'
+import { newButton, show, edit, table, searchForm } from './pageConfig.ts'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

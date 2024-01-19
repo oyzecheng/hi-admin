@@ -45,7 +45,7 @@ const state = reactive({
 
 const handleMenuClick = (name) => {
   router.push({ name })
-  emit('onMenuClick')
+  emit('onSearchMenuClick')
 }
 
 const handleInputChange = (e) => {

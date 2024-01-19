@@ -55,6 +55,8 @@ const configList = controller?.getConfigList()
 const formConfig = controller?.getConfig()
 const wrapperColOffset = formConfig.labelCol?.span || 4
 
+console.log('formConfig', formConfig)
+
 const confirmButton = useHiButton('确定', { type: 'primary', htmlType: 'submit' })
 const cancelButton = useHiButton('取消')
 

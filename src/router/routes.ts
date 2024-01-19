@@ -1,10 +1,21 @@
-export const routes = [
+import type { RouteRecordRaw } from 'vue-router'
+
+export const routes: RouteRecordRaw[] = [
   {
     name: 'login',
     path: '/login',
     component: () => import('@/views/login/LoginView.vue'),
-    meta: { title: '登陆', hidden: true }
-  },
+    meta: { title: '登陆' }
+  }
+]
+
+export const layoutRoute: RouteRecordRaw = {
+  path: '/',
+  component: () => import('@/layout/HILayout.vue'),
+  children: []
+}
+
+export const privateRoutes: RouteRecordRaw[] = [
   {
     name: 'home',
     path: '/',
@@ -49,6 +60,20 @@ export const routes = [
         path: 'detail/:id',
         component: () => import('@/views/user/detail/UserDetailView.vue'),
         meta: { title: '详情' }
+      }
+    ]
+  },
+  {
+    name: 'system',
+    path: '/system',
+    component: () => import('@/layout/RouterView.vue'),
+    meta: { title: '系统', icon: 'system' },
+    children: [
+      {
+        name: 'routerManage',
+        path: 'routerManage',
+        component: () => import('@/views/system/routerManage/RouterManage.vue'),
+        meta: { title: '路由管理' }
       }
     ]
   },

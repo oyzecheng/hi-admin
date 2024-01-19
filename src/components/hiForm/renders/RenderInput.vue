@@ -11,14 +11,14 @@
     :type="type"
     :style="style"
     :show-count="showCount"
-    @onchange="handleChange"
+    @change="handleChange"
   />
 </template>
 
 <script setup lang="ts">
 import { InputPassword, Input, Textarea } from 'ant-design-vue'
 import { HiFormInputController } from '@/components/hiForm/controller/hiFormInputController'
-import { type PropType, ref } from 'vue'
+import { type PropType, shallowRef } from 'vue'
 import type { TFormData } from '@/components/hiForm/types'
 
 const props = defineProps({
@@ -47,7 +47,7 @@ const {
   style,
   modalType
 } = config
-const currentComponent = ref<any>()
+const currentComponent = shallowRef<any>()
 
 switch (modalType) {
   case 'password':
