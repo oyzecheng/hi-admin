@@ -19,3 +19,11 @@ export const useFormInput = (
   const isShow = ref(config.isShow || true)
   return new HiFormInputController({ label, model, ...config, disabled, status, isShow })
 }
+
+export const useFormRulesInput = (
+  label: IFormInput['label'],
+  model: IFormInput['model'],
+  config: IUseFormInputConfig = {}
+) => {
+  return useFormInput(label, model, { rules: true, ...config })
+}

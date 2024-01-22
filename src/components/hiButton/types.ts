@@ -1,5 +1,6 @@
 import type { Ref, VNode } from 'vue'
 import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
+import type { HiPopConfirmButtonController } from '@/components/hiButton/controller/hiPopConfirmButtonController'
 
 export interface IHIButton {
   label?: string | VNode
@@ -25,4 +26,19 @@ export interface IUseHiButtonConfig extends Omit<IHIButton, 'loading' | 'disable
   isShow?: boolean
 }
 
+export interface IHiPopConfirmButtonConfig {
+  cancelText?: string
+  disabled?: Ref<boolean>
+  icon?: VNode
+  okText?: string
+  okType?: string
+  showCancel?: boolean
+  title?: string
+  description?: string
+}
+
+export type THiButtonType = 'button' | 'popConfirmButton'
+
 export type THiButtonClickCallback = (controller: HiButtonController) => void
+
+export type TButtonController = HiButtonController | HiPopConfirmButtonController

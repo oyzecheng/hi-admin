@@ -23,7 +23,8 @@ import {
   InputNumber,
   Rate,
   Cascader,
-  DatePicker
+  DatePicker,
+  Popconfirm
 } from 'ant-design-vue'
 import type { App } from 'vue'
 
@@ -53,6 +54,7 @@ const useAntd = (app: App<Element>) => {
   app.use(Rate)
   app.use(Cascader)
   app.use(DatePicker)
+  app.use(Popconfirm)
 }
 
 export default useAntd

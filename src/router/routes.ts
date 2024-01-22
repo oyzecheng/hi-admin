@@ -72,8 +72,25 @@ export const privateRoutes: RouteRecordRaw[] = [
       {
         name: 'routerManage',
         path: 'routerManage',
-        component: () => import('@/views/system/routerManage/RouterManage.vue'),
-        meta: { title: '路由管理' }
+        component: () => import('@/layout/RouterView.vue'),
+        redirect() {
+          return { name: 'routerManageList' }
+        },
+        meta: { title: '路由管理' },
+        children: [
+          {
+            name: 'routerManageList',
+            path: '',
+            component: () => import('@/views/system/routerManage/RouterManage.vue'),
+            meta: { title: '列表', hidden: true }
+          },
+          {
+            name: 'routerManageNew',
+            path: 'new',
+            component: () => import('@/views/system/routerManage/new/RouterManageNewView.vue'),
+            meta: { title: '创建', hidden: true }
+          }
+        ]
       }
     ]
   },

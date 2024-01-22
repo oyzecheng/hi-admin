@@ -1,14 +1,16 @@
-import type { IHIButton, THiButtonClickCallback } from '@/components/hiButton/types'
+import type { IHIButton, THiButtonClickCallback, THiButtonType } from '@/components/hiButton/types'
 import { generateKey } from '@/utils'
 
 export class HiButtonController {
   private readonly config: IHIButton
+  readonly type: THiButtonType
   readonly key: string
   click: () => void
   clickParams: { [k: string]: any }
 
   constructor(config: IHIButton) {
     this.config = config
+    this.type = 'button'
     this.click = () => {}
     this.key = generateKey()
     this.clickParams = {}

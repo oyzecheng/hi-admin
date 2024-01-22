@@ -5,6 +5,7 @@ import type {
   TFormRules
 } from '@/components/hiForm/types'
 import RenderItem from '@/components/hiForm/renders/RenderItem.vue'
+import { useSlots } from 'vue'
 
 interface IHiFormItemProps {
   // controller: TFormItemControllers
@@ -41,6 +42,11 @@ interface IRenderItemProps {
 const renderItem = ({ controller, formData, itemRules }: IRenderItemProps) => {
   const config = controller.getConfig()
   const { label, model, isShow, colon, extra, labelAlign, labelCol, wrapperCol, tooltip } = config
+  const slots = useSlots()
+
+  const renderSlot = () => {
+    return slots[model]?.({ config })
+  }
 
   return isShow?.value ? (
     <a-form-item
@@ -54,7 +60,11 @@ const renderItem = ({ controller, formData, itemRules }: IRenderItemProps) => {
       wrapperCol={wrapperCol}
       tooltip={tooltip}
     >
-      <RenderItem controller={controller} formData={formData} />
+      {controller.controllerType === 'slot' ? (
+        renderSlot()
+      ) : (
+        <RenderItem controller={controller} formData={formData} />
+      )}
     </a-form-item>
   ) : null
 }

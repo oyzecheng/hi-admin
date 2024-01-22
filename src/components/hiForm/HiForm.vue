@@ -16,7 +16,11 @@
         :config="item"
         :formData="formData"
         :rules="rules"
-      />
+      >
+        <template v-for="item in Object.keys(slots) || []" :key="item" v-slot:[item]="{ config }">
+          <slot :name="item" :config="config" />
+        </template>
+      </HiFormItem>
       <a-form-item :wrapper-col="{ offset: wrapperColOffset }" v-if="setButtonConfig">
         <HiButtonList :config-list="setButtonConfig" />
       </a-form-item>

@@ -1,21 +1,23 @@
 <template>
   <a-space>
-    <hi-button
+    <component
+      :is="setComponent(config)"
       v-for="config in configList"
       :key="config.key"
       :controller="config"
       :click-params="clickParams"
-    ></hi-button>
+    />
   </a-space>
 </template>
 
 <script lang="ts" setup>
 import HiButton from '@/components/hiButton/HiButton.vue'
-import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
+import HIPopConfirmButton from '@/components/hiButton/HIPopConfirmButton.vue'
+import type { TButtonController } from '@/components/hiButton/types'
 
 const props = defineProps({
   configList: {
-    type: Array<HiButtonController>,
+    type: Array<TButtonController>,
     required: true
   },
   clickParams: {
@@ -25,6 +27,10 @@ const props = defineProps({
 })
 
 const { configList, clickParams } = props
+
+const setComponent = (controller: TButtonController) => {
+  return controller.type === 'popConfirmButton' ? HIPopConfirmButton : HiButton
+}
 </script>
 
 <style scoped></style>

@@ -19,3 +19,11 @@ export const useHiPrimaryButton = (label: TLabel, config: IUseHiButtonConfig = {
 export const useHISmallTextButton = (label: TLabel, config: IUseHiButtonConfig = {}) => {
   return useHiButton(label, { ...config, type: 'text', size: 'small' })
 }
+
+export const useHiPrimaryTextButton = (label: TLabel, config: IUseHiButtonConfig = {}) => {
+  return useHiButton(label, { ...config, type: 'text', className: 'ant-btn-text-primary' })
+}
+
+export const useHiSmallPrimaryTextButton = (label: TLabel, config: IUseHiButtonConfig = {}) => {
+  return useHiPrimaryTextButton(label, { ...config, size: 'small' })
+}

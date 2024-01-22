@@ -20,6 +20,7 @@ import type { HiFormRateController } from '@/components/hiForm/controller/hiForm
 import type { RangePickerProps } from 'ant-design-vue/es/vc-picker'
 import type { HiFormDatePickerController } from '@/components/hiForm/controller/hiFormDatePickerController'
 import type { HiFormDateRangePickerController } from '@/components/hiForm/controller/hiFormDateRangePickerController'
+import type { HiFormSlotController } from '@/components/hiForm/controller/hiFormSlotController'
 
 export type TFormItemControllers =
   | HiFormInputController
@@ -33,6 +34,7 @@ export type TFormItemControllers =
   | HiFormRateController
   | HiFormDatePickerController
   | HiFormDateRangePickerController
+  | HiFormSlotController
 
 export type TFormConfigList = Array<TFormItemControllers | TFormItemControllers[]>
 
@@ -48,6 +50,7 @@ export type TFormItemType =
   | 'cascader'
   | 'datePicker'
   | 'dateRangePicker'
+  | 'slot'
 
 export type TFormItemStatus = 'error' | 'warning' | undefined
 type Size = 'large' | 'middle' | 'small'
@@ -216,6 +219,8 @@ export interface IFormDateRangePicker extends IFormDate {
   showTime?: boolean
 }
 
+export interface IFormSlot extends IFormDate {}
+
 export type TFormItem =
   | IFormInput
   | IFormSelect
@@ -228,6 +233,7 @@ export type TFormItem =
   | IFormCascader
   | IFormDatePicker
   | IFormDateRangePicker
+  | IFormSlot
 
 export type TFormData = { [k: string]: any }
 

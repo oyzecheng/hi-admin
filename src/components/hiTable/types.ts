@@ -1,9 +1,9 @@
 import type { TableColumnType, TableProps } from 'ant-design-vue'
-import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
 import type { Ref } from 'vue'
+import type { TButtonController } from '@/components/hiButton/types'
 
 export interface IHITableColumnItem extends TableColumnType {
-  buttonConfigList?: HiButtonController[]
+  buttonConfigList?: TButtonController[]
 }
 
 export type THiTableColumns = IHITableColumnItem[]

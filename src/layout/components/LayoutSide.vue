@@ -86,9 +86,10 @@ const findOpenKeysByName = (name) => {
 
 watch(
   () => route.name,
-  (value) => {
-    state.selectedKeys = [value]
-    state.openKeys = findOpenKeysByName(value)
+  () => {
+    const nameList = route.matched.filter((item) => item.name).map((item) => item.name)
+    state.selectedKeys = nameList
+    state.openKeys = nameList
   },
   { immediate: true }
 )

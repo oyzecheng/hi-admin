@@ -1,5 +1,13 @@
 @import "./css/common";
 
+.ant-btn-text-primary {
+  color: var(--color-primary);
+  &:not(:disabled):hover {
+    color: var(--color-primary);
+    background-color: var(--color-primary-bg);
+  }
+}
+
 .ant-menu-light:not(.ant-menu-horizontal) {
   color: var(--color-content-text);
   .ant-menu-sub.ant-menu-inline {
@@ -8,9 +16,6 @@
   .ant-menu-item {
     :hover {
       color: var(--color-content-text);
-    }
-    .ant-menu-title-content {
-      font-weight: 500;
     }
   }
   .ant-menu-item-selected {
@@ -34,6 +39,11 @@
       background-color: var(--color-hover-selected-primary-bg);
       &:hover:not(.ant-menu-item-selected):not(.ant-menu-submenu-selected) {
         background-color: var(--color-hover-selected-primary-bg);
+      }
+    }
+    .ant-menu-item {
+      .ant-menu-title-content {
+        color: var(--color-primary);
       }
     }
   }

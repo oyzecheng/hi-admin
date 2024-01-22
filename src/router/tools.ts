@@ -10,7 +10,9 @@ export const generateItems = (list: RouteRecordRaw[] = [], parent: any = null): 
       title: item.meta?.title || '',
       parentLabel: parent?.meta?.title || '',
       path: `${parent?.path ? `${parent.path}/` : ''}${item.path}`,
-      children: item.children ? generateItems(item.children, item) : undefined,
+      children: item.children?.filter((r) => r.meta?.hidden !== true).length
+        ? generateItems(item.children?.filter((r) => r.meta?.hidden !== true), item)
+        : undefined,
       icon: RouterIcon[item.meta?.icon as string]
     }))
 }
