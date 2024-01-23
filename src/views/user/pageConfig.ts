@@ -1,19 +1,31 @@
 import { useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
 import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
 import { useDic } from '@/components/hiDic'
-import { useFormInput, useFormSelect, useHiForm } from '@/components/hiForm'
+import { useFormInput, useFormSelect, useFormSwitch, useHiForm } from '@/components/hiForm'
+import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfirmButton'
 
 export const newButton = useHiPrimaryButton('新建')
 
 export const show = useHISmallTextButton('查看')
 export const edit = useHISmallTextButton('编辑')
-export const del = useHISmallTextButton('删除', { danger: true })
+export const del = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
+
+const statusDic = useDic([
+  { label: '启用', value: 1 },
+  { label: '禁用', value: 2 }
+])
+
+export const roleDic = useDic([
+  { label: '管理员', value: 1 },
+  { label: '普通员工', value: 2 }
+])
 
 export const table = useHiTable(
   [
     { title: '名称', key: 'name' },
-    { title: '角色', key: 'role' },
-    { title: '状态', key: 'status' },
+    { title: '角色', key: 'role', dic: roleDic, width: 120 },
+    { title: '状态', key: 'status', dic: statusDic, width: 120 },
+    { title: '地址', key: 'address' },
     {
       title: '操作',
       key: 'action',
@@ -24,13 +36,15 @@ export const table = useHiTable(
   { selection: true }
 )
 
-const selectChildren = useDic([
-  { label: 'test', value: 'test' },
-  { label: 'test2', value: 'test2' }
-])
-
-const input = useFormInput('名称', 'input')
-const select = useFormSelect('状态', 'select', {
-  children: selectChildren
+const input = useFormInput('名称', 'name')
+const select = useFormSelect('状态', 'status', {
+  children: statusDic
 })
 export const searchForm = useHiForm([input, select], { layout: 'inline' })
+
+export const statusSwitch = useFormSwitch('', 'status', {
+  checkedChildren: '启用',
+  unCheckedChildren: '禁用',
+  checkedValue: 1,
+  unCheckedValue: 2
+})

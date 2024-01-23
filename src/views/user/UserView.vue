@@ -15,8 +15,13 @@
             </div>
           </div>
         </template>
+        <template v-if="column.dataIndex === 'role'">
+          <a-tag :bordered="false" :color="record.role === 1 ? 'success' : 'blue'">
+            {{ column.dic.getLabelByValue(record.role) }}
+          </a-tag>
+        </template>
         <template v-if="column.dataIndex === 'status'">
-          <a-tag :bordered="false" color="success">{{ record.status }}</a-tag>
+          <RenderSwitch :controller="statusSwitch" :form-data="record" />
         </template>
       </template>
     </HiPage>
@@ -25,37 +30,22 @@
 
 <script setup>
 import HiPage from '@/components/hiPage/HiPage.vue'
-import { newButton, show, edit, table, searchForm } from './pageConfig.ts'
+import RenderSwitch from '@/components/hiForm/renders/RenderSwitch.vue'
+import { newButton, show, edit, table, searchForm, statusSwitch, del } from './pageConfig.ts'
 import { useRouter } from 'vue-router'
+import { UserManageList, UserManageDelete } from '@/api/userManage.ts'
 
 const router = useRouter()
 
 const loadData = (params) => {
   console.log(params)
-  return new Promise((resolve) => {
-    const { page = 1, pageSize = 10 } = params
-    resolve({
-      data: {
-        page,
-        pageSize,
-        count: 89,
-        list: new Array(pageSize).fill('').map((_, index) => ({
-          id: (page - 1) * pageSize + index + 1 + '',
-          name: '张三',
-          avatar: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_17.jpg',
-          email: 'oouzc@gmail.com',
-          role: '管理员',
-          status: '启用'
-        }))
-      }
-    })
-  })
+  return UserManageList(params)
 }
 table.setLoadData(loadData)
 
 show.onClick((controller) => {
   const { record } = controller.clickParams
-  router.push({ name: 'userDetail', params: { id: 123 } })
+  router.push({ name: 'userDetail', params: { id: record.id } })
 })
 
 edit.onClick(() => {
@@ -64,6 +54,12 @@ edit.onClick(() => {
 
 newButton.onClick(() => {
   router.push({ name: 'userNew' })
+})
+
+del.onConfirm(async (controller) => {
+  const { record } = controller.clickParams
+  await UserManageDelete(record.id)
+  table.reloadData()
 })
 </script>
 

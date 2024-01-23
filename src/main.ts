@@ -1,6 +1,8 @@
 import './assets/main.css'
 import './assets/antdOverrite.less'
 
+import './mock'
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 

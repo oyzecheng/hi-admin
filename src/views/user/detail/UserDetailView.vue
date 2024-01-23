@@ -2,12 +2,10 @@
   <div class="user-detail">
     <div class="user-avatar-container module-container">
       <div class="avatar-box">
-        <a-avatar
-          src="https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_25.jpg"
-        />
+        <a-avatar :src="userInfo.avatar" />
         <div>
-          <h6 class="user-name">张三</h6>
-          <p class="role">管理员</p>
+          <h6 class="user-name">{{ userInfo.name }}</h6>
+          <p class="role">{{ roleDic.getLabelByValue(userInfo.role) }}</p>
         </div>
       </div>
       <div class="operator-bar"></div>
@@ -15,7 +13,24 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted, ref } from 'vue'
+import { UserManageDetail } from '@/api/userManage.ts'
+import { useRoute } from 'vue-router'
+import { roleDic } from '@/views/user/pageConfig.ts'
+
+const route = useRoute()
+const userInfo = ref({})
+
+onMounted(() => {
+  getUserInfo()
+})
+
+const getUserInfo = async () => {
+  const result = await UserManageDetail(route.params.id)
+  userInfo.value = result
+}
+</script>
 
 <style scoped lang="less">
 .user-detail {

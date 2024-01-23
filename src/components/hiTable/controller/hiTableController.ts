@@ -32,6 +32,9 @@ export class HiTableController {
   private generateColumns(columns: THiTableColumns) {
     columns.forEach((item) => {
       item.dataIndex = item.key
+      if (item.dic) {
+        item.customRender = ({ value }) => item.dic?.getLabelByValue(value)
+      }
     })
     return columns
   }

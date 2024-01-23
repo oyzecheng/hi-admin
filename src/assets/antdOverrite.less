@@ -41,9 +41,11 @@
         background-color: var(--color-hover-selected-primary-bg);
       }
     }
-    .ant-menu-item {
+    .ant-menu-item-selected {
       .ant-menu-title-content {
-        color: var(--color-primary);
+        &:hover {
+          color: var(--color-primary);
+        }
       }
     }
   }

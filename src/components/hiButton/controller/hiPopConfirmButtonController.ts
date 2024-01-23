@@ -1,12 +1,16 @@
 import { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
-import type { IHiPopConfirmButtonConfig, THiButtonType } from '@/components/hiButton/types'
+import type {
+  IHiPopConfirmButtonConfig,
+  THiButtonClickCallback,
+  THiButtonType
+} from '@/components/hiButton/types'
 
 export class HiPopConfirmButtonController extends HiButtonController {
   private readonly popConfirmConfig: IHiPopConfirmButtonConfig
   readonly buttonController: HiButtonController
   readonly type: THiButtonType
-  confirm: () => void
-  cancel: () => void
+  confirm: THiButtonClickCallback
+  cancel: THiButtonClickCallback
 
   constructor(buttonController: HiButtonController, config: IHiPopConfirmButtonConfig) {
     super(buttonController.getConfig())
@@ -35,11 +39,11 @@ export class HiPopConfirmButtonController extends HiButtonController {
     return this.popConfirmConfig
   }
 
-  onConfirm(callback: () => void | Promise<any>) {
-    this.confirm = callback
+  onConfirm(callback: THiButtonClickCallback) {
+    this.confirm = () => callback(this.buttonController)
   }
 
-  onCancel(callback: () => void | Promise<any>) {
-    this.cancel = callback
+  onCancel(callback: THiButtonClickCallback) {
+    this.cancel = () => callback(this.buttonController)
   }
 }

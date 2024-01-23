@@ -39,6 +39,6 @@ export interface IHiPopConfirmButtonConfig {
 
 export type THiButtonType = 'button' | 'popConfirmButton'
 
-export type THiButtonClickCallback = (controller: HiButtonController) => void
+export type THiButtonClickCallback = (controller: HiButtonController) => void | Promise<any>
 
 export type TButtonController = HiButtonController | HiPopConfirmButtonController

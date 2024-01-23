@@ -11,7 +11,7 @@
     @confirm="controller.confirm"
     @onCancel="controller.cancel"
   >
-    <HiButton :controller="controller.buttonController" />
+    <HiButton :controller="controller.buttonController" :click-params="clickParams" />
   </a-popconfirm>
 </template>
 
@@ -23,6 +23,10 @@ const props = defineProps({
   controller: {
     type: HiPopConfirmButtonController,
     required: true
+  },
+  clickParams: {
+    type: Object,
+    default: null
   }
 })
 

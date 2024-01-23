@@ -12,8 +12,10 @@ import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import { useHiButton, useHiPrimaryButton } from '@/components/hiButton/index.ts'
 import { useRouter } from 'vue-router'
 import { useHIModal } from '@/components/hiModal/hooks/useHIModal.ts'
+import { useUserStore } from '@/stores/user.ts'
 
 const router = useRouter()
+const userStore = useUserStore()
 
 const modal = useHIModal({ title: 'test title' })
 
@@ -24,7 +26,7 @@ button1.onClick(() => {
   router.push({ name: 'form' })
 })
 button2.onClick(() => {
-  router.push({ name: 'table' })
+  userStore.getUserInfo()
 })
 modalTEst.onClick(() => {
   modal.showModal({ record: 'aa' })

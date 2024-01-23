@@ -19,8 +19,8 @@
         <template #overlay>
           <div class="user-container">
             <div class="info">
-              <h6>Jaydon Frankie</h6>
-              <p>demo@minimals.cc</p>
+              <h6>{{ info.userInfo.userName }}</h6>
+              <p>{{ info.userInfo.email }}</p>
             </div>
             <a-divider dashed style="border-color: var(--color-border); margin: 5px" />
             <a-menu class="out-login-menu" :items="outLogin" @click="handleMenuClick" />
@@ -55,13 +55,15 @@
 import SearchModalContent from '@/layout/components/SearchModalContent.vue'
 import SettingDrawerContent from '@/layout/components/SettingDrawerContent.vue'
 import { SearchOutlined, MenuOutlined, SettingFilled } from '@ant-design/icons-vue'
-import { reactive, h } from 'vue'
+import { reactive, h, toRefs } from 'vue'
 import { useAppStore } from '@/stores/app.ts'
 import { RemoveAll } from '@/utils/storage.ts'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user.ts'
 
 const router = useRouter()
 const appStore = useAppStore()
+const { info } = toRefs(useUserStore())
 
 const outLogin = [{ key: 'outLogin', label: '退出登录' }]
 

@@ -1,9 +1,11 @@
 import type { TableColumnType, TableProps } from 'ant-design-vue'
 import type { Ref } from 'vue'
 import type { TButtonController } from '@/components/hiButton/types'
+import type { HiDicController } from '@/components/hiDic/controller/hiDicController'
 
 export interface IHITableColumnItem extends TableColumnType {
   buttonConfigList?: TButtonController[]
+  dic?: HiDicController
 }
 
 export type THiTableColumns = IHITableColumnItem[]
