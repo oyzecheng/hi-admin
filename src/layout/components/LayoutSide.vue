@@ -61,30 +61,6 @@ const handleMenuClick = ({ key, item }) => {
   router.push({ name: key, params })
   appStore.setLgLayoutSideShow()
 }
-const findOpenKeysByName = (name) => {
-  const findKey = (item, keys) => {
-    keys.push(item.key)
-    if (item.key === name) {
-      return keys
-    }
-    if (item.children?.length) {
-      for (const row of item.children) {
-        const result = findKey(row, [...keys])
-        if (result) return result
-      }
-    }
-    return null
-  }
-
-  for (const item of userStore.info.userMenus) {
-    const result = findKey(item, [])
-    if (result) {
-      return result
-    }
-  }
-
-  return []
-}
 
 watch(
   () => route.name,

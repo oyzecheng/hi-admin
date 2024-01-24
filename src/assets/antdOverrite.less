@@ -74,6 +74,7 @@
     .ant-table-thead {
       th {
         background-color: #F4F6F8;
+        border-bottom: 0;
       }
     }
     .ant-table-body {
@@ -89,6 +90,16 @@
         .ant-checkbox {
           .ant-checkbox-inner {
             border-color: var(--color-primary);
+          }
+        }
+      }
+      .ant-table-row {
+        .ant-table-cell {
+          border-top: 1px dashed var(--color-border);
+        }
+        &:nth-last-child(1) {
+          .ant-table-cell {
+            border-bottom: none;
           }
         }
       }

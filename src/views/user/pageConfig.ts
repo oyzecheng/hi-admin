@@ -1,14 +1,23 @@
-import { useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
+import { useHiButton, useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
 import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
 import { useDic } from '@/components/hiDic'
 import { useFormInput, useFormSelect, useFormSwitch, useHiForm } from '@/components/hiForm'
 import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfirmButton'
+import { h } from 'vue'
+import { DeleteOutlined } from '@ant-design/icons-vue'
 
 export const newButton = useHiPrimaryButton('新建')
 
 export const show = useHISmallTextButton('查看')
 export const edit = useHISmallTextButton('编辑')
 export const del = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
+
+export const batchDel = useHiButton('', {
+  icon: h(DeleteOutlined, { style: { color: 'var(--color-error)' } }),
+  type: 'text',
+  danger: true,
+  shape: 'circle'
+})
 
 const statusDic = useDic([
   { label: '启用', value: 1 },
@@ -33,7 +42,8 @@ export const table = useHiTable(
       buttonConfigList: [show, edit, del]
     }
   ],
-  { selection: true }
+  { selection: true },
+  [batchDel]
 )
 
 const input = useFormInput('名称', 'name')

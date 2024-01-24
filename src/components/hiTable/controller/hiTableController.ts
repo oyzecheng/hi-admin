@@ -3,7 +3,8 @@ import type {
   IHiTableData,
   IHiTableSelectedData,
   THiTableColumns,
-  THiTableLoadData
+  THiTableLoadData,
+  THiTableSelectedContainerButtonControllers
 } from '@/components/hiTable/types'
 
 export class HiTableController {
@@ -13,13 +14,15 @@ export class HiTableController {
   private readonly columns: THiTableColumns
   private readonly config: IHiTableConfig
   private oldParams: { [k: string]: any }
+  private readonly selectedContainerButtonControllers: THiTableSelectedContainerButtonControllers
 
   constructor(
     loadData: THiTableLoadData | undefined,
     columns: THiTableColumns,
     tableData: IHiTableData['data'],
     selectedData: IHiTableSelectedData,
-    tableConfig: IHiTableConfig
+    tableConfig: IHiTableConfig,
+    selectedContainerButtonControllers: THiTableSelectedContainerButtonControllers
   ) {
     this.tableData = tableData
     this.loadData = loadData
@@ -27,6 +30,7 @@ export class HiTableController {
     this.columns = this.generateColumns(columns)
     this.config = this.setDefaultConfig(tableConfig)
     this.oldParams = {}
+    this.selectedContainerButtonControllers = selectedContainerButtonControllers
   }
 
   private generateColumns(columns: THiTableColumns) {
@@ -125,6 +129,10 @@ export class HiTableController {
     } else {
       throw new Error('请配置loadData')
     }
+  }
+
+  getSelectedContainerButtonControllers() {
+    return this.selectedContainerButtonControllers
   }
 
   showLoading() {

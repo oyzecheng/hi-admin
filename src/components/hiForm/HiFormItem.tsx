@@ -15,7 +15,7 @@ interface IHiFormItemProps {
 }
 
 const HiFormItem = ({ config, formData, rules }: IHiFormItemProps) => {
-  if (config instanceof Array) {
+  if (Array.isArray(config)) {
     return (
       <a-row gutter={[16, 16]}>
         {config.map((controller) => {

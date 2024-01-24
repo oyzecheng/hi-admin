@@ -3,7 +3,8 @@ import type {
   IHiTableConfig,
   IHiTableSelectedData,
   THiTableColumns,
-  THiTableLoadData
+  THiTableLoadData,
+  THiTableSelectedContainerButtonControllers
 } from '@/components/hiTable/types'
 import { reactive, ref } from 'vue'
 
@@ -14,6 +15,7 @@ interface IUseHiTableConfig extends Omit<IHiTableConfig, 'loading'> {
 export const useHiTable = (
   columns: THiTableColumns,
   config: IUseHiTableConfig = {},
+  selectedContainerButtonControllers?: THiTableSelectedContainerButtonControllers,
   loadData?: THiTableLoadData
 ) => {
   const tableData = reactive({ page: 0, pageSize: 0, count: 0, list: [] })
@@ -27,10 +29,17 @@ export const useHiTable = (
     selectionConfig: config.rowSelection || {}
   })
 
-  return new HiTableController(loadData, columns, tableData, selectedData, {
-    ...config,
-    loading,
-    pagination,
-    scroll
-  })
+  return new HiTableController(
+    loadData,
+    columns,
+    tableData,
+    selectedData,
+    {
+      ...config,
+      loading,
+      pagination,
+      scroll
+    },
+    selectedContainerButtonControllers || []
+  )
 }

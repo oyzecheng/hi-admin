@@ -44,12 +44,15 @@ export class GenerateList {
       }
       return true
     })
+
+    const dataPage = +page || this.page
+    const dataPageSize = +pageSize || this.pageSize
     return {
       data: {
-        page: +page || this.page,
-        pageSize: +pageSize || this.pageSize,
+        page: dataPage,
+        pageSize: dataPageSize,
         count: list.length,
-        list
+        list: [...list].slice((dataPage - 1) * pageSize, (dataPage - 1) * pageSize + pageSize)
       }
     }
   }

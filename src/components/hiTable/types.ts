@@ -2,6 +2,7 @@ import type { TableColumnType, TableProps } from 'ant-design-vue'
 import type { Ref } from 'vue'
 import type { TButtonController } from '@/components/hiButton/types'
 import type { HiDicController } from '@/components/hiDic/controller/hiDicController'
+import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
 
 export interface IHITableColumnItem extends TableColumnType {
   buttonConfigList?: TButtonController[]
@@ -31,3 +32,5 @@ export interface IHiTableSelectedData {
   selectedRows: any[]
   selectionConfig: IHiTableConfig['rowSelection']
 }
+
+export type THiTableSelectedContainerButtonControllers = HiButtonController[]

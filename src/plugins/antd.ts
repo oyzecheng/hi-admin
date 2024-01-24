@@ -24,7 +24,8 @@ import {
   Rate,
   Cascader,
   DatePicker,
-  Popconfirm
+  Popconfirm,
+  Pagination
 } from 'ant-design-vue'
 import type { App } from 'vue'
 
@@ -55,6 +56,7 @@ const useAntd = (app: App<Element>) => {
   app.use(Cascader)
   app.use(DatePicker)
   app.use(Popconfirm)
+  app.use(Pagination)
 }
 
 export default useAntd
