@@ -59,7 +59,22 @@ export class GenerateList {
     return this.list.find((item) => item.id === itemId)
   }
 
-  updateItem() {}
+  updateItem(options) {
+    const itemId = getUrlId(options)
+    const itemBody = getBody(options)
+    const index = this.list.findIndex((item) => item.id === itemId)
+    if (index !== -1) {
+      this.list[index] = { ...this.list[index], ...itemBody }
+      return this.list[index]
+    }
+    return false
+  }
+
+  addItem(options) {
+    const item = getBody(options)
+    item.id = Random.guid()
+    this.list.unshift(item)
+  }
 
   deleteItem(options) {
     const itemId = getUrlId(options)
@@ -81,4 +96,13 @@ export const getUrlId = (options) => {
   const url = options.url
   const arr = url.split('/')
   return arr[arr.length - 1]
+}
+
+export const getBody = (options) => {
+  const { body } = options
+  try {
+    return JSON.parse(body)
+  } catch (err) {
+    return {}
+  }
 }

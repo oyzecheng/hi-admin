@@ -1,4 +1,4 @@
-import { generateKey } from '@/utils'
+import { deepClone, generateKey } from '@/utils'
 import type {
   TFormItemControllers,
   TFormData,
@@ -28,20 +28,25 @@ export class HiFormController {
 
     this.defaultConfirm = null
     this.defaultCancel = null
-
-    this.init(this.configList)
   }
 
-  private init(list: TFormConfigList) {
+  private initGenerate(list: TFormConfigList) {
+    this.clearFormData()
     list.forEach((item) => {
       if (item instanceof Array) {
-        this.init(item)
+        this.initGenerate(item)
       } else {
         this.rules[item.model] = this.getItemRules(item)
         this.formData[item.model] = item.getDefaultValue()
         item.setDefaultConfig()
       }
     })
+  }
+
+  private clearFormData() {
+    for (const k in this.formData) {
+      delete this.formData[k]
+    }
   }
 
   private setDefaultConfig(config: IHiForm): IHiForm {
@@ -63,6 +68,27 @@ export class HiFormController {
         return [{ ...itemController.getDefaultRule(), ...(config.rules as object) }]
       }
     }
+  }
+
+  private formatFormData(formData: any, type?: 'restore') {
+    this.configList.forEach((item) => {
+      if (Array.isArray(item)) {
+        this.formatFormData(item)
+      } else {
+        const config = item.getConfig()
+        if ('format' in config && config.format) {
+          formData[item.model] =
+            type === 'restore'
+              ? item.restoreFormat(formData[item.model])
+              : item.format(formData[item.model])
+        }
+      }
+    })
+    return formData
+  }
+
+  init() {
+    this.initGenerate(this.configList)
   }
 
   setFormRef(formRef: any) {
@@ -96,6 +122,13 @@ export class HiFormController {
     return this.formData
   }
 
+  setFormData(formData: TFormData) {
+    const cFormData = this.formatFormData(deepClone(formData), 'restore')
+    for (const k in cFormData) {
+      this.formData[k] = cFormData[k]
+    }
+  }
+
   getRules() {
     return this.rules
   }
@@ -113,7 +146,7 @@ export class HiFormController {
           if ('outOfDate' in res && !outOfDate) {
             reject(res)
           } else {
-            resolve(res)
+            resolve(this.formatFormData(res))
           }
         })
         .catch((err: any) => {

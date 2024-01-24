@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import HiButton from '@/components/hiButton/HiButton.vue'
-import { computed, h, type PropType } from 'vue'
+import { computed, h, type PropType, toRefs } from 'vue'
 import { HiFormUploadController } from '@/components/hiForm/controller/hiFormUploadController'
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons-vue'
 import UploadAvatar from '@/components/hiForm/renders/renderUpload/UploadAvatar.vue'
@@ -41,14 +41,13 @@ const props = defineProps({
     type: HiFormUploadController,
     required: true
   },
-  formData: {
-    type: Object as PropType<TFormData>,
-    required: true
+  value: {
+    type: Array as PropType<IFormUploadItem[]>
   }
 })
 
-const { controller, formData } = props
-const config = controller.getConfig()
+const { controller, value } = toRefs(props)
+const config = controller.value?.getConfig()
 const {
   type,
   onChange,
@@ -63,7 +62,7 @@ const {
   uploadText
 } = config
 
-const fileList = computed<IFormUploadItem[]>(() => formData[controller.model])
+const fileList = computed<IFormUploadItem[]>(() => value?.value || [])
 const uploadButton = useHiButton(uploadText || 'Upload', { icon: h(UploadOutlined) })
 
 const handleChange = () => {
@@ -76,6 +75,7 @@ const customRequest = () => {
     return false
   }
 
+  // 这里添加上传代码
   const item = {
     id: generateKey(),
     url: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_17.jpg',

@@ -149,6 +149,7 @@ export interface IFormUpload extends IFormItemBase {
   maxSizeErrorMessage?: string
   uploadText?: string
   type: 'avatar' | 'image' | 'imageList' | 'file'
+  format?: boolean
 }
 
 export interface IFormInputNumber extends IFormItemBase {

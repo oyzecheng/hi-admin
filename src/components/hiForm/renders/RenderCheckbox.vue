@@ -1,6 +1,7 @@
 <template>
   <a-checkbox-group
-    v-model:value="formData[controller.model]"
+    :value="value"
+    @update:value="(val: any[]) => emits('update:value', val)"
     @change="onChange"
     :options="checkboxChildren"
     :style="style"
@@ -9,22 +10,21 @@
 
 <script setup lang="ts">
 import { HiFormCheckboxController } from '@/components/hiForm/controller/hiFormCheckboxController'
-import type { PropType } from 'vue'
-import type { TFormData } from '@/components/hiForm/types'
+import { toRefs } from 'vue'
 
 const props = defineProps({
   controller: {
     type: HiFormCheckboxController,
     required: true
   },
-  formData: {
-    type: Object as PropType<TFormData>,
-    required: true
+  value: {
+    type: Array
   }
 })
 
-const { controller, formData } = props
-const config = controller?.getConfig()
+const emits = defineEmits(['update:value'])
+const { controller, value } = toRefs(props)
+const config = controller.value?.getConfig()
 const { onChange, children, style } = config
 const checkboxChildren =
   children && 'getChildren' in children ? children.getChildren() : children || []

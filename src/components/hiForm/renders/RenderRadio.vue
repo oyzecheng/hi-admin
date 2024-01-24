@@ -1,6 +1,7 @@
 <template>
   <a-radio-group
-    v-model:value="formData[controller.model]"
+    :value="value"
+    @update:value="(val: boolean) => emits('update:value', val)"
     :options="radioChildren"
     :style="style"
     @change="onChange"
@@ -9,22 +10,21 @@
 
 <script setup lang="ts">
 import { HiFormRadioController } from '@/components/hiForm/controller/hiFormRadioController'
-import type { PropType } from 'vue'
-import type { TFormData } from '@/components/hiForm/types'
+import { toRefs } from 'vue'
 
 const props = defineProps({
   controller: {
     type: HiFormRadioController,
     required: true
   },
-  formData: {
-    type: Object as PropType<TFormData>,
-    required: true
+  value: {
+    type: [Boolean, String, Number]
   }
 })
 
-const { controller, formData } = props
-const config = controller?.getConfig()
+const emits = defineEmits(['update:value'])
+const { controller, value } = toRefs(props)
+const config = controller.value?.getConfig()
 const { onChange, children, style } = config
 const radioChildren =
   children && 'getChildren' in children ? children.getChildren() : children || []

@@ -1,6 +1,7 @@
 <template>
   <a-rate
-    v-model:value="formData[controller.model]"
+    :value="value"
+    @update:value="(val: number) => emits('update:value', val)"
     :allowClear="allowClear"
     :allowHalf="allowHalf"
     :autofocus="autofocus"
@@ -14,22 +15,21 @@
 
 <script setup lang="ts">
 import { HiFormRateController } from '@/components/hiForm/controller/hiFormRateController.js'
-import type { PropType } from 'vue'
-import type { TFormData } from '@/components/hiForm/types'
+import { toRefs } from 'vue'
 
 const props = defineProps({
   controller: {
     type: HiFormRateController,
     required: true
   },
-  formData: {
-    type: Object as PropType<TFormData>,
-    required: true
+  value: {
+    type: Number
   }
 })
 
-const { controller, formData } = props
-const config = controller?.getConfig()
+const emits = defineEmits(['update:value'])
+const { controller, value } = toRefs(props)
+const config = controller.value?.getConfig()
 const { allowClear, allowHalf, autofocus, character, count, disabled, tooltips, onChange } = config
 </script>
 

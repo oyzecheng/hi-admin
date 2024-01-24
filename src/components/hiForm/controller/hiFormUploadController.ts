@@ -1,5 +1,6 @@
 import { HiFormItemController } from '@/components/hiForm/controller/hiFormItemController'
-import type { IFormItemRule, IFormUpload } from '@/components/hiForm/types'
+import type { IFormItemRule, IFormUpload, IFormUploadItem } from '@/components/hiForm/types'
+import { generateKey } from '@/utils'
 
 export class HiFormUploadController extends HiFormItemController<IFormUpload> {
   constructor(config: IFormUpload) {
@@ -58,5 +59,21 @@ export class HiFormUploadController extends HiFormItemController<IFormUpload> {
 
   getDefaultValue(): string | [] | number | undefined {
     return []
+  }
+
+  format(value: IFormUploadItem[]) {
+    return value?.map((item) => item.url).join(',') || value
+  }
+
+  restoreFormat(value: any): IFormUploadItem[] {
+    try {
+      const arr = value.split(',')
+      return arr.map((url: string) => {
+        const key = generateKey()
+        return { id: key, url, name: key }
+      })
+    } catch (err) {
+      return value
+    }
   }
 }

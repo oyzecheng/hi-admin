@@ -21,7 +21,11 @@
           </a-tag>
         </template>
         <template v-if="column.dataIndex === 'status'">
-          <RenderSwitch :controller="statusSwitch" :form-data="record" />
+          <RenderSwitch
+            :controller="statusSwitch"
+            :form-data="record"
+            v-model:value="record.status"
+          />
         </template>
       </template>
     </HiPage>
@@ -48,8 +52,9 @@ show.onClick((controller) => {
   router.push({ name: 'userDetail', params: { id: record.id } })
 })
 
-edit.onClick(() => {
-  router.push({ name: 'userNew' })
+edit.onClick((controller) => {
+  const { record } = controller.clickParams
+  router.push({ name: 'userEdit', params: { id: record.id } })
 })
 
 newButton.onClick(() => {

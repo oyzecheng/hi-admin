@@ -1,6 +1,7 @@
 <template>
   <a-select
-    v-model:value="formData[controller.model]"
+    :value="value"
+    @update:value="(val: any) => emits('update:value', val)"
     :allow-clear="allowClear"
     :disabled="disabled"
     :bordered="bordered"
@@ -24,22 +25,21 @@
 
 <script setup lang="ts">
 import { HiFormSelectController } from '@/components/hiForm/controller/hiFormSelectController'
-import type { PropType } from 'vue'
-import type { TFormData } from '@/components/hiForm/types'
+import { toRefs } from 'vue'
 
 const props = defineProps({
   controller: {
     type: HiFormSelectController,
     required: true
   },
-  formData: {
-    type: Object as PropType<TFormData>,
-    required: true
+  value: {
+    type: [String, Number, Boolean]
   }
 })
 
-const { controller, formData } = props
-const config = controller?.getConfig()
+const emits = defineEmits(['update:value'])
+const { controller, value } = toRefs(props)
+const config = controller.value?.getConfig()
 const {
   allowClear,
   disabled,

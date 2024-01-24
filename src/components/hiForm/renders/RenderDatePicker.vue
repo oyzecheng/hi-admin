@@ -1,6 +1,7 @@
 <template>
   <a-date-picker
-    v-model:value="formData[controller.model]"
+    :value="value"
+    @update:value="(val: any) => emits('update:value', val)"
     :allowClear="allowClear"
     :autofocus="autofocus"
     :bordered="bordered"
@@ -25,21 +26,21 @@
 
 <script setup lang="ts">
 import { HiFormDatePickerController } from '@/components/hiForm/controller/hiFormDatePickerController'
-import type { PropType } from 'vue'
-import type { TFormData } from '@/components/hiForm/types'
+import { toRefs } from 'vue'
 
 const props = defineProps({
   controller: {
     type: HiFormDatePickerController,
     required: true
   },
-  formData: {
-    type: Object as PropType<TFormData>,
-    required: true
+  value: {
+    type: [Object, String]
   }
 })
-const { controller, formData } = props
-const config = controller?.getConfig()
+
+const emits = defineEmits(['update:value'])
+const { controller, value } = toRefs(props)
+const config = controller.value?.getConfig()
 const {
   allowClear,
   autofocus,

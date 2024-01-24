@@ -18,7 +18,7 @@ export class HiFormItemController<T extends IFormItemBase> {
     const { style } = config
     config.style = {
       ...(style || {}),
-      minWidth: '150px',
+      minWidth: '200px',
       width: this.setStyleWidth(config)
     }
   }
@@ -103,7 +103,15 @@ export class HiFormItemController<T extends IFormItemBase> {
     this.config[key] = value
   }
 
-  getDefaultValue(): string | undefined | [] | number | boolean {
-    return undefined
+  getDefaultValue(): any {
+    return 'defaultValue' in this.config ? this.config.defaultValue : undefined
+  }
+
+  format(value: any) {
+    return value
+  }
+
+  restoreFormat(value: any) {
+    return value
   }
 }

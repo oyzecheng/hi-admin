@@ -1,5 +1,10 @@
 <template>
-  <component :is="currentComponent" :formData="formData" :controller="controller" />
+  <component
+    :is="currentComponent"
+    v-model:value="formData[controller.model]"
+    :formData="formData"
+    :controller="controller"
+  />
 </template>
 
 <script setup lang="ts">

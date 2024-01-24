@@ -38,7 +38,7 @@ export const POST = (url: string, params?: any) => {
   return request({
     url,
     method: 'post',
-    params,
+    data: params,
     headers: { 'Content-Type': 'application/json;charset=UTF-8' }
   })
 }

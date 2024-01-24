@@ -56,6 +56,12 @@ export const privateRoutes: RouteRecordRaw[] = [
         meta: { title: '创建' }
       },
       {
+        name: 'userEdit',
+        path: ':id',
+        component: () => import('@/views/user/new/UserNewView.vue'),
+        meta: { title: '编辑' }
+      },
+      {
         name: 'userDetail',
         path: 'detail/:id',
         component: () => import('@/views/user/detail/UserDetailView.vue'),

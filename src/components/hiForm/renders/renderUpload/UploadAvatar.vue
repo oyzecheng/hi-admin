@@ -10,19 +10,20 @@
 
 <script setup lang="ts">
 import { CameraFilled } from '@ant-design/icons-vue'
-import { computed } from 'vue'
+import { computed, type PropType, toRef, toRefs } from 'vue'
+import type { IFormUploadItem } from '@/components/hiForm/types'
 
 const props = defineProps({
   fileList: {
-    type: Array,
+    type: Array as PropType<Array<IFormUploadItem>>,
     required: true
   }
 })
 
-const { fileList } = props
+const { fileList } = toRefs(props)
 
 const avatarSrc = computed(() => {
-  return fileList[0]?.url || ''
+  return fileList.value[0]?.url || ''
 })
 </script>
 

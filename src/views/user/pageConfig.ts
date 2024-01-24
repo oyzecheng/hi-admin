@@ -42,7 +42,7 @@ const select = useFormSelect('状态', 'status', {
 })
 export const searchForm = useHiForm([input, select], { layout: 'inline' })
 
-export const statusSwitch = useFormSwitch('', 'status', {
+export const statusSwitch = useFormSwitch('状态', 'status', {
   checkedChildren: '启用',
   unCheckedChildren: '禁用',
   checkedValue: 1,

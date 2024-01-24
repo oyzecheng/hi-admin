@@ -1,6 +1,7 @@
 <template>
   <a-switch
-    v-model:checked="formData[controller.model]"
+    :checked="value"
+    @update:checked="(val: any) => emits('update:value', val)"
     :size="size"
     :loading="loading"
     :autofocus="autofocus"
@@ -15,22 +16,22 @@
 
 <script setup lang="ts">
 import { HiFormSwitchController } from '@/components/hiForm/controller/hiFormSwitchController.js'
-import type { PropType } from 'vue'
-import type { TFormData } from '@/components/hiForm/types'
+import { toRefs } from 'vue'
 
 const props = defineProps({
   controller: {
     type: HiFormSwitchController,
     required: true
   },
-  formData: {
-    type: Object as PropType<TFormData>,
-    required: true
+  value: {
+    type: [Boolean, String, Number]
   }
 })
 
-const { controller, formData } = props
-const config = controller?.getConfig()
+const emits = defineEmits(['update:value'])
+const { controller, value } = toRefs(props)
+const config = controller.value?.getConfig()
+
 const {
   size,
   loading,

@@ -1,7 +1,8 @@
 <template>
   <component
     :is="currentComponent"
-    v-model:value="formData[controller.model]"
+    :value="value"
+    @update:value="(val: any) => emits('update:value', val)"
     :size="size"
     :disabled="disabled"
     :allow-clear="allowClear"
@@ -18,22 +19,22 @@
 <script setup lang="ts">
 import { InputPassword, Input, Textarea } from 'ant-design-vue'
 import { HiFormInputController } from '@/components/hiForm/controller/hiFormInputController'
-import { type PropType, shallowRef } from 'vue'
-import type { TFormData } from '@/components/hiForm/types'
+import { shallowRef, toRefs } from 'vue'
 
 const props = defineProps({
   controller: {
     type: HiFormInputController,
     required: true
   },
-  formData: {
-    type: Object as PropType<TFormData>,
-    required: true
+  value: {
+    type: String,
+    default: ''
   }
 })
 
-const { controller, formData } = props
-const config = controller?.getConfig()
+const emits = defineEmits(['update:value'])
+const { controller, value } = toRefs(props)
+const config = controller.value?.getConfig()
 const {
   size,
   disabled,

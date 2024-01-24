@@ -77,3 +77,23 @@ export const replaceAlpha = (colorString: string, newAlpha: number) => {
   const [, r, g, b, _] = match
   return `rgba(${r}, ${g}, ${b}, ${newAlpha})`
 }
+
+export const deepClone = (source: any) => {
+  if (source === null || typeof source !== 'object') return source
+
+  if (Array.isArray(source)) {
+    const newArray: any[] = []
+    for (const item of source) {
+      newArray.push(deepClone(item))
+    }
+    return newArray
+  }
+
+  const newObject: any = {}
+  for (const k in source) {
+    if (source.hasOwnProperty(k)) {
+      newObject[k] = deepClone(source[k])
+    }
+  }
+  return newObject
+}

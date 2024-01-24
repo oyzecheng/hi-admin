@@ -22,3 +22,7 @@ Mock.mock(/\/userManageDetail/, 'get', (options) => userList.getDetail(options))
 Mock.mock(/\/userManage/, 'get', (options) => userList.getResult(options))
 
 Mock.mock(/\/userManage/, 'delete', (options) => userList.deleteItem(options))
+
+Mock.mock(/\/userManageUpdate/, 'post', (options) => userList.updateItem(options))
+
+Mock.mock(/\/userManage/, 'post', (options) => userList.addItem(options))

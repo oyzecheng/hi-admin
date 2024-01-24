@@ -33,7 +33,7 @@ import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import { HiFormController } from '@/components/hiForm/controller/hiFormController'
 import HiFormItem from '@/components/hiForm/HiFormItem'
 import { useHiButton } from '@/components/hiButton'
-import { computed, nextTick, onBeforeUnmount, type PropType, ref, useSlots } from 'vue'
+import { computed, nextTick, type PropType, ref, useSlots } from 'vue'
 import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
 
 const emit = defineEmits(['onFinish'])
@@ -53,20 +53,15 @@ const props = defineProps({
 })
 
 const { controller, buttonConfig } = props
+controller?.init()
 const formData = controller?.getFormData()
 const rules = controller?.getRules()
 const configList = controller?.getConfigList()
 const formConfig = controller?.getConfig()
 const wrapperColOffset = formConfig.labelCol?.span || 4
 
-console.log('formConfig', formConfig)
-
 const confirmButton = useHiButton('确定', { type: 'primary', htmlType: 'submit' })
 const cancelButton = useHiButton('取消')
-
-onBeforeUnmount(() => {
-  controller?.resetFields()
-})
 
 confirmButton.onClick((button) => {
   controller.defaultConfirm && controller.defaultConfirm(button)
