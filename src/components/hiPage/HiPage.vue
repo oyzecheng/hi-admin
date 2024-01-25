@@ -8,7 +8,11 @@
       />
       <HiButtonList v-if="topButtonController" :config-list="topButtonController" />
     </div>
-    <HiTable ref="tableRef" :controller="tableController">
+    <HiTable
+      ref="tableRef"
+      :controller="tableController"
+      :selected-container-button-controllers="selectedContainerButtonControllers"
+    >
       <template #bodyCell="{ column, record }">
         <slot name="bodyCell" :column="column" :record="record"></slot>
       </template>
@@ -42,6 +46,9 @@ const props = defineProps({
   topButtonController: {
     type: Array,
     default: null
+  },
+  selectedContainerButtonControllers: {
+    type: Array
   }
 })
 

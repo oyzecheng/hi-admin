@@ -42,8 +42,7 @@ export const table = useHiTable(
       buttonConfigList: [show, edit, del]
     }
   ],
-  { selection: true },
-  [batchDel]
+  { selection: true }
 )
 
 const input = useFormInput('名称', 'name')

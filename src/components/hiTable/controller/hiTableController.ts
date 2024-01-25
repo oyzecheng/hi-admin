@@ -14,15 +14,13 @@ export class HiTableController {
   private readonly columns: THiTableColumns
   private readonly config: IHiTableConfig
   private oldParams: { [k: string]: any }
-  private readonly selectedContainerButtonControllers: THiTableSelectedContainerButtonControllers
 
   constructor(
     loadData: THiTableLoadData | undefined,
     columns: THiTableColumns,
     tableData: IHiTableData['data'],
     selectedData: IHiTableSelectedData,
-    tableConfig: IHiTableConfig,
-    selectedContainerButtonControllers: THiTableSelectedContainerButtonControllers
+    tableConfig: IHiTableConfig
   ) {
     this.tableData = tableData
     this.loadData = loadData
@@ -30,7 +28,6 @@ export class HiTableController {
     this.columns = this.generateColumns(columns)
     this.config = this.setDefaultConfig(tableConfig)
     this.oldParams = {}
-    this.selectedContainerButtonControllers = selectedContainerButtonControllers
   }
 
   private generateColumns(columns: THiTableColumns) {
@@ -93,7 +90,6 @@ export class HiTableController {
       this.selectedData.selectionConfig = {
         columnWidth: 50,
         onSelect: (record, selected, selectedRows) => {
-          console.log(record)
           handleSelected(selected, [record])
         },
         onSelectAll: (selected, selectedRows, changeRows) => {
@@ -109,6 +105,15 @@ export class HiTableController {
 
   private setPagination(paginationConfig: IHiTableConfig['pagination']) {
     this.config.pagination = { ...this.config.pagination, ...paginationConfig }
+  }
+
+  init() {
+    this.config.loading.value = false
+    this.selectedData.selectedRows = []
+    this.selectedData.selectedRowKeys = []
+    if (this.selectedData.selectionConfig) {
+      this.selectedData.selectionConfig.selectedRowKeys = []
+    }
   }
 
   async reloadData(params: any = {}) {
@@ -131,8 +136,8 @@ export class HiTableController {
     }
   }
 
-  getSelectedContainerButtonControllers() {
-    return this.selectedContainerButtonControllers
+  getSelectedData() {
+    return this.selectedData
   }
 
   showLoading() {

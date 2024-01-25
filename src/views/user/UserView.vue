@@ -4,6 +4,7 @@
       :table-controller="table"
       :search-form-controller="searchForm"
       :top-button-controller="[newButton]"
+      :selected-container-button-controllers="[batchDel]"
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'name'">
@@ -35,9 +36,19 @@
 <script setup>
 import HiPage from '@/components/hiPage/HiPage.vue'
 import RenderSwitch from '@/components/hiForm/renders/RenderSwitch.vue'
-import { newButton, show, edit, table, searchForm, statusSwitch, del } from './pageConfig.ts'
+import {
+  newButton,
+  show,
+  edit,
+  table,
+  searchForm,
+  statusSwitch,
+  del,
+  batchDel
+} from './pageConfig.ts'
 import { useRouter } from 'vue-router'
 import { UserManageList, UserManageDelete } from '@/api/userManage.ts'
+import { Modal } from 'ant-design-vue'
 
 const router = useRouter()
 
@@ -65,6 +76,13 @@ del.onConfirm(async (controller) => {
   const { record } = controller.clickParams
   await UserManageDelete(record.id)
   table.reloadData()
+})
+
+batchDel.onClick(() => {
+  const { selectedRowKeys } = table.getSelectedData()
+  Modal.confirm({
+    content: '确定要删除选中的数据吗？'
+  })
 })
 </script>
 

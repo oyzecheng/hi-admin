@@ -52,7 +52,10 @@ export class GenerateList {
         page: dataPage,
         pageSize: dataPageSize,
         count: list.length,
-        list: [...list].slice((dataPage - 1) * pageSize, (dataPage - 1) * pageSize + pageSize)
+        list: [...list].slice(
+          (dataPage - 1) * dataPageSize,
+          (dataPage - 1) * dataPageSize + dataPageSize
+        )
       }
     }
   }

@@ -18,11 +18,13 @@
       </template>
     </a-table>
     <div class="hi-table-bottom">
-      <div class="selected-container">
-        <span class="text">已选中 45 项</span>
-        <HiButtonList :config-list="selectedContainerButtonControllers" />
+      <div>
+        <div class="selected-container" v-if="selectedRowKeys && selectedRowKeys.length">
+          <span class="text">已选中 {{ selectedRowKeys.length }} 项</span>
+          <HiButtonList :config-list="selectedContainerButtonControllers" />
+        </div>
       </div>
-      <a-pagination v-bind="pagination" />
+      <a-pagination v-bind="config.pagination" />
     </div>
   </div>
 </template>
@@ -30,22 +32,28 @@
 <script setup lang="ts">
 import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import { HiTableController } from '@/components/hiTable/controller/hiTableController'
-import { onMounted, toRefs } from 'vue'
+import { onMounted, type PropType, toRefs } from 'vue'
+import type { TButtonController } from '@/components/hiButton/types'
 
 const props = defineProps({
   controller: {
     type: HiTableController,
     required: true
+  },
+  selectedContainerButtonControllers: {
+    type: Array as PropType<TButtonController[]>,
+    default: () => []
   }
 })
 
 const { controller } = props
+controller?.init()
 const { tableData } = controller
 const columns = controller?.getColumns()
 const config = controller?.getConfig()
-const selectedContainerButtonControllers = controller?.getSelectedContainerButtonControllers()
-const { pagination } = toRefs(config)
-const { current, pageSize } = pagination?.value || {}
+const selectedData = controller?.getSelectedData()
+const { current, pageSize } = config.pagination || {}
+const { selectedRowKeys } = toRefs(selectedData)
 
 const { loading } = config
 
