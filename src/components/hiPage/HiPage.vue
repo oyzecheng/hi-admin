@@ -13,10 +13,10 @@
       :selected-container-button-controllers="selectedContainerButtonControllers"
     >
       <template #bodyCell="{ column, record }">
-        <slot name="bodyCell" :column="column" :record="record"></slot>
+        <slot name="bodyCell" :column="column" :record="record" />
       </template>
       <template #headerCell="{ column }">
-        <slot name="headerCell" :column="column"></slot>
+        <slot name="headerCell" :column="column" />
       </template>
     </HiTable>
   </div>

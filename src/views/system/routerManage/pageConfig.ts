@@ -1,6 +1,10 @@
 import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
 import { useFormInput, useFormSwitch, useHiForm } from '@/components/hiForm'
-import { useHiSmallPrimaryTextButton, useHISmallTextButton } from '@/components/hiButton'
+import {
+  useHiPrimaryButton,
+  useHiSmallPrimaryTextButton,
+  useHISmallTextButton
+} from '@/components/hiButton'
 import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfirmButton'
 import RouterIcon from '@/router/routerIcon'
 
@@ -11,6 +15,7 @@ export const searchController = useHiForm([routerName], { layout: 'inline' })
 export const createRouter = useHiSmallPrimaryTextButton('创建路由')
 export const createButton = useHISmallTextButton('按钮管理')
 export const delRouter = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
+export const topCreateRouter = useHiPrimaryButton('创建路由')
 
 export const tableController = useHiTable(
   [

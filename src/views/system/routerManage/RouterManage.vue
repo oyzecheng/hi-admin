@@ -1,5 +1,9 @@
 <template>
-  <HiPage :search-form-controller="searchController" :table-controller="tableController">
+  <HiPage
+    :search-form-controller="searchController"
+    :table-controller="tableController"
+    :top-button-controller="[topCreateRouter]"
+  >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'icon'"><component :is="renderIcon(record)" /></template>
       <template v-if="column.key === 'hidden'">
@@ -16,7 +20,8 @@ import {
   tableController,
   createRouter,
   delRouter,
-  routeSwitch
+  routeSwitch,
+  topCreateRouter
 } from './pageConfig'
 import RouterIcon from '@/router/routerIcon'
 import { useRouter } from 'vue-router'
@@ -38,9 +43,11 @@ const renderIcon = (record: any) => {
   return icon ? icon() : undefined
 }
 
-createRouter.onClick(() => {
+const goToRouterManageNew = () => {
   router.push({ name: 'routerManageNew' })
-})
+}
+createRouter.onClick(goToRouterManageNew)
+topCreateRouter.onClick(goToRouterManageNew)
 
 delRouter.onConfirm(() => {
   return new Promise((resolve) => {
