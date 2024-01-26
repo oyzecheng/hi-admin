@@ -1,18 +1,12 @@
-import { useFormRulesInput, useHiForm } from '@/components/hiForm'
-import { useFormSlot } from '@/components/hiForm/hooks/useFormSlot'
+import { useFormInput, useFormRulesInput, useHiForm } from '@/components/hiForm'
 
-const routerName = useFormRulesInput('路由名称', 'routerName')
-const name = useFormRulesInput('路由Name', 'name')
-const path = useFormRulesInput('路由Path', 'path')
-const componentName = useFormRulesInput('组件名', 'componentName')
+const pageName = useFormRulesInput('页面名称', 'pageName', { rules: true })
+const routeName = useFormRulesInput('路由名称', 'routerName', { rules: true })
+const RoutePath = useFormInput('路由路径', 'routePath')
+const componentName = useFormRulesInput('组件名', 'componentName', { rules: true })
 const iconName = useFormRulesInput('图标', 'iconName')
-const buttons = useFormSlot('按钮', 'buttons')
 
-export const newFormController = useHiForm([
-  routerName,
-  name,
-  path,
-  componentName,
-  iconName,
-  buttons
-])
+export const newFormController = useHiForm(
+  [pageName, routeName, RoutePath, componentName, iconName],
+  { layoutCol: 2, buttonListOffset: 3 }
+)

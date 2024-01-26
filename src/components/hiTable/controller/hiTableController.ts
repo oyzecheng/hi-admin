@@ -46,10 +46,12 @@ export class HiTableController {
 
   private setDefaultConfig(config: IHiTableConfig) {
     config.rowKey = 'id'
-    config.pagination = {
-      showTotal: (total) => `共${total}条数据`,
-      onChange: (page, pageSize) => {
-        this.reloadData({ ...this.oldParams, page: page, pageSize })
+    if (config.pagination !== false) {
+      config.pagination = {
+        showTotal: (total) => `共${total}条数据`,
+        onChange: (page, pageSize) => {
+          this.reloadData({ ...this.oldParams, page: page, pageSize })
+        }
       }
     }
     if (config.scroll) {
@@ -121,13 +123,16 @@ export class HiTableController {
       this.showLoading()
       try {
         const { data } = await this.loadData(params)
+        console.log('data', data)
         this.oldParams = params
         const { page, pageSize, count, list } = data
         this.tableData.list = list
         this.tableData.page = page
         this.tableData.pageSize = pageSize
         this.tableData.count = count
-        this.setPagination({ total: count, current: page, pageSize })
+        if (this.config.pagination !== false) {
+          this.setPagination({ total: count, current: page, pageSize })
+        }
       } finally {
         this.hideLoading()
       }

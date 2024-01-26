@@ -19,7 +19,7 @@ export const useHiTable = (
   const tableData = reactive({ page: 0, pageSize: 0, count: 0, list: [] })
 
   const loading = ref(config.loading || false)
-  const pagination = reactive(config.pagination || {})
+  const pagination = config.pagination === false ? false : reactive(config.pagination || {})
   const scroll = reactive(config.scroll || {})
   const selectedData = reactive<IHiTableSelectedData>({
     selectedRowKeys: [],

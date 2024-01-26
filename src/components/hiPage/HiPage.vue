@@ -1,5 +1,5 @@
 <template>
-  <div class="hi-page">
+  <div class="hi-page" ref="pageRef">
     <div class="search-box">
       <HiForm
         v-if="searchFormController"
@@ -9,7 +9,6 @@
       <HiButtonList v-if="topButtonController" :config-list="topButtonController" />
     </div>
     <HiTable
-      ref="tableRef"
       :controller="tableController"
       :selected-container-button-controllers="selectedContainerButtonControllers"
     >
@@ -54,7 +53,7 @@ const props = defineProps({
 
 const { tableController, searchFormController } = props
 const changeMap = new Map()
-const tableRef = ref(null)
+const pageRef = ref(null)
 let resizeObserver = null
 
 const clearButton = useHiButton('clear', {
@@ -112,10 +111,12 @@ const overrideSearchFormItemOnChange = () => {
 overrideSearchFormItemOnChange()
 
 const setScroll = () => {
-  const table = tableRef.value.$el
+  const page = pageRef.value
+  const table = page.querySelector('.hi-table')
   const tbody = table.querySelector('.ant-table-tbody')
+  const tableBottom = table.querySelector('.hi-table-bottom')
   const rect = tbody.getBoundingClientRect()
-  const value = window.innerHeight - rect.top - 100
+  const value = window.innerHeight - rect.top - (tableBottom.offsetHeight + 40)
   const scroll = tableController.getConfigItemByKey('scroll')
   scroll.y = value
 }

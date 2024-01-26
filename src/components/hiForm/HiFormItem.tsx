@@ -12,16 +12,17 @@ interface IHiFormItemProps {
   config: TFormItemControllers | TFormItemControllers[]
   formData: TFormData
   rules: TFormRules
+  layoutCol?: number
 }
 
-const HiFormItem = ({ config, formData, rules }: IHiFormItemProps) => {
+const HiFormItem = ({ config, formData, rules, layoutCol }: IHiFormItemProps) => {
   if (Array.isArray(config)) {
     return (
       <a-row gutter={[16, 16]}>
         {config.map((controller) => {
           const { colSpan } = controller.getConfig()
           return (
-            <a-col key={controller.model} span={colSpan || 24 / config.length}>
+            <a-col key={controller.model} span={colSpan || 24 / (layoutCol || config.length)}>
               {renderItem({ controller, formData, itemRules: rules[controller.model] })}
             </a-col>
           )

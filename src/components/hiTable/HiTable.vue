@@ -24,7 +24,7 @@
           <HiButtonList :config-list="selectedContainerButtonControllers" />
         </div>
       </div>
-      <a-pagination v-bind="config.pagination" />
+      <a-pagination v-if="config.pagination" v-bind="config.pagination" />
     </div>
   </div>
 </template>

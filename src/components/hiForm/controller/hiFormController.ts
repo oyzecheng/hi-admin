@@ -107,7 +107,7 @@ export class HiFormController {
         } else {
           tempList.push(item)
         }
-        if (tempList.length >= layoutCol) {
+        if (tempList.length >= layoutCol || (i === this.configList.length - 1 && tempList.length)) {
           result.push([...tempList])
           tempList = []
         }

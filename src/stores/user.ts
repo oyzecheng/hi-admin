@@ -1,16 +1,23 @@
 import { defineStore } from 'pinia'
 import { reactive, shallowRef } from 'vue'
 import { type RouteRecordRaw } from 'vue-router'
-import { privateRoutes, layoutRoute } from '@/router/routes'
-import { generateItems } from '@/router/tools'
+import { layoutRoute } from '@/router/routes'
+import { formatToRoute, generateItems } from '@/router/tools'
 import router from '@/router'
-import { UserInfo } from '@/api/user'
+import { UserInfo, UserRoutes } from '@/api/user'
 
 export const useUserStore = defineStore('user', () => {
   const userRoutes = shallowRef<RouteRecordRaw[]>([])
   const info = reactive<any>({ userMenus: [], userInfo: null })
 
-  const getUserRoutes = () => {}
+  const getUserRoutes = async () => {
+    const { data } = await UserRoutes()
+    const userRouteList = formatToRoute(data)
+    layoutRoute.children = userRouteList
+    router.addRoute(layoutRoute)
+    router.replace(window.location.pathname + window.location.search)
+    info.userMenus = generateItems(userRouteList)
+  }
 
   const getUserInfo = async () => {
     const { data } = await UserInfo()
@@ -18,9 +25,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const initUserConfig = () => {
-    layoutRoute.children = privateRoutes
-    router.addRoute(layoutRoute)
-    info.userMenus = generateItems(privateRoutes)
+    getUserRoutes()
     info.userInfo = {}
     getUserInfo()
   }

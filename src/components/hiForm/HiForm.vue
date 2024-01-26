@@ -16,6 +16,7 @@
         :config="item"
         :formData="formData"
         :rules="rules"
+        :layoutCol="formConfig.layoutCol"
       >
         <template v-for="item in Object.keys(slots) || []" :key="item" v-slot:[item]="{ config }">
           <slot :name="item" :config="config" />
@@ -58,7 +59,7 @@ const formData = controller?.getFormData()
 const rules = controller?.getRules()
 const configList = controller?.getConfigList()
 const formConfig = controller?.getConfig()
-const wrapperColOffset = formConfig.labelCol?.span || 4
+const wrapperColOffset = formConfig.buttonListOffset || formConfig.labelCol?.span || 4
 
 const confirmButton = useHiButton('确定', { type: 'primary', htmlType: 'submit' })
 const cancelButton = useHiButton('取消')

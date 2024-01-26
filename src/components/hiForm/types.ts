@@ -57,6 +57,7 @@ type Size = 'large' | 'middle' | 'small'
 
 export interface IHiForm extends FormProps {
   layoutCol?: number
+  buttonListOffset?: number
 }
 
 export interface IFormItemRule {

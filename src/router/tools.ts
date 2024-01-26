@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import RouterIcon from '@/router/routerIcon'
+import routerResource from '@/router/routerResource'
 
 export const generateItems = (list: RouteRecordRaw[] = [], parent: any = null): any[] => {
   return list
@@ -15,4 +16,31 @@ export const generateItems = (list: RouteRecordRaw[] = [], parent: any = null): 
         : undefined,
       icon: RouterIcon[item.meta?.icon as string]
     }))
+}
+
+export const formatToRoute = (list = []): any[] => {
+  return list.map((item) => {
+    const {
+      routeName,
+      routePath,
+      componentName,
+      pageTitle,
+      hidden,
+      routeIcon,
+      redirectRouteName,
+      children
+    } = item
+    return {
+      name: routeName,
+      path: routePath,
+      component: routerResource[componentName],
+      redirect: redirectRouteName
+        ? () => {
+            return { name: redirectRouteName }
+          }
+        : undefined,
+      children: children ? formatToRoute(children) : undefined,
+      meta: { title: pageTitle, hidden, icon: routeIcon }
+    }
+  })
 }

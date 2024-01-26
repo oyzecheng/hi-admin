@@ -9,9 +9,9 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from) => {
-  const router = useRouter()
-  const userStore = useUserStore()
+router.beforeEach(async (to, from) => {
+  // const router = useRouter()
+  // const userStore = useUserStore()
 
   const token = GetItem(USER_TOKEN)
   if (!token && to.name !== 'login') {
@@ -20,10 +20,10 @@ router.beforeEach((to, from) => {
   if (token && to.name === 'login') {
     return { path: '/' }
   }
-  if (token && !userStore.info.userInfo) {
-    userStore.initUserConfig()
-    router.replace({ path: to.path })
-  }
+  // if (token && !userStore.info.userInfo) {
+  //   await userStore.initUserConfig()
+  //   router.replace({ path: to.path, query: to.query })
+  // }
 })
 
 export default router

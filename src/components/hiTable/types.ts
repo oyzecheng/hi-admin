@@ -23,6 +23,7 @@ export interface IHiTableData {
 export interface IHiTableConfig extends Omit<TableProps, 'loading'> {
   loading: Ref<boolean>
   selection?: boolean
+  pagination?: false | TableProps['pagination']
 }
 
 export type THiTableLoadData = (params: any) => Promise<IHiTableData>
