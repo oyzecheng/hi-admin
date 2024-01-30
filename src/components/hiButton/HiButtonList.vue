@@ -14,6 +14,7 @@
 import HiButton from '@/components/hiButton/HiButton.vue'
 import HIPopConfirmButton from '@/components/hiButton/HIPopConfirmButton.vue'
 import type { TButtonController } from '@/components/hiButton/types'
+import { toRefs } from 'vue'
 
 const props = defineProps({
   configList: {
@@ -26,7 +27,7 @@ const props = defineProps({
   }
 })
 
-const { configList, clickParams } = props
+const { configList, clickParams } = toRefs(props)
 
 const setComponent = (controller: TButtonController) => {
   return controller.type === 'popConfirmButton' ? HIPopConfirmButton : HiButton

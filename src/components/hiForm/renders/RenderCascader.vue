@@ -24,6 +24,7 @@
     :size="size"
     :suffixIcon="suffixIcon"
     :options="cascaderChilcren"
+    :style="style"
     @change="onChange"
   />
 </template>
@@ -68,7 +69,8 @@ const {
   status,
   size,
   suffixIcon,
-  onChange
+  onChange,
+  style
 } = config
 const cascaderChilcren =
   children && 'getChildren' in children ? children.getChildren() : children || []

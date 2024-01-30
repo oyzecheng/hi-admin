@@ -1,10 +1,12 @@
-import type { IHiDicOption, THiDicChildren, THiDicValue } from '@/components/hiDic/types'
+import type { IHiDicOption, THiDicChildren, THiDicValue, TLoadFn } from '@/components/hiDic/types'
 
 export class HiDicController {
   private readonly children: THiDicChildren
+  private loadFn?: TLoadFn
 
   constructor(children: THiDicChildren) {
     this.children = children
+    this.loadFn = undefined
   }
 
   addOption(option: IHiDicOption) {
@@ -16,6 +18,16 @@ export class HiDicController {
     if (option) {
       option.disabled = disabled
     }
+  }
+
+  private deepLoopList(list: any[], formatLabelKey: string, formatValueKey: string) {
+    list.forEach((item) => {
+      if (formatLabelKey) item.label = item[formatLabelKey]
+      if (formatValueKey) item.value = item[formatValueKey]
+      if (item.children) {
+        this.deepLoopList(item.children, formatLabelKey, formatValueKey)
+      }
+    })
   }
 
   showOptionDisabled(value: THiDicValue) {
@@ -41,5 +53,22 @@ export class HiDicController {
   getLabelByValue(value: THiDicValue) {
     const item = this.findOptionByValue(value)
     return item?.label
+  }
+
+  setLoadFn(loadFn: TLoadFn, formatLabelKey?: string, formatValueKey?: string) {
+    this.loadFn = async () => {
+      const result = await loadFn()
+      if (formatLabelKey || formatValueKey) {
+        this.deepLoopList(result, formatLabelKey || '', formatValueKey || '')
+      }
+      this.clearChildren()
+      this.children.push(...result)
+      return result
+    }
+    this.runLoadFn()
+  }
+
+  runLoadFn() {
+    this.loadFn?.()
   }
 }

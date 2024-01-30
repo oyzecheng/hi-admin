@@ -21,5 +21,8 @@ export default {
   RouterManageNewView: () => import('@/views/system/routerManage/new/RouterManageNewView.vue'),
 
   // 错误页
-  Error404View: () => import('@/views/errors/Error404View.vue')
+  Error404View: () => import('@/views/errors/Error404View.vue'),
+
+  // 自定义页面
+  CustomPageView: () => import('@/views/customPage/CustomPageView.vue')
 }

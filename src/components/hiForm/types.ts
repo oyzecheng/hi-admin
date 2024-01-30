@@ -57,6 +57,7 @@ type Size = 'large' | 'middle' | 'small'
 
 export interface IHiForm extends FormProps {
   layoutCol?: number
+  layout?: 'horizontal' | 'vertical' | 'inline'
   buttonListOffset?: number
 }
 
@@ -110,6 +111,7 @@ export interface IFormItemBase {
   // row col
   colSpan?: number
   rowGutter?: RowProps['gutter']
+  defaultValue?: any
 }
 
 export interface IFormInput extends IFormItemBase {

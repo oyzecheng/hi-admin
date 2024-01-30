@@ -12,6 +12,7 @@ export const useUserStore = defineStore('user', () => {
 
   const getUserRoutes = async () => {
     const { data } = await UserRoutes()
+    userRoutes.value = data
     const userRouteList = formatToRoute(data)
     layoutRoute.children = userRouteList
     router.addRoute(layoutRoute)

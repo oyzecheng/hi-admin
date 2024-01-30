@@ -1,11 +1,13 @@
 <template>
   <div class="hi-page" ref="pageRef">
     <div class="search-box">
-      <HiForm
-        v-if="searchFormController"
-        :controller="searchFormController"
-        :buttonConfig="[clearButton]"
-      />
+      <div>
+        <HiForm
+          v-if="searchFormController"
+          :controller="searchFormController"
+          :buttonConfig="[clearButton]"
+        />
+      </div>
       <HiButtonList v-if="topButtonController" :config-list="topButtonController" />
     </div>
     <HiTable
@@ -23,7 +25,7 @@
 </template>
 
 <script setup>
-import { h, onBeforeUnmount, onMounted, ref } from 'vue'
+import { h, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
 import HiTable from '@/components/hiTable/HiTable.vue'
 import HiForm from '@/components/hiForm/HiForm.vue'
 import HiButtonList from '@/components/hiButton/HiButtonList.vue'
@@ -51,7 +53,12 @@ const props = defineProps({
   }
 })
 
-const { tableController, searchFormController } = props
+const {
+  tableController,
+  searchFormController,
+  topButtonController,
+  selectedContainerButtonControllers
+} = toRefs(props)
 const changeMap = new Map()
 const pageRef = ref(null)
 let resizeObserver = null
@@ -64,9 +71,9 @@ const clearButton = useHiButton('clear', {
   className: 'clear-button'
 })
 clearButton.onClick(() => {
-  searchFormController && searchFormController.resetFields()
+  searchFormController.value && searchFormController.value.resetFields()
   clearButtonIsShow()
-  tableController.reloadData()
+  tableController.value.reloadData()
 })
 
 onMounted(() => {
@@ -81,7 +88,7 @@ onBeforeUnmount(() => {
 })
 
 const clearButtonIsShow = () => {
-  const formData = searchFormController?.getFormData() || {}
+  const formData = searchFormController.value?.getFormData() || {}
   for (const key in formData) {
     const item = formData[key]
     if (item !== undefined && item !== '') {
@@ -93,7 +100,7 @@ const clearButtonIsShow = () => {
 }
 
 const overrideSearchFormItemOnChange = () => {
-  const controllerList = searchFormController?.getConfigList() || []
+  const controllerList = searchFormController.value?.getConfigList() || []
 
   for (const item of controllerList) {
     changeMap.set(item.key, item.getConfigItemByKey('onChange'))
@@ -103,7 +110,7 @@ const overrideSearchFormItemOnChange = () => {
         const result = changeMap.get(item.key)
         result && result(value)
         clearButtonIsShow()
-        tableController.reloadData(searchFormController?.getFormData() || {})
+        tableController.value.reloadData(searchFormController.value?.getFormData() || {})
       })
     )
   }
@@ -117,7 +124,7 @@ const setScroll = () => {
   const tableBottom = table.querySelector('.hi-table-bottom')
   const rect = tbody.getBoundingClientRect()
   const value = window.innerHeight - rect.top - (tableBottom.offsetHeight + 40)
-  const scroll = tableController.getConfigItemByKey('scroll')
+  const scroll = tableController.value.getConfigItemByKey('scroll')
   scroll.y = value
 }
 </script>

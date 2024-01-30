@@ -9,8 +9,4 @@ export class HiFormSwitchController extends HiFormItemController<IFormSwitch> {
   getDefaultRule(): IFormItemRule {
     return { ...super.getDefaultRule(), message: `请选择${this.config.label}`, trigger: 'change' }
   }
-
-  getDefaultValue(): string | [] | number | undefined | boolean {
-    return false
-  }
 }

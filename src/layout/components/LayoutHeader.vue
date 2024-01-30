@@ -12,7 +12,7 @@
     </div>
     <div class="system-operation">
       <SettingFilled class="setting" @click="handleSettingClick" />
-      <a-dropdown trigger="click" arrow v-model:open="state.menuOpen">
+      <a-dropdown trigger="click" v-model:open="state.menuOpen">
         <div :class="{ avatar: true, 'avatar-active': state.menuOpen }">
           <a-avatar>Y</a-avatar>
         </div>

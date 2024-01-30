@@ -119,5 +119,13 @@ export const routeData = [
         pageTitle: '404'
       }
     ]
+  },
+  {
+    id: Random.guid(),
+    routeName: 'customPage',
+    routePath: '/customPage',
+    componentName: 'CustomPageView',
+    pageTitle: '自定义页面',
+    routeIcon: 'customPage'
   }
 ]
