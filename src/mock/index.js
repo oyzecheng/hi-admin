@@ -1,4 +1,6 @@
-import Mock from 'mockjs'
+import Mock from 'mockjs-async'
+
+import './db'
 
 import './services/user.js'
 import './services/userManage.js'

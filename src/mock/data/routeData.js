@@ -1,4 +1,4 @@
-import Mock from 'mockjs'
+import Mock from 'mockjs-async'
 const Random = Mock.Random
 
 export const routeData = [
@@ -8,7 +8,8 @@ export const routeData = [
     routePath: '/',
     componentName: 'HomeView',
     pageTitle: '首页',
-    routeIcon: 'home'
+    routeIcon: 'home',
+    sort: 1
   },
   {
     id: Random.guid(),
@@ -16,7 +17,8 @@ export const routeData = [
     routePath: '/form',
     componentName: 'FormView',
     pageTitle: '表单',
-    routeIcon: 'form'
+    routeIcon: 'form',
+    sort: 2
   },
   {
     id: Random.guid(),
@@ -24,7 +26,8 @@ export const routeData = [
     routePath: '/table',
     componentName: 'TableView',
     pageTitle: '表格',
-    routeIcon: 'table'
+    routeIcon: 'table',
+    sort: 3
   },
   {
     id: Random.guid(),
@@ -34,34 +37,39 @@ export const routeData = [
     pageTitle: '用户',
     routeIcon: 'user',
     redirectRouteName: 'userList',
+    sort: 4,
     children: [
       {
         id: Random.guid(),
         routeName: 'userList',
         routePath: '',
         componentName: 'UserView',
-        pageTitle: '列表'
+        pageTitle: '列表',
+        sort: 1
       },
       {
         id: Random.guid(),
         routeName: 'userNew',
         routePath: 'new',
         componentName: 'UserNewView',
-        pageTitle: '创建'
+        pageTitle: '创建',
+        sort: 2
       },
       {
         id: Random.guid(),
         routeName: 'userEdit',
         routePath: ':id',
         componentName: 'UserNewView',
-        pageTitle: '编辑'
+        pageTitle: '编辑',
+        sort: 3
       },
       {
         id: Random.guid(),
         routeName: 'userDetail',
         routePath: 'detail/:id',
         componentName: 'UserDetailView',
-        pageTitle: '详情'
+        pageTitle: '详情',
+        sort: 4
       }
     ]
   },
@@ -73,6 +81,7 @@ export const routeData = [
     pageTitle: '系统',
     routeIcon: 'system',
     redirectRouteName: 'routerManage',
+    sort: 5,
     children: [
       {
         id: Random.guid(),
@@ -81,6 +90,7 @@ export const routeData = [
         componentName: 'RouterView',
         pageTitle: '路由管理',
         redirectRouteName: 'routerManageList',
+        sort: 1,
         children: [
           {
             id: Random.guid(),
@@ -88,7 +98,8 @@ export const routeData = [
             routePath: '',
             componentName: 'RouterManage',
             pageTitle: '列表',
-            hidden: true
+            hidden: true,
+            sort: 1
           },
           {
             id: Random.guid(),
@@ -96,7 +107,8 @@ export const routeData = [
             routePath: 'new',
             componentName: 'RouterManageNewView',
             pageTitle: '创建',
-            hidden: true
+            hidden: true,
+            sort: 2
           }
         ]
       }
@@ -110,13 +122,15 @@ export const routeData = [
     pageTitle: '错误页',
     routeIcon: 'error',
     redirectRouteName: 'error404',
+    sort: 6,
     children: [
       {
         id: Random.guid(),
         routeName: 'error404',
         routePath: '404',
         componentName: 'Error404View',
-        pageTitle: '404'
+        pageTitle: '404',
+        sort: 1
       }
     ]
   },
@@ -126,6 +140,7 @@ export const routeData = [
     routePath: '/customPage',
     componentName: 'CustomPageView',
     pageTitle: '自定义页面',
-    routeIcon: 'customPage'
+    routeIcon: 'customPage',
+    sort: 7
   }
 ]

@@ -1,4 +1,4 @@
-import Mock from 'mockjs'
+import Mock from 'mockjs-async'
 import { builder } from '@/mock/util.js'
 import { routeData } from '@/mock/data/routeData.js'
 

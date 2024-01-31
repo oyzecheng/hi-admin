@@ -1,28 +1,19 @@
-import Mock from 'mockjs'
-import { GenerateList } from '@/mock/util.js'
-const Random = Mock.Random
+import { mockDb } from '@/mock/db/index.js'
+import Mock from 'mockjs-async'
+import { getBody, getQueryParams, getUrlId } from '@/mock/util.js'
 
-const userList = new GenerateList((count) =>
-  new Array(count).fill('').map(() => ({
-    id: Random.guid(),
-    name: Random.cname(),
-    email: Random.email(),
-    status: Random.integer(1, 2),
-    role: Random.integer(1, 2),
-    address: Random.county(true),
-    avatar: `https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_${Random.integer(
-      1,
-      25
-    )}.jpg`
-  }))
+Mock.mock(/\/userManageDetail/, 'get', (options) =>
+  mockDb.userManage.getItemById(getUrlId(options))
 )
 
-Mock.mock(/\/userManageDetail/, 'get', (options) => userList.getDetail(options))
+Mock.mock(/\/userManage/, 'get', (options) => mockDb.userManage.getList(getQueryParams(options)))
 
-Mock.mock(/\/userManage/, 'get', (options) => userList.getResult(options))
+Mock.mock(/\/userManage/, 'delete', (options) =>
+  mockDb.userManage.deleteItemById(getUrlId(options))
+)
 
-Mock.mock(/\/userManage/, 'delete', (options) => userList.deleteItem(options))
+Mock.mock(/\/userManageUpdate/, 'post', (options) =>
+  mockDb.userManage.updateItem(getUrlId(options), getBody(options))
+)
 
-Mock.mock(/\/userManageUpdate/, 'post', (options) => userList.updateItem(options))
-
-Mock.mock(/\/userManage/, 'post', (options) => userList.addItem(options))
+Mock.mock(/\/userManage/, 'post', (options) => mockDb.userManage.add(getBody(options)))

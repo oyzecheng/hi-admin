@@ -70,16 +70,26 @@ watch(
   { immediate: true }
 )
 
-newUserButton.onClick(async () => {
+newUserButton.onClick(async (controller) => {
   const formData = await newUserForm.validate()
-  await UserManageAdd(formData)
-  router.push({ name: 'user' })
+  controller.showLoading()
+  try {
+    await UserManageAdd(formData)
+    router.push({ name: 'user' })
+  } finally {
+    controller.hideLoading()
+  }
 })
 
 editUserButton.onClick(async (controller) => {
   const formData = await newUserForm.validate()
-  await UserManageUpdate(route.params.id, formData)
-  router.push({ name: 'user' })
+  controller.showLoading()
+  try {
+    await UserManageUpdate(route.params.id, formData)
+    router.push({ name: 'user' })
+  } finally {
+    controller.hideLoading()
+  }
 })
 </script>
 

@@ -3,8 +3,7 @@ import type {
   IHiTableData,
   IHiTableSelectedData,
   THiTableColumns,
-  THiTableLoadData,
-  THiTableSelectedContainerButtonControllers
+  THiTableLoadData
 } from '@/components/hiTable/types'
 
 export class HiTableController {
@@ -122,7 +121,7 @@ export class HiTableController {
     if (this.loadData) {
       this.showLoading()
       try {
-        const { data } = await this.loadData(params)
+        const { data } = (await this.loadData(params)) || {}
         console.log('data', data)
         this.oldParams = params
         const { page, pageSize, count, list } = data

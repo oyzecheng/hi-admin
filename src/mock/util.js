@@ -1,4 +1,4 @@
-import Mock from 'mockjs'
+import Mock from 'mockjs-async'
 import qs from 'qs'
 const Random = Mock.Random
 
@@ -107,7 +107,7 @@ export const getUrlId = (options) => {
 export const getBody = (options) => {
   const { body } = options
   try {
-    return JSON.parse(body)
+    return { id: Random.guid(), ...JSON.parse(body) }
   } catch (err) {
     return {}
   }
