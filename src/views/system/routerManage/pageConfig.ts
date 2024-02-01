@@ -1,20 +1,12 @@
 import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
-import { useFormInput, useFormSwitch, useHiForm } from '@/components/hiForm'
-import {
-  useHiPrimaryButton,
-  useHiSmallPrimaryTextButton,
-  useHISmallTextButton
-} from '@/components/hiButton'
+import { useFormSwitch } from '@/components/hiForm'
+import { useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
 import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfirmButton'
 import RouterIcon from '@/router/routerIcon'
 
-const routerName = useFormInput('路由名称', 'routerName')
-
-export const searchController = useHiForm([routerName], { layout: 'inline' })
-
-export const createRouter = useHiSmallPrimaryTextButton('创建路由')
 export const createButton = useHISmallTextButton('按钮管理')
 export const delRouter = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
+export const editRouter = useHISmallTextButton('编辑')
 export const topCreateRouter = useHiPrimaryButton('创建路由')
 
 export const tableController = useHiTable(
@@ -29,15 +21,16 @@ export const tableController = useHiTable(
     {
       title: '图标',
       key: 'routeIcon',
+      width: 80,
       customRender: ({ value }) => (value ? RouterIcon[value]() : '')
     },
-    { title: '显示/隐藏', key: 'hidden' },
+    { title: '显示/隐藏', key: 'hidden', width: 100 },
     {
       title: '操作',
       key: 'action',
-      buttonConfigList: [createRouter, createButton, delRouter],
+      buttonConfigList: [editRouter, createButton, delRouter],
       fixed: 'right',
-      width: 250
+      width: 220
     }
   ],
   { pagination: false }

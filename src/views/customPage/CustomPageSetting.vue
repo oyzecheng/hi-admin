@@ -7,7 +7,8 @@
     :maskStyle="{ backgroundColor: 'transparent' }"
     @close="handleClose"
   >
-    <TopButton ref="topButtonRef" :controller="controller" />
+    <TopButton :controller="controller" />
+    <TopFilter :controller="controller" />
     <template #footer>
       <HiButtonList :config-list="[drawerFooterCancel, drawerFooterConfirm]" />
     </template>
@@ -17,6 +18,7 @@
 <script setup lang="ts">
 import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import TopButton from '@/views/customPage/components/TopButton.vue'
+import TopFilter from '@/views/customPage/components/TopFilter.vue'
 import { drawerFooterCancel, drawerFooterConfirm } from './pageConfig'
 import { CustomPageController } from '@/views/customPage/controller/customPageController'
 
@@ -36,9 +38,9 @@ const handleClose = () => {
 
 drawerFooterCancel.onClick(handleClose)
 drawerFooterConfirm.onClick(() => {
-  const buttonList = controller?.getTopButtonList()
+  const { topButtonList, topFilterList } = controller.getPageConfig()
 
-  emits('onConfirm', { topButton: buttonList })
+  emits('onConfirm', { topButtonList, topFilterList })
 })
 </script>
 

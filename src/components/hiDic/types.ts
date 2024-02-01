@@ -9,4 +9,4 @@ export type THiDicValue = string | number
 
 export type THiDicChildren = IHiDicOption[]
 
-export type TLoadFn = () => Promise<any[]> | []
+export type TLoadFn = () => Promise<any[]> | any[]

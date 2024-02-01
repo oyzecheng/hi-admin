@@ -1,11 +1,11 @@
 import Mock from 'mockjs-async'
-import { builder, getBody } from '@/mock/util.js'
-import { routeData } from '@/mock/data/routeData.js'
+import { builder, getBody, getUrlId } from '@/mock/util.js'
 import { mockDb } from '@/mock/db/index.js'
 
-const Random = Mock.Random
+Mock.mock(/^\/router\/[a-zA-Z0-9-]+$/, 'get', (options) =>
+  mockDb.routerManage.getItemById(getUrlId(options))
+)
 
-// Mock.mock(/\/router/, 'get', () => builder(routeData))
 Mock.mock(/\/router/, 'get', () => {
   return new Promise((resolve) => {
     mockDb.routerManage.getSortAll().then((list) => {
@@ -14,8 +14,12 @@ Mock.mock(/\/router/, 'get', () => {
   })
 })
 
-Mock.mock(/\/router/, 'post', (options) => {
-  const body = getBody(options)
-  body.id = Random.guid()
-  routeData.push(body)
-})
+Mock.mock(/^\/router\/[a-zA-Z0-9-]+$/, 'post', (options) =>
+  mockDb.routerManage.updateItem(getUrlId(options), getBody(options))
+)
+
+Mock.mock(/^\/router$/, 'post', (options) => mockDb.routerManage.add(getBody(options)))
+
+Mock.mock(/^\/router\/[a-zA-Z0-9-]+$/, 'delete', (options) =>
+  mockDb.routerManage.deleteItemById(getUrlId(options))
+)

@@ -1,5 +1,6 @@
 import { UserManage } from '@/mock/db/userManage.js'
 import { RouterManage } from '@/mock/db/routerManage.js'
+import { CustomPage } from '@/mock/db/customPage.js'
 
 const dbName = 'mockDb'
 
@@ -10,6 +11,7 @@ class Db {
 
     this.userManage = new UserManage()
     this.routerManage = new RouterManage()
+    this.customPage = new CustomPage()
   }
 
   initDb() {
@@ -30,6 +32,7 @@ class Db {
   initTable() {
     this.userManage.init(this.dbServer)
     this.routerManage.init(this.dbServer)
+    this.customPage.init(this.dbServer)
   }
 
   removeDb() {

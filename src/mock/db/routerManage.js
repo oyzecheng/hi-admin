@@ -27,8 +27,7 @@ export class RouterManage extends Table {
     }
   }
 
-  async getSortAll() {
-    const list = await super.getSortAll()
+  generateRouterTree(list) {
     const obj = {}
     list.forEach((item) => {
       obj[item.id] = item
@@ -47,5 +46,15 @@ export class RouterManage extends Table {
       }
     })
     return parentList.sort((a, b) => a.sort - b.sort)
+  }
+
+  async getSortAll() {
+    const list = await super.getAll()
+    return this.generateRouterTree(list)
+  }
+
+  async getUserRouter() {
+    const list = await super.getAll()
+    return this.generateRouterTree(list)
   }
 }

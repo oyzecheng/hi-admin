@@ -1,13 +1,13 @@
 <template>
-  <HiPage
-    :search-form-controller="searchController"
-    :table-controller="tableController"
-    :top-button-controller="[topCreateRouter]"
-  >
+  <HiPage :table-controller="tableController" :top-button-controller="[topCreateRouter]">
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'icon'"><component :is="renderIcon(record)" /></template>
       <template v-if="column.key === 'hidden'">
-        <RenderSwitch :controller="routeSwitch" :value="record.hidden !== true" />
+        <RenderSwitch
+          :controller="routeSwitch"
+          :value="record.hidden !== true"
+          @update:value="(val) => handleChangeSwitch(val, record)"
+        />
       </template>
     </template>
   </HiPage>
@@ -15,24 +15,17 @@
 
 <script setup lang="ts">
 import HiPage from '@/components/hiPage/HiPage.vue'
-import {
-  searchController,
-  tableController,
-  createRouter,
-  delRouter,
-  routeSwitch,
-  topCreateRouter
-} from './pageConfig'
+import { tableController, delRouter, routeSwitch, topCreateRouter, editRouter } from './pageConfig'
 import RouterIcon from '@/router/routerIcon'
 import { useRouter } from 'vue-router'
-import { RouterList } from '@/api/router'
+import { RouterDelete, RouterList, RouterUpdate } from '@/api/router'
 import RenderSwitch from '@/components/hiForm/renders/RenderSwitch.vue'
 
 const router = useRouter()
 
-tableController.setLoadData(() => {
+tableController.setLoadData((params) => {
   return new Promise((resolve) => {
-    RouterList().then((res) => {
+    RouterList(params).then((res) => {
       resolve({ data: { list: res.data, page: 1, pageSize: 10, count: 10 } })
     })
   })
@@ -46,7 +39,6 @@ const renderIcon = (record: any) => {
 const goToRouterManageNew = () => {
   router.push({ name: 'routerManageNew' })
 }
-createRouter.onClick(goToRouterManageNew)
 topCreateRouter.onClick(goToRouterManageNew)
 
 delRouter.onConfirm(() => {
@@ -56,6 +48,27 @@ delRouter.onConfirm(() => {
     }, 2000)
   })
 })
+
+editRouter.onClick((controller) => {
+  const { record } = controller.clickParams
+  router.push({ name: 'routerManageEdit', params: { id: record.id } })
+})
+
+delRouter.onConfirm(async (controller) => {
+  const { record } = controller.clickParams
+  await RouterDelete(record.id)
+  tableController.reloadData()
+})
+
+const handleChangeSwitch = async (val: boolean, record: any) => {
+  routeSwitch.showLoading()
+  try {
+    await RouterUpdate(record.id, { hidden: !val })
+    record.hidden = !val
+  } finally {
+    routeSwitch.hideLoading()
+  }
+}
 </script>
 
 <style scoped lang="less"></style>

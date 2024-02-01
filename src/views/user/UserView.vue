@@ -25,7 +25,8 @@
           <RenderSwitch
             :controller="statusSwitch"
             :form-data="record"
-            v-model:value="record.status"
+            :value="record.status"
+            @update:value="(val) => handleChangeStatus(val, record)"
           />
         </template>
       </template>
@@ -47,16 +48,26 @@ import {
   batchDel
 } from './pageConfig.ts'
 import { useRouter } from 'vue-router'
-import { UserManageList, UserManageDelete } from '@/api/userManage.ts'
+import { UserManageList, UserManageDelete, UserManageUpdate } from '@/api/userManage.ts'
 import { Modal } from 'ant-design-vue'
 
 const router = useRouter()
 
 const loadData = (params) => {
-  console.log(params)
   return UserManageList(params)
 }
 table.setLoadData(loadData)
+
+const handleChangeStatus = async (val, record) => {
+  statusSwitch.showLoading()
+  const { id } = record
+  try {
+    await UserManageUpdate(id, { status: val })
+    record.status = val
+  } finally {
+    statusSwitch.hideLoading()
+  }
+}
 
 show.onClick((controller) => {
   const { record } = controller.clickParams

@@ -1,6 +1,6 @@
 import Mock from 'mockjs-async'
 import { builder } from '@/mock/util.js'
-import { routeData } from '@/mock/data/routeData.js'
+import { mockDb } from '@/mock/db/index.js'
 
 const info = {
   id: '12',
@@ -10,4 +10,10 @@ const info = {
 
 Mock.mock(/\/userInfo/, 'get', () => builder(info))
 
-Mock.mock(/\/userRoutes/, 'get', () => builder(routeData))
+Mock.mock(/\/userRoutes/, 'get', () => {
+  return new Promise((resolve) => {
+    mockDb.routerManage.getUserRouter().then((list) => {
+      resolve(builder(list))
+    })
+  })
+})

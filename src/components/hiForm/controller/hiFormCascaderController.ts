@@ -9,4 +9,12 @@ export class HiFormCascaderController extends HiFormItemController<IFormCascader
   getDefaultRule(): IFormItemRule {
     return { ...super.getDefaultRule(), message: `请选择${this.config.label}`, trigger: 'change' }
   }
+
+  format(value: any): any {
+    return value ? value?.[value?.length - 1] : value
+  }
+
+  restoreFormat(value: any): any {
+    return [value]
+  }
 }

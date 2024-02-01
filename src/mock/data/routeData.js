@@ -109,6 +109,15 @@ export const routeData = [
             pageTitle: '创建',
             hidden: true,
             sort: 2
+          },
+          {
+            id: Random.guid(),
+            routeName: 'routerManageEdit',
+            routePath: ':id',
+            componentName: 'RouterManageNewView',
+            pageTitle: '编辑',
+            hidden: true,
+            sort: 3
           }
         ]
       }

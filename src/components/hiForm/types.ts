@@ -139,7 +139,7 @@ export interface IFormSwitch extends IFormItemBase {
   unCheckedValue?: boolean | string | number
   checkedChildren?: string | VNode
   unCheckedChildren?: string | VNode
-  loading?: boolean
+  loading?: Ref<boolean>
 }
 
 export interface IFormUpload extends IFormItemBase {
@@ -194,6 +194,7 @@ export interface IFormCascader extends IFormItemBase {
   showSearch?: CascaderProps['showSearch']
   searchValue?: string
   suffixIcon?: CascaderProps['suffixIcon']
+  format?: boolean
 }
 
 export interface IFormDate extends IFormItemBase {

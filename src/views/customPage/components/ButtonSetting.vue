@@ -1,7 +1,7 @@
 <template>
   <div class="button-setting">
     <SettingDrawerModule title="参考">
-      <a-button v-bind="buttonConfig">{{ buttonConfig?.label }}</a-button>
+      <a-button v-bind="config">{{ config?.label }}</a-button>
     </SettingDrawerModule>
     <a-divider />
     <SettingDrawerModule
@@ -9,7 +9,7 @@
       v-for="item in controllerList"
       :key="item.key"
     >
-      <RenderItem :controller="item" :form-data="buttonConfig" />
+      <RenderItem :controller="item" :form-data="config" />
     </SettingDrawerModule>
     <SettingDrawerModule title="事件">
       <RenderItem :controller="buttonEvent" :form-data="formData" />
@@ -50,16 +50,16 @@ import {
 import { reactive, toRefs } from 'vue'
 
 const props = defineProps({
-  buttonConfig: {
+  config: {
     type: Object,
     required: true
   }
 })
 
-const { buttonConfig } = toRefs(props)
+const { config } = toRefs(props)
 const formData = reactive({ pageType: 1, event: 'toPage' })
 const formItemStyle = { width: '100%' }
-buttonConfig.value.formData = formData
+config.value.formData = formData
 
 const buttonLabel = useFormInput('名称', 'label')
 const buttonType = useFormSelect('类型', 'type', {

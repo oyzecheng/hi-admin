@@ -1,8 +1,8 @@
 <template>
   <SettingDrawerModule title="顶部按钮">
     <a-row :gutter="[12, 12]">
-      <a-col v-for="(item, index) in buttonList" :key="index">
-        <CustomContainer @on-del="handleDel(index)" @on-edit="handleEdit(item)">
+      <a-col v-for="item in topButtonList" :key="item.key">
+        <CustomContainer @on-del="handleDel(item)" @on-edit="handleEdit(item)">
           <a-button v-bind="item">{{ item.label }}</a-button>
         </CustomContainer>
       </a-col>
@@ -31,25 +31,18 @@ const props = defineProps({
 const { controller } = props
 
 const createButton = useHiButton('添加按钮')
-const buttonList = controller.getTopButtonList()
+const { topButtonList } = controller.getPageConfig()
 
 createButton.onClick(() => {
   controller?.addTopButton()
 })
-const handleDel = (index: number) => {
-  buttonList.splice(index, 1)
-}
-const getButtonList = () => {
-  return buttonList
+const handleDel = ({ key }: ICustomButtonConfig) => {
+  controller?.removeTopButtonItem(key)
 }
 const handleEdit = (item: ICustomButtonConfig) => {
   controller?.setCurrentEditItem(item)
-  controller?.openItemDrawer()
+  controller?.openButtonItemDrawer()
 }
-
-defineExpose({
-  getButtonList
-})
 </script>
 
 <style scoped lang="less"></style>
