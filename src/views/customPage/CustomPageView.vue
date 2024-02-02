@@ -2,10 +2,21 @@
   <div class="custom-page">
     <HiButton style="margin-bottom: 20px" :controller="editPageButton" />
     <HiPage
+      ref="pageRef"
       :table-controller="tableController"
       :top-button-controller="state.topButtonList"
       :search-form-controller="topSearchFormController"
-    />
+    >
+      <template #searchFormContent="{ formData, rules }">
+        <HiFormItem
+          v-for="item in topFilterList"
+          :key="item.key"
+          :config="item"
+          :formData="formData"
+          :rules="rules"
+        />
+      </template>
+    </HiPage>
     <!-- 页面配置 -->
     <CustomPageSetting
       :controller="customPageController"
@@ -20,11 +31,12 @@
 <script setup>
 import HiPage from '@/components/hiPage/HiPage.vue'
 import HiButton from '@/components/hiButton/HiButton.vue'
+import HiFormItem from '@/components/hiForm/HiFormItem.tsx'
 import CustomPageSetting from '@/views/customPage/CustomPageSetting.vue'
 import CustomPageItemSetting from '@/views/customPage/CustomPageItemSetting.vue'
 import { tableController, editPageButton, drawerFooterConfirm } from './pageConfig'
 import { CustomPageSave, CustomPageDetail } from '@/api/customPage.ts'
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref, shallowRef } from 'vue'
 import { useHiButton } from '@/components/hiButton/index.ts'
 import { CustomPageController } from '@/views/customPage/controller/customPageController.ts'
 import { useRoute, useRouter } from 'vue-router'
@@ -33,10 +45,12 @@ import { useFormInput, useFormSelect, useHiForm } from '@/components/hiForm/inde
 const state = reactive({
   topButtonList: []
 })
-const topSearchFormController = useHiForm([])
+const topFilterList = shallowRef([])
+const topSearchFormController = useHiForm([], { layout: 'inline' })
 const customPageController = new CustomPageController()
 const router = useRouter()
 const route = useRoute()
+const pageRef = ref(null)
 
 onMounted(() => {
   getDetail()
@@ -90,11 +104,14 @@ const initTopSearch = (list) => {
   const formItemList = list.map((item) => {
     switch (item.type) {
       case 'input':
-        return useFormInput(item.label, 'input')
+        return useFormInput(item.label, item.model)
       case 'select':
-        return useFormSelect(item.label, 'select')
+        return useFormSelect(item.label, item.model, { style: { minWidth: '180px' } })
     }
   })
+
+  topFilterList.value = formItemList
+  pageRef.value.overrideSearchFormItemOnChange(formItemList)
   topSearchFormController.init(formItemList)
 }
 

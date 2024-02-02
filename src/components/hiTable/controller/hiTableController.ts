@@ -122,7 +122,7 @@ export class HiTableController {
       this.showLoading()
       try {
         const { data } = (await this.loadData(params)) || {}
-        console.log('data', data)
+        console.log('data', data, params)
         this.oldParams = params
         const { page, pageSize, count, list } = data
         this.tableData.list = list

@@ -12,6 +12,9 @@
     <SettingDrawerModule title="类型">
       <RenderItem :controller="formItemType" :form-data="config" />
     </SettingDrawerModule>
+    <SettingDrawerModule title="model">
+      <a-input v-model:value="config.model" />
+    </SettingDrawerModule>
   </div>
 </template>
 

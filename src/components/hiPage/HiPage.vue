@@ -6,7 +6,16 @@
           v-if="searchFormController"
           :controller="searchFormController"
           :buttonConfig="[clearButton]"
-        />
+        >
+          <template v-if="slots.searchFormContent" #content="{ controllerList, formData, rules }">
+            <slot
+              name="searchFormContent"
+              :controllerList="controllerList"
+              :formData="formData"
+              :rules="rules"
+            />
+          </template>
+        </HiForm>
       </div>
       <HiButtonList v-if="topButtonController" :config-list="topButtonController" />
     </div>
@@ -25,7 +34,7 @@
 </template>
 
 <script setup>
-import { h, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
+import { h, onBeforeUnmount, onMounted, ref, toRefs, useSlots } from 'vue'
 import HiTable from '@/components/hiTable/HiTable.vue'
 import HiForm from '@/components/hiForm/HiForm.vue'
 import HiButtonList from '@/components/hiButton/HiButtonList.vue'
@@ -59,6 +68,7 @@ const {
   topButtonController,
   selectedContainerButtonControllers
 } = toRefs(props)
+const slots = useSlots()
 const changeMap = new Map()
 const pageRef = ref(null)
 let resizeObserver = null
@@ -99,10 +109,15 @@ const clearButtonIsShow = () => {
   clearButton.hideButton()
 }
 
-const overrideSearchFormItemOnChange = () => {
-  const controllerList = searchFormController.value?.getConfigList() || []
+const overrideSearchFormItemOnChange = (controllerList) => {
+  changeMap.clear()
 
   for (const item of controllerList) {
+    if (Array.isArray(item)) {
+      overrideSearchFormItemOnChange(item)
+      continue
+    }
+
     changeMap.set(item.key, item.getConfigItemByKey('onChange'))
     item.setConfigItemByKey(
       'onChange',
@@ -115,7 +130,7 @@ const overrideSearchFormItemOnChange = () => {
     )
   }
 }
-overrideSearchFormItemOnChange()
+overrideSearchFormItemOnChange(searchFormController.value?.getConfigList() || [])
 
 const setScroll = () => {
   const page = pageRef.value
@@ -127,6 +142,10 @@ const setScroll = () => {
   const scroll = tableController.value.getConfigItemByKey('scroll')
   scroll.y = value
 }
+
+defineExpose({
+  overrideSearchFormItemOnChange
+})
 </script>
 
 <style scoped lang="less">

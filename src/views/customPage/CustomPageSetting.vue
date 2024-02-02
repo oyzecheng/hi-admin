@@ -9,6 +9,7 @@
   >
     <TopButton :controller="controller" />
     <TopFilter :controller="controller" />
+    <CustomTable />
     <template #footer>
       <HiButtonList :config-list="[drawerFooterCancel, drawerFooterConfirm]" />
     </template>
@@ -19,6 +20,7 @@
 import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import TopButton from '@/views/customPage/components/TopButton.vue'
 import TopFilter from '@/views/customPage/components/TopFilter.vue'
+import CustomTable from '@/views/customPage/components/CustomTable.vue'
 import { drawerFooterCancel, drawerFooterConfirm } from './pageConfig'
 import { CustomPageController } from '@/views/customPage/controller/customPageController'
 

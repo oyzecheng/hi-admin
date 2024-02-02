@@ -8,7 +8,7 @@
       :pagination="false"
     >
       <template #bodyCell="{ column, record }">
-        <template v-if="column.buttonConfigList && column.buttonConfigList.length">
+        <template v-if="column && column.buttonConfigList && column.buttonConfigList.length">
           <HiButtonList :config-list="column.buttonConfigList" :click-params="{ record }" />
         </template>
         <slot name="bodyCell" :column="column" :record="record" />

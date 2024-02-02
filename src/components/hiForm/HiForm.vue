@@ -22,10 +22,10 @@
           <slot :name="item" :config="config" />
         </template>
       </HiFormItem>
-      <a-form-item :wrapper-col="{ offset: wrapperColOffset }" v-if="setButtonConfig">
-        <HiButtonList :config-list="setButtonConfig" />
-      </a-form-item>
     </template>
+    <a-form-item :wrapper-col="{ offset: wrapperColOffset }" v-if="setButtonConfig">
+      <HiButtonList :config-list="setButtonConfig" />
+    </a-form-item>
   </a-form>
 </template>
 

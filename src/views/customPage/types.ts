@@ -9,4 +9,5 @@ export interface ICustomFormItemConfig {
   key: string
   type: TFormItemType
   label?: string
+  model: string
 }

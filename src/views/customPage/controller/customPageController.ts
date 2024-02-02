@@ -46,7 +46,8 @@ export class CustomPageController {
     const defaultFormItemConfig: ICustomFormItemConfig = {
       type: 'input',
       key: generateKey(),
-      label: 'label'
+      label: 'label',
+      model: 'model'
     }
     list.push(defaultFormItemConfig)
   }

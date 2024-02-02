@@ -5,7 +5,7 @@
         <CustomContainer @on-del="handleDel(item)" @on-edit="handleEdit(item)">
           <a-form-item :label="item.label">
             <a-input v-if="item.type === 'input'" />
-            <a-select v-if="item.type === 'select'" />
+            <a-select v-if="item.type === 'select'" style="width: 180px" />
           </a-form-item>
         </CustomContainer>
       </a-col>

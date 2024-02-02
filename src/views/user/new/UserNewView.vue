@@ -1,6 +1,6 @@
 <template>
   <div class="user-new-view" :key="route.name">
-    <HiForm :controller="newUserForm">
+    <HiForm :controller="newUserForm" :button-config="null">
       <template #content="{ formData, rules, controllerList }">
         <a-row :gutter="[20, 20]">
           <a-col :span="24" :lg="8">
