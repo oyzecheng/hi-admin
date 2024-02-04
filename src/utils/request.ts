@@ -49,3 +49,12 @@ export const DELETE = (url: string) => {
     method: 'delete'
   })
 }
+
+export const PATH = (url: string, params?: any) => {
+  return request({
+    url,
+    method: 'patch',
+    data: params,
+    headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+  })
+}

@@ -1,6 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 import RouterIcon from '@/router/routerIcon'
 import routerResource from '@/router/routerResource'
+import router from '@/router'
+import { tailRoute } from '@/router/routes'
 
 export const generateItems = (list: RouteRecordRaw[] = [], parent: any = null): any[] => {
   return list
@@ -43,4 +45,12 @@ export const formatToRoute = (list = []): any[] => {
       meta: { title: pageTitle, hidden, icon: routeIcon }
     }
   })
+}
+
+export const addRouter = (route: RouteRecordRaw) => {
+  router.addRoute(route)
+  tailRoute.forEach((item) => {
+    router.addRoute(item)
+  })
+  router.replace(window.location.pathname + window.location.search)
 }

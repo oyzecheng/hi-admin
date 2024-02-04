@@ -120,6 +120,35 @@ export const routeData = [
             sort: 3
           }
         ]
+      },
+      {
+        id: Random.guid(),
+        routeName: 'dataDictionary',
+        routePath: 'dataDictionary',
+        componentName: 'RouterView',
+        pageTitle: '数据字典',
+        redirectRouteName: 'dataDictionaryList',
+        sort: 2,
+        children: [
+          {
+            id: Random.guid(),
+            routeName: 'dataDictionaryList',
+            routePath: '',
+            componentName: 'DataDictionary',
+            pageTitle: '列表',
+            hidden: true,
+            sort: 1
+          },
+          {
+            id: Random.guid(),
+            routeName: 'dataDictionaryNew',
+            routePath: 'new',
+            componentName: 'DataDictionaryNew',
+            pageTitle: '创建',
+            hidden: true,
+            sort: 2
+          }
+        ]
       }
     ]
   },

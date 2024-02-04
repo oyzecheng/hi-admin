@@ -1,6 +1,6 @@
 <template>
   <div class="hi-page" ref="pageRef">
-    <div class="search-box">
+    <div class="search-box" v-if="searchFormController || topButtonController">
       <div>
         <HiForm
           v-if="searchFormController"

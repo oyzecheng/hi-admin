@@ -1,13 +1,19 @@
 <template>
-  <div :class="{ login: true, 'lg-login': appStore.isLgLayout }">
-    <div class="background-image">
-      <img src="../../assets/images/illustration_dashboard.png" alt="" />
-    </div>
-    <div class="container">
-      <h6 class="title">登陆</h6>
-      <HiForm :controller="loginForm" :button-config="null" />
-      <HiButton :controller="loginButton" />
-    </div>
+  <div class="login">
+    <a-row align="middle" style="height: 100%">
+      <a-col :span="0" :lg="{ span: 12 }" :xl="{ span: 15 }">
+        <div class="background-image">
+          <img src="../../assets/images/illustration_dashboard.png" alt="" />
+        </div>
+      </a-col>
+      <a-col :span="24" :lg="{ span: 12 }" :xl="{ span: 9 }" style="height: 100%">
+        <div class="container">
+          <h6 class="title">登陆</h6>
+          <HiForm :controller="loginForm" :button-config="null" />
+          <HiButton :controller="loginButton" />
+        </div>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
@@ -19,9 +25,7 @@ import { SetItem } from '@/utils/storage'
 import { USER_TOKEN } from '@/constant/user'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
-import { useAppStore } from '@/stores/app'
 
-const appStore = useAppStore()
 const userStore = useUserStore()
 const router = useRouter()
 
@@ -41,8 +45,8 @@ loginButton.onClick(async (button) => {
 
 <style lang="less" scoped>
 .login {
-  display: flex;
-  justify-content: space-between;
+  //display: flex;
+  //justify-content: space-between;
   height: 100vh;
   background-color: #fbfcfb;
   .background-image {
@@ -57,7 +61,8 @@ loginButton.onClick(async (button) => {
     }
   }
   .container {
-    width: 500px;
+    width: 100%;
+    height: 100%;
     background-color: var(--color-background);
     padding: 40px 60px;
     display: flex;

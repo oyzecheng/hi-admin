@@ -15,6 +15,14 @@ export const layoutRoute: RouteRecordRaw = {
   children: []
 }
 
+export const tailRoute: RouteRecordRaw[] = [
+  {
+    path: '/:catchAll(.*)',
+    component: () => import('@/views/errors/Error404View.vue'),
+    meta: { title: 'NotFound' }
+  }
+]
+
 export const privateRoutes: RouteRecordRaw[] = [
   {
     name: 'home',
@@ -95,6 +103,29 @@ export const privateRoutes: RouteRecordRaw[] = [
             path: 'new',
             component: () => import('@/views/system/routerManage/new/RouterManageNewView.vue'),
             meta: { title: '创建', hidden: true }
+          }
+        ]
+      },
+      {
+        name: 'dataDictionary',
+        path: 'dataDictionary',
+        component: () => import('@/layout/RouterView.vue'),
+        meta: { title: '数据字典' },
+        redirect() {
+          return { name: 'dataDictionaryList' }
+        },
+        children: [
+          {
+            name: 'dataDictionaryList',
+            path: '',
+            component: () => import('@/views/system/dataDictionary/DataDictionary.vue'),
+            meta: { title: '列表' }
+          },
+          {
+            name: 'dataDictionaryNew',
+            path: 'new',
+            component: () => import('@/views/system/dataDictionary/new/DataDictionaryNew.vue'),
+            meta: { title: '创建' }
           }
         ]
       }
