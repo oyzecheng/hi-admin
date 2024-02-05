@@ -31,7 +31,7 @@ const getUserInfo = async () => {
   userInfo.value = result || {
     avatar: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_23.jpg',
     name: '廖洋',
-    role: 2
+    role: '2'
   }
 }
 </script>

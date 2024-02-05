@@ -19,15 +19,9 @@ export const batchDel = useHiButton('', {
   shape: 'circle'
 })
 
-const statusDic = useDic([
-  { label: '启用', value: 1 },
-  { label: '禁用', value: 2 }
-])
+const statusDic = useDic([], 'USER_STATUS')
 
-export const roleDic = useDic([
-  { label: '管理员', value: 1 },
-  { label: '普通员工', value: 2 }
-])
+export const roleDic = useDic([], 'USER_ROLE')
 
 export const table = useHiTable(
   [

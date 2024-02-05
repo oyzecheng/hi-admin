@@ -1,12 +1,20 @@
 import type { IHiDicOption, THiDicChildren, THiDicValue, TLoadFn } from '@/components/hiDic/types'
+import { useAppStore } from '@/stores/app'
+import { generateKey } from '@/utils'
 
 export class HiDicController {
+  private readonly key: string
   private readonly children: THiDicChildren
   private loadFn?: TLoadFn
 
-  constructor(children: THiDicChildren) {
+  constructor(children: THiDicChildren, type?: string) {
     this.children = children
     this.loadFn = undefined
+    this.key = generateKey()
+
+    if (type) {
+      this.getDic(type)
+    }
   }
 
   addOption(option: IHiDicOption) {
@@ -28,6 +36,11 @@ export class HiDicController {
         this.deepLoopList(item.children, formatLabelKey, formatValueKey)
       }
     })
+  }
+
+  private getDic(type: string) {
+    const appStore = useAppStore()
+    this.setLoadFn(() => appStore.getDic(type), 'name', 'value')
   }
 
   showOptionDisabled(value: THiDicValue) {

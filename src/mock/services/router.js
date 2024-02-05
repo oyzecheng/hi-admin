@@ -14,7 +14,7 @@ Mock.mock(/\/router/, 'get', () => {
   })
 })
 
-Mock.mock(/^\/router\/[a-zA-Z0-9-]+$/, 'post', (options) =>
+Mock.mock(/^\/router\/[a-zA-Z0-9-]+$/, 'patch', (options) =>
   mockDb.routerManage.updateItem(getUrlId(options), getBody(options))
 )
 

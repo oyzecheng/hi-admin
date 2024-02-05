@@ -6,6 +6,8 @@ Mock.mock(/^\/dataDictionary\/[a-zA-Z0-9-]+$/, 'get', (options) =>
   mockDb.dataDictionary.getItemById(getUrlId(options))
 )
 
+Mock.mock(/\/dataDictionaryAll/, 'get', () => mockDb.dataDictionary.getAll())
+
 Mock.mock(/\/dataDictionary/, 'get', (options) => {
   return new Promise((resolve) => {
     mockDb.dataDictionary.getList(getQueryParams(options)).then((list) => {
@@ -18,7 +20,7 @@ Mock.mock(/^\/dataDictionary\/[a-zA-Z0-9-]+$/, 'delete', (options) =>
   mockDb.dataDictionary.deleteItemById(getUrlId(options))
 )
 
-Mock.mock(/^\/dataDictionary\/[a-zA-Z0-9-]+$/, 'post', (options) =>
+Mock.mock(/^\/dataDictionary\/[a-zA-Z0-9-]+$/, 'patch', (options) =>
   mockDb.dataDictionary.updateItem(getUrlId(options), getBody(options))
 )
 

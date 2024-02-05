@@ -22,6 +22,10 @@ delButton.onConfirm(async (controller) => {
   await DataDictionaryDel(record.id)
   tableController.reloadData()
 })
+editButton.onClick((controller) => {
+  const { record } = controller.clickParams
+  router.push({ name: 'dataDictionaryEdit', params: { id: record.id } })
+})
 </script>
 
 <style scoped lang="less"></style>

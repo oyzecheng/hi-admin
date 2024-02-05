@@ -56,7 +56,7 @@ const getUserInfo = async () => {
       name: '廖洋',
       email: 'p.eqbjreag@khbgss.qa',
       address: '江西省 吉安市 峡江县',
-      role: 2
+      role: '2'
     }
   )
 }

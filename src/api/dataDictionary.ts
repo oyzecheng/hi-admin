@@ -10,3 +10,5 @@ export const DataDictionaryDel = (id: string) => DELETE(`/dataDictionary/${id}`)
 
 export const DataDictionaryUpdate = (id: string, params: any) =>
   PATH(`/dataDictionary/${id}`, params)
+
+export const DataDictionaryAll = () => GET('/dataDictionaryAll')

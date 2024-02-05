@@ -12,7 +12,7 @@ Mock.mock(/^\/userManage\/[a-zA-Z0-9-]+$/, 'delete', (options) =>
   mockDb.userManage.deleteItemById(getUrlId(options))
 )
 
-Mock.mock(/^\/userManage\/[a-zA-Z0-9-]+$/, 'post', (options) =>
+Mock.mock(/^\/userManage\/[a-zA-Z0-9-]+$/, 'patch', (options) =>
   mockDb.userManage.updateItem(getUrlId(options), getBody(options))
 )
 

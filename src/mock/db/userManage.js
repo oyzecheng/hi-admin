@@ -16,8 +16,8 @@ export class UserManage extends Table {
           id: Random.guid(),
           name: Random.cname(),
           email: Random.email(),
-          status: Random.integer(1, 2),
-          role: Random.integer(1, 2),
+          status: Random.integer('1', '2'),
+          role: Random.integer('1', '2'),
           address: Random.county(true),
           avatar: `https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_${Random.integer(
             1,

@@ -112,21 +112,19 @@ export class Table {
 
   async getList(page, pageSize, filterFn) {
     const all = await this.getSortAll()
-    if (all.length) {
-      const list = filterFn ? all.filter((item) => filterFn(item)) : all
+    const list = filterFn ? all.filter((item) => filterFn(item)) : all
 
-      const dataPage = +page || 1
-      const dataPageSize = +pageSize || 10
-      return {
-        data: {
-          page: dataPage,
-          pageSize: dataPageSize,
-          count: list.length,
-          list: [...list].slice(
-            (dataPage - 1) * dataPageSize,
-            (dataPage - 1) * dataPageSize + dataPageSize
-          )
-        }
+    const dataPage = +page || 1
+    const dataPageSize = +pageSize || 10
+    return {
+      data: {
+        page: dataPage,
+        pageSize: dataPageSize,
+        count: list.length,
+        list: [...list].slice(
+          (dataPage - 1) * dataPageSize,
+          (dataPage - 1) * dataPageSize + dataPageSize
+        )
       }
     }
   }

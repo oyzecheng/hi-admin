@@ -126,6 +126,12 @@ export const privateRoutes: RouteRecordRaw[] = [
             path: 'new',
             component: () => import('@/views/system/dataDictionary/new/DataDictionaryNew.vue'),
             meta: { title: '创建' }
+          },
+          {
+            name: 'dataDictionaryEdit',
+            path: ':id',
+            component: () => import('@/views/system/dataDictionary/new/DataDictionaryNew.vue'),
+            meta: { title: '编辑' }
           }
         ]
       }

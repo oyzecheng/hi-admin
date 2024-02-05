@@ -14,6 +14,5 @@ export const tableController = useHiTable([
   { title: '名称', key: 'name' },
   { title: '类型', key: 'type' },
   { title: 'Value', key: 'value' },
-  { title: '创建时间', key: 'createAt' },
-  { title: '操作', key: 'action', buttonConfigList: [editButton, delButton] }
+  { title: '操作', key: 'action', buttonConfigList: [editButton, delButton], width: 180 }
 ])
