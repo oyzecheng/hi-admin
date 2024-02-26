@@ -15,3 +15,13 @@
   background-color: rgba(255,255,255,.9);
   backdrop-filter: blur(20px);
 }
+
+.text-overflow(@row: 1) {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @row;
+  -webkit-box-orient: vertical;
+}

@@ -1,45 +1,64 @@
 <template>
   <div class="home-view">
-    <HiButtonList :config-list="[button2, button1, modalTEst]"></HiButtonList>
-    <div class="container"></div>
-    <HiModal :controller="modal" />
+    <a-row :gutter="[20, 20]">
+      <a-col :lg="16" :span="24">
+        <HomeModule title="下载量">
+          <LineCharts :series="series" :options="lineOptions" />
+        </HomeModule>
+      </a-col>
+      <a-col :lg="8" :span="24">
+        <HomeModule title="安装量">
+          <PieCharts :series="pieSeries" :options="pieOptions" />
+        </HomeModule>
+      </a-col>
+    </a-row>
+    <a-row style="margin-top: 20px" :gutter="[20, 20]">
+      <a-col :lg="16" :span="24">
+        <BestSalesman />
+      </a-col>
+      <a-col :lg="8" :span="24">
+        <SellWellProducts />
+      </a-col>
+    </a-row>
   </div>
 </template>
 
 <script setup>
-import HiModal from '@/components/hiModal/HiModal.vue'
-import HiButtonList from '@/components/hiButton/HiButtonList.vue'
-import { useHiButton, useHiPrimaryButton } from '@/components/hiButton/index.ts'
-import { useRouter } from 'vue-router'
-import { useHIModal } from '@/components/hiModal/hooks/useHIModal.ts'
-import { useUserStore } from '@/stores/user.ts'
+import HomeModule from '@/views/home/components/HomeModule.vue'
+import LineCharts from '@/components/hiCharts/LineCharts.vue'
+import PieCharts from '@/components/hiCharts/PieCharts.vue'
+import BestSalesman from '@/views/home/components/BestSalesman.vue'
+import SellWellProducts from '@/views/home/components/SellWellProducts.vue'
 
-const router = useRouter()
-const userStore = useUserStore()
+const series = [
+  {
+    name: 'Mac',
+    data: [31, 40, 28, 51, 42, 109, 100]
+  },
+  {
+    name: 'Window',
+    data: [11, 32, 45, 32, 34, 52, 41]
+  }
+]
+const lineOptions = {
+  xaxis: {
+    type: 'date',
+    categories: [
+      '2024-02-10',
+      '2024-02-11',
+      '2024-02-12',
+      '2024-02-13',
+      '2024-02-14',
+      '2024-02-15',
+      '2024-02-16'
+    ]
+  }
+}
 
-const modal = useHIModal({ title: 'test title' })
-
-const button1 = useHiButton('to form', { loading: false, type: 'primary' })
-const button2 = useHiButton('to table', { danger: true })
-const modalTEst = useHiPrimaryButton('modal')
-button1.onClick(() => {
-  router.push({ name: 'form' })
-})
-button2.onClick(() => {
-  userStore.getUserInfo()
-})
-modalTEst.onClick(() => {
-  modal.showModal({ record: 'aa' })
-})
-modal.onOk((params) => {
-  console.log('===', params)
-})
+const pieSeries = [443, 551, 137, 338]
+const pieOptions = {
+  labels: ['Mac', 'Window', 'IOS', 'Android']
+}
 </script>
 
-<style scoped lang="less">
-.container {
-  width: 100px;
-  height: 1000px;
-  background-color: #eee;
-}
-</style>
+<style scoped lang="less"></style>

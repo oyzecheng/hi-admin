@@ -9,7 +9,7 @@
     collapsible
     :collapsedWidth="appStore.isLgLayout ? 280 : 80"
     @breakpoint="handleBreakpoint"
-    breakpoint="lg"
+    breakpoint="xl"
   >
     <HiScrollView height="100%" style="padding: 0 10px">
       <div class="logo"></div>
