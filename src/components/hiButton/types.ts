@@ -18,6 +18,7 @@ export interface IHIButton {
   type?: 'primary' | 'ghost' | 'dashed' | 'link' | 'text' | 'default'
   isShow?: Ref<boolean>
   className?: string
+  auth?: string
 }
 
 export interface IUseHiButtonConfig extends Omit<IHIButton, 'loading' | 'disabled' | 'isShow'> {

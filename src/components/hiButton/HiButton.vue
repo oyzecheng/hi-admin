@@ -1,6 +1,6 @@
 <template>
   <a-button
-    v-if="isShow"
+    v-if="validateButtonAuth() && isShow"
     @click="handleButtonClick"
     :loading="loading"
     :disabled="disabled"
@@ -22,6 +22,7 @@
 
 <script lang="ts" setup>
 import { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
+
 const props = defineProps({
   controller: {
     type: HiButtonController,
@@ -50,8 +51,13 @@ const {
   size,
   target,
   type,
-  isShow
+  isShow,
+  auth
 } = buttonConfig
+
+const validateButtonAuth = () => {
+  return true
+}
 
 const handleButtonClick = () => {
   controller?.setClickParams(clickParams)

@@ -7,7 +7,7 @@ import RouterIcon from '@/router/routerIcon'
 export const createButton = useHISmallTextButton('按钮管理')
 export const delRouter = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
 export const editRouter = useHISmallTextButton('编辑')
-export const topCreateRouter = useHiPrimaryButton('创建路由')
+export const topCreateRouter = useHiPrimaryButton('创建路由', { auth: 'add' })
 
 export const tableController = useHiTable(
   [
@@ -28,9 +28,9 @@ export const tableController = useHiTable(
     {
       title: '操作',
       key: 'action',
-      buttonConfigList: [editRouter, createButton, delRouter],
+      buttonConfigList: [editRouter, delRouter],
       fixed: 'right',
-      width: 220
+      width: 150
     }
   ],
   { pagination: false }

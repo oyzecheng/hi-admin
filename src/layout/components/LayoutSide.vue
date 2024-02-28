@@ -92,6 +92,7 @@ watch(
   }
   .side-controller {
     position: absolute;
+    z-index: 999;
     right: -13px;
     top: 66px;
     border: 1px dashed var(--color-border);

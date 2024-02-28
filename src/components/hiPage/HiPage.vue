@@ -73,7 +73,7 @@ const changeMap = new Map()
 const pageRef = ref(null)
 let resizeObserver = null
 
-const clearButton = useHiButton('clear', {
+const clearButton = useHiButton('取消', {
   danger: true,
   type: 'text',
   icon: h(DeleteOutlined),

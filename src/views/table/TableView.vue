@@ -1,5 +1,5 @@
 <template>
-  <div class="table-view">
+  <div class="table-view module-container">
     <HiTable :controller="table">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'one'"> custom {{ record.one }} </template>

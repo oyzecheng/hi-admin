@@ -1,5 +1,5 @@
 <template>
-  <div class="form-view">
+  <div class="form-view module-container">
     <HiForm :controller="form" />
   </div>
 </template>

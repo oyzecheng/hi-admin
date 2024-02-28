@@ -1,7 +1,6 @@
 <template>
   <div class="setting-drawer-content">
     <SettingDrawerTheme />
-    <SettingDrawerDB />
   </div>
 </template>
 

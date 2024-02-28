@@ -1,5 +1,6 @@
 <template>
   <div class="home-view">
+    <WeekData />
     <a-row :gutter="[20, 20]">
       <a-col :lg="16" :span="24">
         <HomeModule title="下载量">
@@ -29,6 +30,7 @@ import LineCharts from '@/components/hiCharts/LineCharts.vue'
 import PieCharts from '@/components/hiCharts/PieCharts.vue'
 import BestSalesman from '@/views/home/components/BestSalesman.vue'
 import SellWellProducts from '@/views/home/components/SellWellProducts.vue'
+import WeekData from '@/views/home/components/WeekData.vue'
 
 const series = [
   {

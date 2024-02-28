@@ -8,6 +8,13 @@
       </a-col>
       <a-col :span="24" :lg="{ span: 12 }" :xl="{ span: 9 }" style="height: 100%">
         <div class="container">
+          <a-row>
+            <a-col :span="24" :lg="0">
+              <div class="background-image">
+                <img src="../../assets/images/illustration_dashboard.png" alt="" />
+              </div>
+            </a-col>
+          </a-row>
           <h6 class="title">登陆</h6>
           <HiForm :controller="loginForm" :button-config="null" />
           <HiButton :controller="loginButton" />
@@ -33,7 +40,6 @@ loginButton.onClick(async (button) => {
   button.showLoading()
   try {
     const formData = await loginForm.validate()
-    console.log(formData)
     SetItem(USER_TOKEN, 'token')
     await userStore.initUserConfig()
     router.push({ name: 'home' })
@@ -62,7 +68,7 @@ loginButton.onClick(async (button) => {
   }
   .container {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     background-color: var(--color-background);
     padding: 40px 60px;
     display: flex;

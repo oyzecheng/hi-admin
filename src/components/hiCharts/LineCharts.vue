@@ -3,6 +3,7 @@
     ref="chartsRef"
     type="line"
     :height="height"
+    :width="width"
     :series="series"
     :options="chartOptions"
   />
@@ -19,6 +20,10 @@ const props = defineProps({
     type: [Number, String],
     default: 350
   },
+  width: {
+    type: [Number, String],
+    default: '100%'
+  },
   series: {
     type: Array,
     default: () => []
@@ -26,10 +31,14 @@ const props = defineProps({
   options: {
     type: Object,
     default: () => ({})
+  },
+  watchThemeColor: {
+    type: Boolean,
+    default: true
   }
 })
 
-const { height, series, options } = toRefs(props)
+const { height, series, options, watchThemeColor } = toRefs(props)
 const chartsRef = ref(null)
 const appStore = useAppStore()
 
@@ -45,7 +54,7 @@ const chartOptions = {
   colors: useChartColors(),
   stroke: {
     curve: 'smooth',
-    width: 2
+    width: 3
   },
   xaxis: {
     type: 'date',
@@ -66,7 +75,9 @@ const chartOptions = {
 watch(
   () => appStore.themeColor,
   () => {
-    updateOptions({ colors: useChartColors() })
+    if (watchThemeColor.value) {
+      updateOptions({ colors: useChartColors() })
+    }
   }
 )
 
