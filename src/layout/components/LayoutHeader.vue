@@ -14,7 +14,7 @@
       <SettingFilled class="setting" @click="handleSettingClick" />
       <a-dropdown trigger="click" v-model:open="state.menuOpen">
         <div :class="{ avatar: true, 'avatar-active': state.menuOpen }">
-          <a-avatar>Y</a-avatar>
+          <a-avatar src="https://static.oouzc.com/avatar/avatar_4.png" />
         </div>
         <template #overlay>
           <div class="user-container">
@@ -111,7 +111,7 @@ const handleMenuClick = ({ key }) => {
   background-color: #eee;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 99;
   background-color: rgba(255, 255, 255, 0.8);
   transition: height 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   backdrop-filter: blur(6px);

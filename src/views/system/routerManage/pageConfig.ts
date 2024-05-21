@@ -35,8 +35,3 @@ export const tableController = useHiTable(
   ],
   { pagination: false }
 )
-
-export const routeSwitch = useFormSwitch('', 'hidden', {
-  checkedChildren: '显示',
-  unCheckedChildren: '隐藏'
-})

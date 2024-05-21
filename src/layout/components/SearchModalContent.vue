@@ -1,9 +1,9 @@
 <template>
   <div class="search-modal-content">
     <div class="search-input">
-      <a-input placeholder="搜索..." @change="handleInputChange">
+      <a-input placeholder="搜索..." @change="handleInputChange" allow-clear>
         <template #prefix>
-          <SearchOutlined style="padding-right: 5px" />
+          <SearchOutlined style="padding-right: 10px" />
         </template>
       </a-input>
     </div>
@@ -15,8 +15,8 @@
         @click="handleMenuClick(item.key)"
       >
         <div>
-          <p class="menu-name">{{ item.label }}</p>
-          <p class="menu-path">{{ item.path }}</p>
+          <p class="menu-name" v-html="item.label"></p>
+          <p class="menu-path" v-html="item.path"></p>
         </div>
         <a-tag v-if="item.parentLabel" color="blue" :bordered="false">
           {{ item.parentLabel }}
@@ -48,20 +48,21 @@ const handleMenuClick = (name) => {
   emit('onSearchMenuClick')
 }
 
-const handleInputChange = (e) => {
+const handleInputChange = debounce((e) => {
   const value = e.target.value
   if (value) {
     state.menuFlatList = filterMenuListByLabel(value, menuFlatList)
   } else {
-    state.menuFlatList = flattenTree(useMenuItems())
+    state.menuFlatList = [...menuFlatList]
   }
-}
-
-const filterMenuListByLabel = debounce((label, list) => {
-  state.menuFlatList = list.filter(
-    (item) => item.label.includes(label) || item.parentLabel.includes(label)
-  )
 }, 300)
+
+const filterMenuListByLabel = (val, list) => {
+  return list.filter((item) => {
+    const { label, path, parentLabel } = item
+    return label.includes(val) || parentLabel.includes(val) || path.includes(val)
+  })
+}
 </script>
 
 <style scoped>

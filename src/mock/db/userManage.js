@@ -19,10 +19,7 @@ export class UserManage extends Table {
           status: Random.integer('1', '2'),
           role: Random.integer('1', '2'),
           address: Random.county(true),
-          avatar: `https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_${Random.integer(
-            1,
-            25
-          )}.jpg`,
+          avatar: `https://static.oouzc.com/avatar/avatar_${Random.integer(1, 50)}.png`,
           createAt: new Date().getTime()
         }))
         defaultList.forEach((item) => {

@@ -4,7 +4,7 @@
     <a-row :gutter="[20, 20]">
       <a-col :lg="16" :span="24">
         <HomeModule title="下载量">
-          <LineCharts :series="series" :options="lineOptions" />
+          <LineCharts :series="series" :options="lineOptions" :height="300" />
         </HomeModule>
       </a-col>
       <a-col :lg="8" :span="24">

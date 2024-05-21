@@ -8,6 +8,7 @@
       }"
     >
       <LayoutHeader />
+      <NavigationBar v-if="appStore.navigationBarShow" />
       <a-layout-content style="padding: 20px 40px">
         <router-view />
       </a-layout-content>
@@ -23,6 +24,7 @@
 <script setup>
 import LayoutSide from '@/layout/components/LayoutSide.vue'
 import LayoutHeader from '@/layout/components/LayoutHeader.vue'
+import NavigationBar from '@/layout/components/NavigationBar.vue'
 import { useAppStore } from '@/stores/app.ts'
 
 const appStore = useAppStore()
@@ -40,6 +42,6 @@ const handleClickMask = () => {
   right: 0;
   bottom: 0;
   background-color: var(--color-mask-bg);
-  z-index: 8;
+  z-index: 888;
 }
 </style>

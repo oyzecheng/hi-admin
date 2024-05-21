@@ -3,10 +3,12 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'icon'"><component :is="renderIcon(record)" /></template>
       <template v-if="column.key === 'hidden'">
-        <RenderSwitch
-          :controller="routeSwitch"
-          :value="record.hidden !== true"
-          @update:value="(val) => handleChangeSwitch(val, record)"
+        <a-switch
+          checked-children="显示"
+          un-checked-children="隐藏"
+          :checked="record.hidden !== true"
+          :loading="record.loading"
+          @update:checked="(val: any) => handleChangeSwitch(val, record)"
         />
       </template>
     </template>
@@ -15,21 +17,30 @@
 
 <script setup lang="ts">
 import HiPage from '@/components/hiPage/HiPage.vue'
-import { tableController, delRouter, routeSwitch, topCreateRouter, editRouter } from './pageConfig'
+import { tableController, delRouter, topCreateRouter, editRouter } from './pageConfig'
 import RouterIcon from '@/router/routerIcon'
 import { useRouter } from 'vue-router'
 import { RouterDelete, RouterList, RouterUpdate } from '@/api/router'
-import RenderSwitch from '@/components/hiForm/renders/RenderSwitch.vue'
 
 const router = useRouter()
 
-tableController.setLoadData((params) => {
+tableController.setLoadData(() => {
   return new Promise((resolve) => {
-    RouterList(params).then((res) => {
-      resolve({ data: { list: res.data, page: 1, pageSize: 10, count: 10 } })
+    RouterList().then((res) => {
+      resolve({ data: { list: appendLoading(res.data), page: 1, pageSize: 10, count: 10 } })
     })
   })
 })
+
+const appendLoading = (list: any[]) => {
+  list.forEach((item) => {
+    item.loading = false
+    if (item.children) {
+      appendLoading(item.children)
+    }
+  })
+  return list
+}
 
 const renderIcon = (record: any) => {
   const icon = RouterIcon[record.meta?.icon]
@@ -61,12 +72,12 @@ delRouter.onConfirm(async (controller) => {
 })
 
 const handleChangeSwitch = async (val: boolean, record: any) => {
-  routeSwitch.showLoading()
+  record.loading = true
   try {
     await RouterUpdate(record.id, { hidden: !val })
     record.hidden = !val
   } finally {
-    routeSwitch.hideLoading()
+    record.loading = false
   }
 }
 </script>

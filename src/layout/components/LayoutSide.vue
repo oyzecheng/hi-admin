@@ -12,7 +12,7 @@
     breakpoint="xl"
   >
     <HiScrollView height="100%" style="padding: 0 10px">
-      <div class="logo"></div>
+      <div class="logo">Hi-Admin</div>
       <a-menu
         :items="userStore.info.userMenus"
         @click="handleMenuClick"
@@ -81,11 +81,14 @@ watch(
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 9;
+  z-index: 999;
   .logo {
     height: 32px;
-    background: var(--color-primary);
     margin: 16px;
+    color: var(--color-primary);
+    font-weight: bold;
+    text-align: center;
+    font-size: 24px;
   }
   .ant-menu {
     border: none;

@@ -69,7 +69,6 @@ const {
   selectedContainerButtonControllers
 } = toRefs(props)
 const slots = useSlots()
-const changeMap = new Map()
 const pageRef = ref(null)
 let resizeObserver = null
 
@@ -110,20 +109,15 @@ const clearButtonIsShow = () => {
 }
 
 const overrideSearchFormItemOnChange = (controllerList) => {
-  changeMap.clear()
-
   for (const item of controllerList) {
     if (Array.isArray(item)) {
       overrideSearchFormItemOnChange(item)
       continue
     }
 
-    changeMap.set(item.key, item.getConfigItemByKey('onChange'))
     item.setConfigItemByKey(
       'onChange',
-      debounce((value) => {
-        const result = changeMap.get(item.key)
-        result && result(value)
+      debounce(() => {
         clearButtonIsShow()
         tableController.value.reloadData(searchFormController.value?.getFormData() || {})
       })

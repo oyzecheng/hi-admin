@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 import { GetItem, SetItem } from '@/utils/storage'
-import { THEME_COLOR } from '@/constant/app'
+import { NAVIGATION_BAR, NAVIGATION_BAR_SHOW, THEME_COLOR } from '@/constant/app'
 import { DataDictionaryAll } from '@/api/dataDictionary'
+import type { INavigationItem } from '@/stores/types'
+import type { RouteLocationNormalized, RouteLocationNormalizedLoaded } from 'vue-router'
 
 export const useAppStore = defineStore('app', () => {
   const sideCollapsible = ref(false)
@@ -11,6 +13,8 @@ export const useAppStore = defineStore('app', () => {
   const themeColor = ref(GetItem(THEME_COLOR) || 'rgba(1,167,111,1)')
   const dataDictionary = reactive<any[]>([])
   const isGetDataDic = ref(false)
+  const navigationBarShow = ref(!!GetItem(NAVIGATION_BAR_SHOW))
+  const navigationBarList = reactive<INavigationItem[]>(GetItem(NAVIGATION_BAR) || [])
 
   const setSideCollapsible = (value = false) => {
     sideCollapsible.value = value
@@ -49,6 +53,43 @@ export const useAppStore = defineStore('app', () => {
     return dataDictionary.filter((item: any) => item.type === type)
   }
 
+  const setNavigationBarShow = (value = true) => {
+    navigationBarShow.value = value
+    SetItem(NAVIGATION_BAR_SHOW, value)
+  }
+
+  const findNavigationIndex = (name: string) => {
+    return navigationBarList.findIndex((item) => item.name === name)
+  }
+
+  const addNavigation = (item: INavigationItem) => {
+    const index = findNavigationIndex(item.name)
+    if (index === -1) {
+      navigationBarList.push(item)
+    } else {
+      navigationBarList[index] = item
+    }
+    SetItem(NAVIGATION_BAR, navigationBarList)
+  }
+
+  const removeNavigation = (name: string) => {
+    const index = findNavigationIndex(name)
+    if (index !== -1) {
+      navigationBarList.splice(index, 1)
+    }
+  }
+
+  const generateNavigationItemByRoute = (route: RouteLocationNormalizedLoaded) => {
+    return {
+      name: route.name || '',
+      params: route.params,
+      title: route.matched
+        .slice(-2)
+        .map((item) => item?.meta?.title || '')
+        .join('')
+    }
+  }
+
   return {
     sideCollapsible,
     setSideCollapsible,
@@ -58,6 +99,13 @@ export const useAppStore = defineStore('app', () => {
     setThemeColor,
     lgLayoutSideShow,
     setLgLayoutSideShow,
-    getDic
+    getDic,
+    navigationBarShow,
+    setNavigationBarShow,
+    navigationBarList,
+    addNavigation,
+    removeNavigation,
+    findNavigationIndex,
+    generateNavigationItemByRoute
   }
 })

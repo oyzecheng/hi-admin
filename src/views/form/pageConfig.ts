@@ -43,7 +43,7 @@ const select = useFormSelect('select', 'select', {
   children: selectChildren,
   rules: { message: '自定义提示' },
   onChange: (value) => {
-    console.log('===', value)
+    console.log('select change', value)
   }
 })
 const checkbox = useFormCheckbox('checkbox', 'checkbox', { children: selectChildren })

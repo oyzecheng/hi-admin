@@ -4,6 +4,12 @@
     @finishFailed="handleFinish"
     :model="formData"
     v-bind="formConfig"
+    :layout="
+      formConfig.layout ? formConfig.layout : appStore.isLgLayout ? 'vertical' : 'horizontal'
+    "
+    :labelCol="
+      formConfig.labelCol ? formConfig.labelCol : appStore.isLgLayout ? undefined : { span: 4 }
+    "
     ref="formRef"
   >
     <template v-if="slots.content">
@@ -36,9 +42,11 @@ import HiFormItem from '@/components/hiForm/HiFormItem'
 import { useHiButton } from '@/components/hiButton'
 import { computed, nextTick, type PropType, ref, useSlots } from 'vue'
 import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
+import { useAppStore } from '@/stores/app'
 
 const emit = defineEmits(['onFinish'])
 const slots = useSlots()
+const appStore = useAppStore()
 
 const formRef = ref(null)
 

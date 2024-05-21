@@ -22,11 +22,14 @@
           </a-tag>
         </template>
         <template v-if="column.dataIndex === 'status'">
-          <RenderSwitch
-            :controller="statusSwitch"
-            :form-data="record"
-            :value="record.status"
-            @update:value="(val) => handleChangeStatus(val, record)"
+          <a-switch
+            :checked-value="1"
+            :un-checked-value="2"
+            checked-children="启用"
+            un-checked-children="禁用"
+            :checked="record.status"
+            :loading="record.loading"
+            @update:checked="(val) => handleChangeStatus(val, record)"
           />
         </template>
       </template>
@@ -36,17 +39,7 @@
 
 <script setup>
 import HiPage from '@/components/hiPage/HiPage.vue'
-import RenderSwitch from '@/components/hiForm/renders/RenderSwitch.vue'
-import {
-  newButton,
-  show,
-  edit,
-  table,
-  searchForm,
-  statusSwitch,
-  del,
-  batchDel
-} from './pageConfig.ts'
+import { newButton, show, edit, table, searchForm, del, batchDel } from './pageConfig.ts'
 import { useRouter } from 'vue-router'
 import { UserManageList, UserManageDelete, UserManageUpdate } from '@/api/userManage.ts'
 import { Modal } from 'ant-design-vue'
@@ -57,15 +50,16 @@ const loadData = (params) => {
   return UserManageList(params)
 }
 table.setLoadData(loadData)
+table.appendData({ loading: false })
 
 const handleChangeStatus = async (val, record) => {
-  statusSwitch.showLoading()
+  record.loading = true
   const { id } = record
   try {
     await UserManageUpdate(id, { status: val })
     record.status = val
   } finally {
-    statusSwitch.hideLoading()
+    record.loading = false
   }
 }
 

@@ -35,3 +35,5 @@ export interface IHiTableSelectedData {
 }
 
 export type THiTableSelectedContainerButtonControllers = HiButtonController[]
+
+export type TObject = { [k: string]: any }

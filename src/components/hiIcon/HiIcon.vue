@@ -8,7 +8,7 @@ import { toRefs } from 'vue'
 
 const props = defineProps({
   path: {
-    type: Object,
+    type: String,
     default: null
   }
 })

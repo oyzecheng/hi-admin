@@ -1,5 +1,5 @@
 export const SetItem = (key: string, value: any) => {
-  window.localStorage.setItem(key, typeof value === 'object' ? JSON.parse(value) : value)
+  window.localStorage.setItem(key, typeof value === 'object' ? JSON.stringify(value) : value)
 }
 
 export const GetItem = (key: string) => {

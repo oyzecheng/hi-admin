@@ -65,6 +65,7 @@ export const changeThemeColor = (themeColor: string) => {
   const root = document.documentElement
   root.style.setProperty('--color-primary', themeColor)
   root.style.setProperty('--color-hover-primary-bg', replaceAlpha(themeColor, 0.08))
+  root.style.setProperty('--color-primary-bg', replaceAlpha(themeColor, 0.16))
   root.style.setProperty('--color-hover-selected-primary-bg', replaceAlpha(themeColor, 0.16))
 }
 
@@ -91,7 +92,7 @@ export const deepClone = (source: any) => {
 
   const newObject: any = {}
   for (const k in source) {
-    if (source.hasOwnProperty(k)) {
+    if (Object.prototype.hasOwnProperty.call(source, k)) {
       newObject[k] = deepClone(source[k])
     }
   }

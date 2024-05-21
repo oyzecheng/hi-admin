@@ -52,8 +52,8 @@ export class HiFormController {
   private setDefaultConfig(config: IHiForm): IHiForm {
     const { layout, layoutCol = 0 } = config
     return {
-      labelAlign: layout === 'inline' ? undefined : 'right',
-      labelCol: layout === 'inline' ? undefined : { span: 4 + layoutCol },
+      labelAlign: layout === 'horizontal' ? 'right' : undefined,
+      labelCol: layout === 'horizontal' ? { span: 4 + layoutCol } : undefined,
       ...config
     }
   }

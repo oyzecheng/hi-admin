@@ -3,7 +3,8 @@ import type {
   IHiTableData,
   IHiTableSelectedData,
   THiTableColumns,
-  THiTableLoadData
+  THiTableLoadData,
+  TObject
 } from '@/components/hiTable/types'
 
 export class HiTableController {
@@ -12,7 +13,8 @@ export class HiTableController {
   private loadData: THiTableLoadData | undefined
   private readonly columns: THiTableColumns
   private readonly config: IHiTableConfig
-  private oldParams: { [k: string]: any }
+  private oldParams: TObject
+  private appendListData: TObject | null
 
   constructor(
     loadData: THiTableLoadData | undefined,
@@ -27,6 +29,7 @@ export class HiTableController {
     this.columns = this.generateColumns(columns)
     this.config = this.setDefaultConfig(tableConfig)
     this.oldParams = {}
+    this.appendListData = null
   }
 
   private generateColumns(columns: THiTableColumns) {
@@ -125,7 +128,9 @@ export class HiTableController {
         console.log('data', data, params)
         this.oldParams = params
         const { page, pageSize, count, list } = data
-        this.tableData.list = list
+        this.tableData.list = this.appendListData
+          ? list.map((item) => ({ ...item, ...this.appendListData }))
+          : list
         this.tableData.page = page
         this.tableData.pageSize = pageSize
         this.tableData.count = count
@@ -170,5 +175,9 @@ export class HiTableController {
 
   setLoadData(loadData: THiTableLoadData) {
     this.loadData = loadData
+  }
+
+  appendData(data: { [k: string]: any }) {
+    this.appendListData = data
   }
 }
