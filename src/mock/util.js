@@ -1,6 +1,8 @@
-import Mock from 'mockjs-async'
-import qs from 'qs'
-const Random = Mock.Random
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import { generateKey } from '@/utils/index.ts'
+
+export const mock = new MockAdapter(axios, { delayResponse: 250 })
 
 const responseBody = {
   message: '',
@@ -9,93 +11,17 @@ const responseBody = {
   code: ''
 }
 
-export const builder = (data, message, code = 200) => {
-  responseBody.data = data
+export const builder = (data, message = 'success', code = 200) => {
+  const response = { ...responseBody, data }
   if (message !== undefined && message !== null) {
-    responseBody.message = message
+    response.message = message
   }
   if (code !== undefined && code !== 0) {
-    responseBody.code = code
-    responseBody._status = code
+    response.code = code
+    response._status = code
   }
-  responseBody.timestamp = new Date().getTime()
-  return responseBody
-}
-
-export class GenerateList {
-  constructor(getList) {
-    this.count = Random.integer(20, 50)
-    this.page = 1
-    this.pageSize = 10
-    this.list = getList(this.count)
-  }
-
-  getResult(options) {
-    const { page, pageSize, name, status } = getQueryParams(options)
-    const list = this.list.filter((item) => {
-      if (name && status) {
-        return item.name.includes(name) && item.status === +status
-      }
-      if (name) {
-        return item.name.includes(name)
-      }
-      if (status) {
-        return item.status === +status
-      }
-      return true
-    })
-
-    const dataPage = +page || this.page
-    const dataPageSize = +pageSize || this.pageSize
-    return {
-      data: {
-        page: dataPage,
-        pageSize: dataPageSize,
-        count: list.length,
-        list: [...list].slice(
-          (dataPage - 1) * dataPageSize,
-          (dataPage - 1) * dataPageSize + dataPageSize
-        )
-      }
-    }
-  }
-
-  getDetail(options) {
-    const itemId = getUrlId(options)
-    return this.list.find((item) => item.id === itemId)
-  }
-
-  updateItem(options) {
-    const itemId = getUrlId(options)
-    const itemBody = getBody(options)
-    const index = this.list.findIndex((item) => item.id === itemId)
-    if (index !== -1) {
-      this.list[index] = { ...this.list[index], ...itemBody }
-      return this.list[index]
-    }
-    return false
-  }
-
-  addItem(options) {
-    const item = getBody(options)
-    item.id = Random.guid()
-    this.list.unshift(item)
-  }
-
-  deleteItem(options) {
-    const itemId = getUrlId(options)
-    const index = this.list.findIndex((item) => item.id === itemId)
-    if (index !== -1) {
-      this.list.splice(index, 1)
-      return true
-    }
-    return false
-  }
-}
-
-export const getQueryParams = (options) => {
-  const url = options.url
-  return qs.parse(url.split('?')[1]) || {}
+  response.timestamp = new Date().getTime()
+  return response
 }
 
 export const getUrlId = (options) => {
@@ -105,9 +31,9 @@ export const getUrlId = (options) => {
 }
 
 export const getBody = (options) => {
-  const { body } = options
+  const { data } = options
   try {
-    return { id: Random.guid(), ...JSON.parse(body) }
+    return { id: generateKey(), ...JSON.parse(data) }
   } catch (err) {
     return {}
   }

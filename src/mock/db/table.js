@@ -1,112 +1,61 @@
+import { deepClone } from '@/utils/index.ts'
+
 export class Table {
-  constructor(tableName) {
-    this.tableName = tableName
-    this.store = {}
+  constructor(table) {
+    this._table = table
   }
 
-  init(db) {
-    this.db = db
-  }
-
-  createTable(db) {
-    return new Promise((resolve) => {
-      const store = db.createObjectStore(this.tableName, { keyPath: 'id' })
-      resolve(store)
-    })
-  }
-
-  getStore(type = 'readwrite') {
-    return this.db.transaction(this.tableName, type).objectStore(this.tableName)
+  get table() {
+    return deepClone(this._table)
   }
 
   add(data) {
-    return new Promise((resolve, reject) => {
-      const store = this.getStore()
+    return new Promise((resolve) => {
       data.createAt = new Date().getTime()
-      const work = store.add(data)
-      work.onsuccess = () => {
-        resolve(`add success: ${data}`)
-      }
-      work.onerror = () => {
-        reject(`add error: ${data}`)
-      }
+      this._table.push(data)
+      resolve('success')
     })
   }
 
   getItemById(id) {
     return new Promise((resolve, reject) => {
-      const store = this.getStore('readonly')
-      const work = store.get(id)
-      work.onsuccess = (event) => {
-        const result = event.target.result
-        resolve(result)
-      }
-      work.onerror = () => {
-        reject('error')
+      const item = this.table.find((item) => item.id === id)
+      if (item) {
+        resolve(item)
+      } else {
+        reject(new Error(`Can't find by id: ${id}`))
       }
     })
   }
 
   deleteItemById(id) {
-    return new Promise((resolve, reject) => {
-      const store = this.getStore()
-      const work = store.delete(id)
-      work.onsuccess = () => {
-        resolve('success')
-      }
-      work.onerror = () => {
-        reject('error')
-      }
+    return new Promise((resolve) => {
+      this._table = this.table.filter((item) => item.id !== id)
+      resolve('success')
     })
   }
 
   updateItem(id, data) {
     return new Promise((resolve, reject) => {
-      this.getItemById(id)
-        .then((item) => {
-          const store = this.getStore()
-          const work = store.put({ ...item, ...data, id })
-          work.onsuccess = () => resolve('success')
-          work.onerror = () => reject('error')
-        })
-        .catch((err) => {
-          reject(err)
-        })
+      const index = this.table.findIndex((item) => item.id === id)
+      if (index !== -1) {
+        this._table[index] = { ...this.table[index], ...data, id }
+        resolve(this.table[index])
+      } else {
+        reject(new Error(`Can't find by id: ${id}`))
+      }
     })
   }
 
   getAll() {
-    return new Promise((resolve, reject) => {
-      const store = this.getStore('readonly')
-      const work = store.getAll()
-      work.onsuccess = () => {
-        resolve(work.result)
-      }
-      work.onerror = () => {
-        reject('getAll error')
-      }
+    return new Promise((resolve) => {
+      resolve(this.table)
     })
   }
 
   getSortAll() {
-    return new Promise((resolve, reject) => {
-      const store = this.getStore('readonly')
-      const work = store.openCursor()
-      const list = []
-      work.onsuccess = (event) => {
-        const result = event.target.result
-        if (result) {
-          if (result.value.createAt < list?.[0]?.createAt) {
-            list.push(result.value)
-          } else {
-            list.unshift(result.value)
-          }
-          result.continue()
-        } else {
-          resolve(list)
-        }
-      }
-      work.onerror = () => reject('error')
+    return new Promise((resolve) => {
+      resolve(this.table.sort((a, b) => a.createAt - b.createAt))
     })
   }
 

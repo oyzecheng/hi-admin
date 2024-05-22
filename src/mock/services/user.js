@@ -1,19 +1,20 @@
-import Mock from 'mockjs-async'
-import { builder } from '@/mock/util.js'
+import { builder, getBody, mock } from '@/mock/util.js'
 import { mockDb } from '@/mock/db/index.js'
 
-const info = {
-  id: '12',
+const adminInfo = {
+  id: '12admin',
   userName: 'admin',
   email: 'admin@gmail.com'
 }
 
-Mock.mock(/\/userInfo/, 'get', () => builder(info))
+mock.onPost('/login').reply(async (config) => {
+  const body = getBody(config)
+  return [200, body]
+})
 
-Mock.mock(/\/userRoutes/, 'get', () => {
-  return new Promise((resolve) => {
-    mockDb.routerManage.getUserRouter().then((list) => {
-      resolve(builder(list))
-    })
-  })
+mock.onGet('/userInfo').reply(200, builder(adminInfo))
+
+mock.onGet('/userRoutes').reply(async () => {
+  const list = await mockDb.routerManage.getUserRouter()
+  return [200, builder(list)]
 })

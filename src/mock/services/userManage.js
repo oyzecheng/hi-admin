@@ -1,19 +1,27 @@
 import { mockDb } from '@/mock/db/index.js'
-import Mock from 'mockjs-async'
-import { getBody, getQueryParams, getUrlId } from '@/mock/util.js'
+import { getBody, getUrlId, mock } from '@/mock/util.js'
 
-Mock.mock(/^\/userManage\/[a-zA-Z0-9-]+$/, 'get', (options) =>
-  mockDb.userManage.getItemById(getUrlId(options))
-)
+mock.onGet(/^\/userManage\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.userManage.getItemById(getUrlId(config))
+  return [200, result]
+})
 
-Mock.mock(/\/userManage/, 'get', (options) => mockDb.userManage.getList(getQueryParams(options)))
+mock.onGet('/userManage').reply(async (config) => {
+  const list = await mockDb.userManage.getList(config.params)
+  return [200, list]
+})
 
-Mock.mock(/^\/userManage\/[a-zA-Z0-9-]+$/, 'delete', (options) =>
-  mockDb.userManage.deleteItemById(getUrlId(options))
-)
+mock.onDelete(/^\/userManage\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.userManage.deleteItemById(getUrlId(config))
+  return [200, result]
+})
 
-Mock.mock(/^\/userManage\/[a-zA-Z0-9-]+$/, 'patch', (options) =>
-  mockDb.userManage.updateItem(getUrlId(options), getBody(options))
-)
+mock.onPatch(/^\/userManage\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.userManage.updateItem(getUrlId(config), getBody(config))
+  return [200, result]
+})
 
-Mock.mock(/^\/userManage$/, 'post', (options) => mockDb.userManage.add(getBody(options)))
+mock.onPost('/userManage').reply(async (config) => {
+  const result = await mockDb.userManage.add(getBody(config))
+  return [200, result]
+})

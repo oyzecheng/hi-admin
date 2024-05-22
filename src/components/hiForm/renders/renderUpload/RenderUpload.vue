@@ -31,7 +31,7 @@ import { computed, h, type PropType, toRefs } from 'vue'
 import { HiFormUploadController } from '@/components/hiForm/controller/hiFormUploadController'
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons-vue'
 import UploadAvatar from '@/components/hiForm/renders/renderUpload/UploadAvatar.vue'
-import type { IFormUploadItem, TFormData } from '@/components/hiForm/types'
+import type { IFormUploadItem } from '@/components/hiForm/types'
 import { message } from 'ant-design-vue'
 import { generateKey, validateFileType } from '@/utils'
 import { useHiButton } from '@/components/hiButton'
@@ -78,7 +78,7 @@ const customRequest = () => {
   // 这里添加上传代码
   const item = {
     id: generateKey(),
-    url: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_17.jpg',
+    url: 'https://static.oouzc.com/avatar/avatar_14.png',
     name: 'file name'
   }
   fileList.value.push(item)

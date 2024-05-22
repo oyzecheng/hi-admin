@@ -1,77 +1,68 @@
-import Mock from 'mockjs-async'
-import { builder } from '@/mock/util.js'
+import { builder, mock } from '@/mock/util.js'
 import { mockDb } from '@/mock/db/index.js'
-
-const Random = Mock.Random
+import { random } from '@/utils/index.ts'
 
 const products = ['食品', '服装', '鞋类', '美妆', '百货']
 
 const sellWellProductsData = [
   {
-    id: Random.guid(),
+    id: '1',
     poster: 'https://static.oouzc.com/products/product_1.jpg',
     name: 'Nike Air Force 1 NDESTRUKT',
-    price: Random.integer(100, 999),
+    price: 988,
     sellCount: 992
   },
   {
-    id: Random.guid(),
+    id: '2',
     poster: 'https://static.oouzc.com/products/product_2.jpg',
     name: 'Foundations Matte Flip Flop',
-    price: Random.integer(100, 999),
+    price: 867,
     sellCount: 893
   },
   {
-    id: Random.guid(),
+    id: '3',
     poster: 'https://static.oouzc.com/products/product_3.jpg',
     name: 'Nike Air Zoom Pegasus 37 A.I.R. Chaz Bear',
-    price: Random.integer(100, 999),
+    price: 793,
     sellCount: 690
   },
   {
-    id: Random.guid(),
+    id: '4',
     poster: 'https://static.oouzc.com/products/product_4.jpg',
     name: 'Arizona Soft Footbed Sandal',
-    price: Random.integer(100, 999),
+    price: 757,
     sellCount: 678
   },
   {
-    id: Random.guid(),
+    id: '5',
     poster: 'https://static.oouzc.com/products/product_5.jpg',
     name: 'Boston Soft Footbed Sandal',
-    price: Random.integer(100, 999),
+    price: 590,
     sellCount: 623
   },
   {
-    id: Random.guid(),
+    id: '6',
     poster: 'https://static.oouzc.com/products/product_6.jpg',
     name: 'Jordan Delta',
-    price: Random.integer(100, 999),
+    price: 492,
     sellCount: 556
   }
 ]
 
-Mock.mock(/\/bestSalesman/, 'get', () => {
-  return new Promise((resolve) => {
-    mockDb.userManage.getAll().then((list) => {
-      const data = {
-        list: list
-          .filter((item) => item.role === 2)
-          .slice(0, 5)
-          .map((item, index) => ({
-            ...item,
-            rank: index + 1,
-            price: 1000 - Random.integer(index * 10, (index + 1) * 10),
-            product: products[Random.integer(0, 4)]
-          }))
-      }
-      resolve(builder(data))
-    })
-  })
+mock.onGet('/bestSalesman').reply(async () => {
+  const list = await mockDb.userManage.getAll()
+  const data = {
+    list: list
+      .filter((item) => item.role === 2)
+      .slice(0, 5)
+      .map((item, index) => ({
+        ...item,
+        rank: index + 1,
+        price: random((10 - index) * 1000, (11 - index) * 1000),
+        product: products[random(0, products.length - 1)]
+      }))
+  }
+  return [200, builder(data)]
 })
 
-Mock.mock(/\/sellWellProducts/, 'get', () => {
-  return new Promise((resolve) => {
-    resolve(builder(sellWellProductsData))
-  })
-})
+mock.onGet('/sellWellProducts').reply(200, builder(sellWellProductsData))

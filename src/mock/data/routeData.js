@@ -1,9 +1,8 @@
-import Mock from 'mockjs-async'
-const Random = Mock.Random
+import { generateKey } from '@/utils/index.ts'
 
 export const routeData = [
   {
-    id: Random.guid(),
+    id: generateKey(),
     routeName: 'home',
     routePath: '/',
     componentName: 'HomeView',
@@ -12,7 +11,7 @@ export const routeData = [
     sort: 1
   },
   {
-    id: Random.guid(),
+    id: generateKey(),
     routeName: 'form',
     routePath: '/form',
     componentName: 'FormView',
@@ -21,7 +20,7 @@ export const routeData = [
     sort: 2
   },
   {
-    id: Random.guid(),
+    id: generateKey(),
     routeName: 'table',
     routePath: '/table',
     componentName: 'TableView',
@@ -30,7 +29,7 @@ export const routeData = [
     sort: 3
   },
   {
-    id: Random.guid(),
+    id: generateKey(),
     routeName: 'user',
     routePath: '/user',
     componentName: 'RouterView',
@@ -40,7 +39,7 @@ export const routeData = [
     sort: 4,
     children: [
       {
-        id: Random.guid(),
+        id: generateKey(),
         routeName: 'userList',
         routePath: '',
         componentName: 'UserView',
@@ -48,7 +47,7 @@ export const routeData = [
         sort: 1
       },
       {
-        id: Random.guid(),
+        id: generateKey(),
         routeName: 'userNew',
         routePath: 'new',
         componentName: 'UserNewView',
@@ -56,25 +55,27 @@ export const routeData = [
         sort: 2
       },
       {
-        id: Random.guid(),
+        id: generateKey(),
         routeName: 'userEdit',
         routePath: ':id',
         componentName: 'UserNewView',
         pageTitle: '编辑',
-        sort: 3
+        sort: 3,
+        hidden: true
       },
       {
-        id: Random.guid(),
+        id: generateKey(),
         routeName: 'userDetail',
         routePath: 'detail/:id',
         componentName: 'UserDetailView',
         pageTitle: '详情',
-        sort: 4
+        sort: 4,
+        hidden: true
       }
     ]
   },
   {
-    id: Random.guid(),
+    id: generateKey(),
     routeName: 'system',
     routePath: '/system',
     componentName: 'RouterView',
@@ -84,7 +85,7 @@ export const routeData = [
     sort: 5,
     children: [
       {
-        id: Random.guid(),
+        id: generateKey(),
         routeName: 'routerManage',
         routePath: 'routerManage',
         componentName: 'RouterView',
@@ -93,7 +94,7 @@ export const routeData = [
         sort: 1,
         children: [
           {
-            id: Random.guid(),
+            id: generateKey(),
             routeName: 'routerManageList',
             routePath: '',
             componentName: 'RouterManage',
@@ -102,7 +103,7 @@ export const routeData = [
             sort: 1
           },
           {
-            id: Random.guid(),
+            id: generateKey(),
             routeName: 'routerManageNew',
             routePath: 'new',
             componentName: 'RouterManageNewView',
@@ -111,7 +112,7 @@ export const routeData = [
             sort: 2
           },
           {
-            id: Random.guid(),
+            id: generateKey(),
             routeName: 'routerManageEdit',
             routePath: ':id',
             componentName: 'RouterManageNewView',
@@ -122,7 +123,7 @@ export const routeData = [
         ]
       },
       {
-        id: Random.guid(),
+        id: generateKey(),
         routeName: 'dataDictionary',
         routePath: 'dataDictionary',
         componentName: 'RouterView',
@@ -131,7 +132,7 @@ export const routeData = [
         sort: 2,
         children: [
           {
-            id: Random.guid(),
+            id: generateKey(),
             routeName: 'dataDictionaryList',
             routePath: '',
             componentName: 'DataDictionary',
@@ -140,7 +141,7 @@ export const routeData = [
             sort: 1
           },
           {
-            id: Random.guid(),
+            id: generateKey(),
             routeName: 'dataDictionaryNew',
             routePath: 'new',
             componentName: 'DataDictionaryNew',
@@ -149,7 +150,7 @@ export const routeData = [
             sort: 2
           },
           {
-            id: Random.guid(),
+            id: generateKey(),
             routeName: 'dataDictionaryEdit',
             routePath: ':id',
             componentName: 'DataDictionaryNew',
@@ -162,7 +163,7 @@ export const routeData = [
     ]
   },
   {
-    id: Random.guid(),
+    id: generateKey(),
     routeName: 'error',
     routePath: '/error',
     componentName: 'RouterView',
@@ -172,7 +173,7 @@ export const routeData = [
     sort: 6,
     children: [
       {
-        id: Random.guid(),
+        id: generateKey(),
         routeName: 'error404',
         routePath: '404',
         componentName: 'Error404View',
@@ -180,14 +181,5 @@ export const routeData = [
         sort: 1
       }
     ]
-  },
-  {
-    id: Random.guid(),
-    routeName: 'customPage',
-    routePath: '/customPage',
-    componentName: 'CustomPageView',
-    pageTitle: '自定义页面',
-    routeIcon: 'customPage',
-    sort: 7
   }
 ]

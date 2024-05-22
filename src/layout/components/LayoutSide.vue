@@ -54,11 +54,8 @@ const handleBreakpoint = (val) => {
   appStore.setLgLayoutSideShow(!val)
 }
 
-const handleMenuClick = ({ key, item }) => {
-  const params = item.path.includes(':id')
-    ? { id: '197EFc0F-42AD-cd4c-A239-26c3455f3243' }
-    : undefined
-  router.push({ name: key, params })
+const handleMenuClick = ({ key }) => {
+  router.push({ name: key })
   appStore.setLgLayoutSideShow()
 }
 

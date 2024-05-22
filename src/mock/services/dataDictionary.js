@@ -1,27 +1,37 @@
-import Mock from 'mockjs-async'
 import { mockDb } from '@/mock/db/index.js'
-import { getBody, getQueryParams, getUrlId } from '@/mock/util.js'
+import { getBody, getUrlId, mock } from '@/mock/util.js'
 
-Mock.mock(/^\/dataDictionary\/[a-zA-Z0-9-]+$/, 'get', (options) =>
-  mockDb.dataDictionary.getItemById(getUrlId(options))
-)
-
-Mock.mock(/\/dataDictionaryAll/, 'get', () => mockDb.dataDictionary.getAll())
-
-Mock.mock(/\/dataDictionary/, 'get', (options) => {
-  return new Promise((resolve) => {
-    mockDb.dataDictionary.getList(getQueryParams(options)).then((list) => {
-      resolve(list)
-    })
-  })
+mock.onGet(/^\/dataDictionary\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.dataDictionary.getItemById(getUrlId(config))
+  return [200, result]
 })
 
-Mock.mock(/^\/dataDictionary\/[a-zA-Z0-9-]+$/, 'delete', (options) =>
-  mockDb.dataDictionary.deleteItemById(getUrlId(options))
-)
+mock.onGet('/dataDictionaryAll').reply(async () => {
+  const list = await mockDb.dataDictionary.getAll()
+  return [200, list]
+})
 
-Mock.mock(/^\/dataDictionary\/[a-zA-Z0-9-]+$/, 'patch', (options) =>
-  mockDb.dataDictionary.updateItem(getUrlId(options), getBody(options))
-)
+mock.onGet('/dataDictionary').reply(async (config) => {
+  const list = await mockDb.dataDictionary.getList(config.params)
+  return [200, list]
+})
 
-Mock.mock(/^\/dataDictionary$/, 'post', (options) => mockDb.dataDictionary.add(getBody(options)))
+mock.onGet('/dataDictionary').reply(async (config) => {
+  const list = await mockDb.dataDictionary.getList(config.params)
+  return [200, list]
+})
+
+mock.onDelete(/^\/dataDictionary\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.dataDictionary.deleteItemById(getUrlId(config))
+  return [200, result]
+})
+
+mock.onPatch(/^\/dataDictionary\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.dataDictionary.updateItem(getUrlId(config), getBody(config))
+  return [200, result]
+})
+
+mock.onPost('/dataDictionary').reply(async (config) => {
+  const result = await mockDb.dataDictionary.add(getBody(config))
+  return [200, result]
+})

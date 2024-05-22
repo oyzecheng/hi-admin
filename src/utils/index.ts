@@ -98,3 +98,7 @@ export const deepClone = (source: any) => {
   }
   return newObject
 }
+
+export const random = (min = 0, max = 10000) => {
+  return Math.floor(Math.random() * (max - min) + min)
+}

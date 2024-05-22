@@ -23,8 +23,5 @@ export default {
   DataDictionaryNew: () => import('@/views/system/dataDictionary/new/DataDictionaryNew.vue'),
 
   // 错误页
-  Error404View: () => import('@/views/errors/Error404View.vue'),
-
-  // 自定义页面
-  CustomPageView: () => import('@/views/customPage/CustomPageView.vue')
+  Error404View: () => import('@/views/errors/Error404View.vue')
 }

@@ -1,7 +1,7 @@
-import type { LocationQuery, RouteParams, RouteRecordName } from 'vue-router'
+import type { LocationQuery, RouteParams } from 'vue-router'
 
 export interface INavigationItem {
-  name: RouteRecordName
+  name: string
   title: string
   query?: LocationQuery
   params?: RouteParams

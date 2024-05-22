@@ -4,7 +4,7 @@ import { GetItem, SetItem } from '@/utils/storage'
 import { NAVIGATION_BAR, NAVIGATION_BAR_SHOW, THEME_COLOR } from '@/constant/app'
 import { DataDictionaryAll } from '@/api/dataDictionary'
 import type { INavigationItem } from '@/stores/types'
-import type { RouteLocationNormalized, RouteLocationNormalizedLoaded } from 'vue-router'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 export const useAppStore = defineStore('app', () => {
   const sideCollapsible = ref(false)

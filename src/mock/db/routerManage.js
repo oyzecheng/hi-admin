@@ -1,30 +1,25 @@
 import { Table } from '@/mock/db/table.js'
-import { routeData } from '@/mock/data/routeData.js'
 
 export class RouterManage extends Table {
-  constructor() {
-    super('routerManage')
+  constructor(dataList) {
+    super([])
+    this.init(dataList)
   }
 
-  init(db) {
-    super.init(db)
-    if (!db.objectStoreNames.contains(this.tableName)) {
-      this.createTable(db).then((store) => {
-        const deepLoopRouteData = (list, parentId) => {
-          list.forEach((item) => {
-            const children = item.children
-            item.children = undefined
-            item.parentId = parentId
-            item.createAt = new Date().getTime()
-            store.add(item)
-            if (children?.length) {
-              deepLoopRouteData(children, item.id)
-            }
-          })
+  init(dataList) {
+    const deepLoopRouteData = (list, parentId) => {
+      list.forEach((item) => {
+        const children = item.children
+        item.children = undefined
+        item.parentId = parentId
+        item.createAt = new Date().getTime()
+        this._table.push(item)
+        if (children?.length) {
+          deepLoopRouteData(children, item.id)
         }
-        deepLoopRouteData(routeData)
       })
     }
+    deepLoopRouteData(dataList)
   }
 
   generateRouterTree(list) {

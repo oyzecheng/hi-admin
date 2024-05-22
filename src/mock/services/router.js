@@ -1,25 +1,27 @@
-import Mock from 'mockjs-async'
-import { builder, getBody, getUrlId } from '@/mock/util.js'
+import { builder, getBody, getUrlId, mock } from '@/mock/util.js'
 import { mockDb } from '@/mock/db/index.js'
 
-Mock.mock(/^\/router\/[a-zA-Z0-9-]+$/, 'get', (options) =>
-  mockDb.routerManage.getItemById(getUrlId(options))
-)
-
-Mock.mock(/\/router/, 'get', () => {
-  return new Promise((resolve) => {
-    mockDb.routerManage.getSortAll().then((list) => {
-      resolve(builder(list))
-    })
-  })
+mock.onGet(/^\/router\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.routerManage.getItemById(getUrlId(config))
+  return [200, result]
 })
 
-Mock.mock(/^\/router\/[a-zA-Z0-9-]+$/, 'patch', (options) =>
-  mockDb.routerManage.updateItem(getUrlId(options), getBody(options))
-)
+mock.onGet('/router').reply(async () => {
+  const list = await mockDb.routerManage.getSortAll()
+  return [200, builder(list)]
+})
 
-Mock.mock(/^\/router$/, 'post', (options) => mockDb.routerManage.add(getBody(options)))
+mock.onPatch(/^\/router\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.routerManage.updateItem(getUrlId(config), getBody(config))
+  return [200, result]
+})
 
-Mock.mock(/^\/router\/[a-zA-Z0-9-]+$/, 'delete', (options) =>
-  mockDb.routerManage.deleteItemById(getUrlId(options))
-)
+mock.onPost('/router$').reply(async (config) => {
+  const result = await mockDb.routerManage.add(getBody(config))
+  return [200, result]
+})
+
+mock.onDelete(/^\/router\/[a-zA-Z0-9-]+$/).reply(async (config) => {
+  const result = await mockDb.routerManage.deleteItemById(getUrlId(config))
+  return [200, result]
+})

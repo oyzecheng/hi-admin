@@ -50,15 +50,7 @@ const isEdit = computed(() => {
 
 const getUserInfo = async () => {
   const result = await UserManageDetail(route.params.id)
-  newUserForm.setFormData(
-    result || {
-      avatar: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_23.jpg',
-      name: '廖洋',
-      email: 'p.eqbjreag@khbgss.qa',
-      address: '江西省 吉安市 峡江县',
-      role: '2'
-    }
-  )
+  newUserForm.setFormData(result)
 }
 watch(
   () => route.name,

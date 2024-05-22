@@ -1,10 +1,8 @@
 import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
-import { useFormSwitch } from '@/components/hiForm'
 import { useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
 import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfirmButton'
 import RouterIcon from '@/router/routerIcon'
 
-export const createButton = useHISmallTextButton('按钮管理')
 export const delRouter = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
 export const editRouter = useHISmallTextButton('编辑')
 export const topCreateRouter = useHiPrimaryButton('创建路由', { auth: 'add' })
