@@ -19,8 +19,12 @@ export default {
   // 路由管理
   RouterManage: () => import('@/views/system/routerManage/RouterManage.vue'),
   RouterManageNewView: () => import('@/views/system/routerManage/new/RouterManageNewView.vue'),
+  // 数据字典
   DataDictionary: () => import('@/views/system/dataDictionary/DataDictionary.vue'),
   DataDictionaryNew: () => import('@/views/system/dataDictionary/new/DataDictionaryNew.vue'),
+  // 角色管理
+  RoleManage: () => import('@/views/system/roleManage/RoleManage.vue'),
+  RoleManageNew: () => import('@/views/system/roleManage/new/RoleManageView.vue'),
 
   // 错误页
   Error404View: () => import('@/views/errors/Error404View.vue')

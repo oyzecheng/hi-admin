@@ -114,7 +114,7 @@ export class HiTableController {
   init() {
     this.config.loading.value = false
     this.resetSelectedData()
-    this.setPagination({ total: 0, current: 1, pageSize: 10 })
+    this.config.pagination && this.setPagination({ total: 0, current: 1, pageSize: 10 })
   }
 
   async reloadData(params: any = {}) {

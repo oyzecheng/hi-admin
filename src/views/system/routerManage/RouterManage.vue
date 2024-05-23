@@ -27,20 +27,10 @@ const router = useRouter()
 tableController.setLoadData(() => {
   return new Promise((resolve) => {
     RouterList().then((res) => {
-      resolve({ data: { list: appendLoading(res.data), page: 1, pageSize: 10, count: 10 } })
+      resolve({ data: { list: res.data, page: 1, pageSize: 10, count: 10 } })
     })
   })
 })
-
-const appendLoading = (list: any[]) => {
-  list.forEach((item) => {
-    item.loading = false
-    if (item.children) {
-      appendLoading(item.children)
-    }
-  })
-  return list
-}
 
 const renderIcon = (record: any) => {
   const icon = RouterIcon[record.meta?.icon]

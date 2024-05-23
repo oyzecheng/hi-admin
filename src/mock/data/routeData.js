@@ -42,7 +42,7 @@ export const routeData = [
         routePath: '',
         componentName: 'RouterView',
         redirectRouteName: 'userListPage',
-        pageTitle: '列表',
+        pageTitle: '用户',
         sort: 1,
         children: [
           {
@@ -164,6 +164,44 @@ export const routeData = [
             routeName: 'dataDictionaryEdit',
             routePath: ':id',
             componentName: 'DataDictionaryNew',
+            pageTitle: '编辑',
+            hidden: true,
+            sort: 3
+          }
+        ]
+      },
+      {
+        id: '53',
+        routeName: 'roleManage',
+        routePath: 'roleManage',
+        componentName: 'RouterView',
+        pageTitle: '角色管理',
+        redirectRouteName: 'roleManageList',
+        sort: 3,
+        children: [
+          {
+            id: '531',
+            routeName: 'roleManageList',
+            routePath: '',
+            componentName: 'RoleManage',
+            pageTitle: '列表',
+            hidden: true,
+            sort: 1
+          },
+          {
+            id: '532',
+            routeName: 'roleManageNew',
+            routePath: 'new',
+            componentName: 'RoleManageNew',
+            pageTitle: '创建',
+            hidden: true,
+            sort: 2
+          },
+          {
+            id: '533',
+            routeName: 'roleManageEdit',
+            routePath: ':id',
+            componentName: 'RoleManageNew',
             pageTitle: '编辑',
             hidden: true,
             sort: 3

@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import HiButtonList from '@/components/hiButton/HiButtonList.vue'
 import { HiTableController } from '@/components/hiTable/controller/hiTableController'
-import { onMounted, type PropType, toRefs } from 'vue'
+import { computed, onMounted, type PropType, toRefs } from 'vue'
 import type { TButtonController } from '@/components/hiButton/types'
 
 const props = defineProps({

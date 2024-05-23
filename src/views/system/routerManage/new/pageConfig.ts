@@ -41,5 +41,5 @@ export const newFormController = useHiForm(
     redirectRouteName,
     routeSort
   ],
-  { layoutCol: 2, buttonListOffset: 3 }
+  { layoutCol: 2, buttonListOffset: 2 }
 )
