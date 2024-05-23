@@ -27,26 +27,32 @@
 <script setup lang="ts">
 import HiForm from '@/components/hiForm/HiForm.vue'
 import HiButton from '@/components/hiButton/HiButton.vue'
-import { loginForm, loginButton } from './pageConfig'
+import { loginForm, loginButton, email, password } from './pageConfig'
 import { SetItem } from '@/utils/storage'
 import { USER_TOKEN } from '@/constant/user'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
+import { Login } from '@/api/user'
 
 const userStore = useUserStore()
 const router = useRouter()
 
-loginButton.onClick(async (button) => {
-  button.showLoading()
+const handleLogin = async () => {
+  loginButton.showLoading()
   try {
     const formData = await loginForm.validate()
-    SetItem(USER_TOKEN, 'token')
+    const result = await Login(formData)
+    SetItem(USER_TOKEN, result)
     await userStore.initUserConfig()
     router.push({ name: 'home' })
   } finally {
-    button.hideLoading()
+    loginButton.hideLoading()
   }
-})
+}
+
+loginButton.onClick(handleLogin)
+email.setConfigItemByKey('onPressEnter', handleLogin)
+password.setConfigItemByKey('onPressEnter', handleLogin)
 </script>
 
 <style lang="less" scoped>

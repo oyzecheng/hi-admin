@@ -119,6 +119,7 @@ export interface IFormInput extends IFormItemBase {
   modalType?: 'password' | 'input' | 'textarea'
   defaultValue?: string
   showCount?: boolean
+  onPressEnter?: (value: string) => void
 }
 
 export interface IFormSelect extends IFormItemBase {

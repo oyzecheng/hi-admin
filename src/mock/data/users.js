@@ -1,5 +1,15 @@
 export const users = [
   {
+    address: '重庆 重庆市 万盛区',
+    avatar: 'https://static.oouzc.com/avatar/avatar_24.png',
+    createAt: 1716357616246,
+    email: 'user@gmail.com',
+    id: '806852F4-fFAC-8cB7-45ac-9b7bb59f1e31',
+    name: '普通用户',
+    role: 2,
+    status: 1
+  },
+  {
     address: '四川省 泸州市 古蔺县',
     avatar: 'https://static.oouzc.com/avatar/avatar_14.png',
     createAt: 1716357616246,
@@ -218,15 +228,5 @@ export const users = [
     name: '白艳',
     role: 1,
     status: 1
-  },
-  {
-    address: '重庆 重庆市 万盛区',
-    avatar: 'https://static.oouzc.com/avatar/avatar_24.png',
-    createAt: 1716357616246,
-    email: 'm.qkeu@nztdqfr.mr',
-    id: '806852F4-fFAC-8cB7-45ac-9b7bb59f1e31',
-    name: '顾丽',
-    role: 1,
-    status: 2
   }
 ]

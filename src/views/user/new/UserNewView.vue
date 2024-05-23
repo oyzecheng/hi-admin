@@ -5,11 +5,7 @@
         <a-row :gutter="[20, 20]">
           <a-col :span="24" :lg="8">
             <div class="module-container user-avatar-module">
-              <HiFormItem
-                :config="controllerList[0]"
-                :formData="formData"
-                :rules="rules[controllerList[0].model]"
-              />
+              <HiFormItem :config="controllerList[0]" :formData="formData" :rules="rules" />
             </div>
           </a-col>
           <a-col :span="24" :lg="16">
@@ -49,8 +45,8 @@ const isEdit = computed(() => {
 })
 
 const getUserInfo = async () => {
-  const result = await UserManageDetail(route.params.id)
-  newUserForm.setFormData(result)
+  const { data } = await UserManageDetail(route.params.id)
+  newUserForm.setFormData(data)
 }
 watch(
   () => route.name,

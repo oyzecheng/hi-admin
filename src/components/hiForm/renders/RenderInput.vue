@@ -13,6 +13,7 @@
     :style="style"
     :show-count="showCount"
     @change="handleChange"
+    @pressEnter="handlePressEnter"
   />
 </template>
 
@@ -46,7 +47,8 @@ const {
   showCount,
   onChange,
   style,
-  modalType
+  modalType,
+  onPressEnter
 } = config
 const currentComponent = shallowRef<any>()
 
@@ -64,6 +66,11 @@ switch (modalType) {
 const handleChange = (e: any) => {
   const { value } = e.target
   onChange && onChange(value)
+}
+
+const handlePressEnter = (e: any) => {
+  const { value } = e.target
+  onPressEnter && onPressEnter(value)
 }
 </script>
 

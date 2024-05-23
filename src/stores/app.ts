@@ -34,7 +34,7 @@ export const useAppStore = defineStore('app', () => {
   }
 
   const getDicAll = async () => {
-    const data: any = await DataDictionaryAll()
+    const { data } = await DataDictionaryAll()
     if (dataDictionary.length) {
       dataDictionary.splice(0, dataDictionary.length)
     }

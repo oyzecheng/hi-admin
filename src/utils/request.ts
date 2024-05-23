@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { GetItem } from '@/utils/storage'
 import { USER_TOKEN } from '@/constant/user'
+import { notification } from 'ant-design-vue'
+import { RemoveAll } from '@/utils/storage'
 
 const request = axios.create({
   baseURL: '',
@@ -8,9 +9,7 @@ const request = axios.create({
 })
 
 request.interceptors.request.use((config) => {
-  const token = GetItem(USER_TOKEN)
-
-  config.headers['authorization_token'] = token
+  config.headers['authorization_token'] = window.localStorage.getItem(USER_TOKEN)
 
   return config
 })
@@ -19,7 +18,21 @@ request.interceptors.response.use((response) => {
   const { data, status } = response
 
   if (status === 200) {
-    return data
+    if (data.code === 200) {
+      return data
+    } else {
+      notification.error({
+        message: '错误！',
+        description: data.message
+      })
+      if (data.code === 403) {
+        setTimeout(() => {
+          window.location.href = '/login'
+          RemoveAll()
+        }, 1000)
+      }
+      return Promise.reject(data)
+    }
   }
 
   return response

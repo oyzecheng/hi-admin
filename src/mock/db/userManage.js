@@ -5,6 +5,10 @@ export class UserManage extends Table {
     super(dataList)
   }
 
+  getUserByEmail(email) {
+    return this.table.find((item) => item.email === email)
+  }
+
   async getList({ page, pageSize, name, status }) {
     return await super.getList(page, pageSize, (item) => {
       {

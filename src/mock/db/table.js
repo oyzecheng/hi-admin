@@ -55,7 +55,7 @@ export class Table {
 
   getSortAll() {
     return new Promise((resolve) => {
-      resolve(this.table.sort((a, b) => a.createAt - b.createAt))
+      resolve(this.table.sort((a, b) => (a.createAt - b.createAt ? -1 : 1)))
     })
   }
 
@@ -66,15 +66,13 @@ export class Table {
     const dataPage = +page || 1
     const dataPageSize = +pageSize || 10
     return {
-      data: {
-        page: dataPage,
-        pageSize: dataPageSize,
-        count: list.length,
-        list: [...list].slice(
-          (dataPage - 1) * dataPageSize,
-          (dataPage - 1) * dataPageSize + dataPageSize
-        )
-      }
+      page: dataPage,
+      pageSize: dataPageSize,
+      count: list.length,
+      list: [...list].slice(
+        (dataPage - 1) * dataPageSize,
+        (dataPage - 1) * dataPageSize + dataPageSize
+      )
     }
   }
 }

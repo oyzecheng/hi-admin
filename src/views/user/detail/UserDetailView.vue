@@ -27,12 +27,8 @@ onMounted(() => {
 })
 
 const getUserInfo = async () => {
-  const result = await UserManageDetail(route.params.id)
-  userInfo.value = result || {
-    avatar: 'https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_23.jpg',
-    name: '廖洋',
-    role: '2'
-  }
+  const { data } = await UserManageDetail(route.params.id)
+  userInfo.value = data
 }
 </script>
 

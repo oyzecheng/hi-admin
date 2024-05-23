@@ -25,8 +25,8 @@ onMounted(() => {
 })
 
 const getDetail = async () => {
-  const result = await RouterDetail(route.params.id)
-  newFormController.setFormData(result)
+  const { data } = await RouterDetail(route.params.id)
+  newFormController.setFormData(data)
 }
 
 newFormController.onDefaultConfirm(async (controller) => {

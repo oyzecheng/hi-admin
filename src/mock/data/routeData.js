@@ -1,8 +1,6 @@
-import { generateKey } from '@/utils/index.ts'
-
 export const routeData = [
   {
-    id: generateKey(),
+    id: '1',
     routeName: 'home',
     routePath: '/',
     componentName: 'HomeView',
@@ -11,7 +9,7 @@ export const routeData = [
     sort: 1
   },
   {
-    id: generateKey(),
+    id: '2',
     routeName: 'form',
     routePath: '/form',
     componentName: 'FormView',
@@ -20,7 +18,7 @@ export const routeData = [
     sort: 2
   },
   {
-    id: generateKey(),
+    id: '3',
     routeName: 'table',
     routePath: '/table',
     componentName: 'TableView',
@@ -29,7 +27,7 @@ export const routeData = [
     sort: 3
   },
   {
-    id: generateKey(),
+    id: '4',
     routeName: 'user',
     routePath: '/user',
     componentName: 'RouterView',
@@ -39,43 +37,55 @@ export const routeData = [
     sort: 4,
     children: [
       {
-        id: generateKey(),
+        id: '41',
         routeName: 'userList',
         routePath: '',
-        componentName: 'UserView',
+        componentName: 'RouterView',
+        redirectRouteName: 'userListPage',
         pageTitle: '列表',
-        sort: 1
+        sort: 1,
+        children: [
+          {
+            id: '411',
+            routeName: 'userListPage',
+            routePath: '',
+            componentName: 'UserView',
+            pageTitle: '列表',
+            sort: 1,
+            hidden: true
+          },
+          {
+            id: '412',
+            routeName: 'userEdit',
+            routePath: ':id',
+            componentName: 'UserNewView',
+            pageTitle: '编辑',
+            sort: 3,
+            hidden: true
+          },
+          {
+            id: '413',
+            routeName: 'userDetail',
+            routePath: 'detail/:id',
+            componentName: 'UserDetailView',
+            pageTitle: '详情',
+            sort: 4,
+            hidden: true
+          }
+        ]
       },
       {
-        id: generateKey(),
+        id: '42',
         routeName: 'userNew',
         routePath: 'new',
         componentName: 'UserNewView',
         pageTitle: '创建',
         sort: 2
-      },
-      {
-        id: generateKey(),
-        routeName: 'userEdit',
-        routePath: ':id',
-        componentName: 'UserNewView',
-        pageTitle: '编辑',
-        sort: 3,
-        hidden: true
-      },
-      {
-        id: generateKey(),
-        routeName: 'userDetail',
-        routePath: 'detail/:id',
-        componentName: 'UserDetailView',
-        pageTitle: '详情',
-        sort: 4,
-        hidden: true
       }
     ]
   },
   {
-    id: generateKey(),
+    id: '5',
     routeName: 'system',
     routePath: '/system',
     componentName: 'RouterView',
@@ -85,7 +95,7 @@ export const routeData = [
     sort: 5,
     children: [
       {
-        id: generateKey(),
+        id: '51',
         routeName: 'routerManage',
         routePath: 'routerManage',
         componentName: 'RouterView',
@@ -94,7 +104,7 @@ export const routeData = [
         sort: 1,
         children: [
           {
-            id: generateKey(),
+            id: '511',
             routeName: 'routerManageList',
             routePath: '',
             componentName: 'RouterManage',
@@ -103,7 +113,7 @@ export const routeData = [
             sort: 1
           },
           {
-            id: generateKey(),
+            id: '512',
             routeName: 'routerManageNew',
             routePath: 'new',
             componentName: 'RouterManageNewView',
@@ -112,7 +122,7 @@ export const routeData = [
             sort: 2
           },
           {
-            id: generateKey(),
+            id: '513',
             routeName: 'routerManageEdit',
             routePath: ':id',
             componentName: 'RouterManageNewView',
@@ -123,7 +133,7 @@ export const routeData = [
         ]
       },
       {
-        id: generateKey(),
+        id: '52',
         routeName: 'dataDictionary',
         routePath: 'dataDictionary',
         componentName: 'RouterView',
@@ -132,7 +142,7 @@ export const routeData = [
         sort: 2,
         children: [
           {
-            id: generateKey(),
+            id: '521',
             routeName: 'dataDictionaryList',
             routePath: '',
             componentName: 'DataDictionary',
@@ -141,7 +151,7 @@ export const routeData = [
             sort: 1
           },
           {
-            id: generateKey(),
+            id: '522',
             routeName: 'dataDictionaryNew',
             routePath: 'new',
             componentName: 'DataDictionaryNew',
@@ -150,7 +160,7 @@ export const routeData = [
             sort: 2
           },
           {
-            id: generateKey(),
+            id: '523',
             routeName: 'dataDictionaryEdit',
             routePath: ':id',
             componentName: 'DataDictionaryNew',
@@ -163,7 +173,7 @@ export const routeData = [
     ]
   },
   {
-    id: generateKey(),
+    id: '6',
     routeName: 'error',
     routePath: '/error',
     componentName: 'RouterView',
@@ -173,7 +183,7 @@ export const routeData = [
     sort: 6,
     children: [
       {
-        id: generateKey(),
+        id: '61',
         routeName: 'error404',
         routePath: '404',
         componentName: 'Error404View',

@@ -24,6 +24,10 @@ export const builder = (data, message = 'success', code = 200) => {
   return response
 }
 
+export const builderError = (message = '', code = 401) => {
+  return builder(null, message, code)
+}
+
 export const getUrlId = (options) => {
   const url = options.url
   const arr = url.split('/')
@@ -37,4 +41,9 @@ export const getBody = (options) => {
   } catch (err) {
     return {}
   }
+}
+
+export const getUserInfo = (options) => {
+  const { authorization_token } = options.headers
+  return JSON.parse(authorization_token)
 }
