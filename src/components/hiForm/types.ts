@@ -154,6 +154,8 @@ export interface IFormUpload extends IFormItemBase {
   uploadText?: string
   type: 'avatar' | 'image' | 'imageList' | 'file'
   format?: boolean
+  onUploadError?: (data: IFormUploadItem, err: Error) => void
+  onUploadSuccess?: (data: IFormUploadItem) => void
 }
 
 export interface IFormInputNumber extends IFormItemBase {
@@ -249,4 +251,5 @@ export interface IFormUploadItem {
   id: string
   url: string
   name: string
+  status: 'ready' | 'uploading' | 'success' | 'error'
 }

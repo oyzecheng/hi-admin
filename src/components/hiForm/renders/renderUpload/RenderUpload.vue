@@ -35,6 +35,7 @@ import type { IFormUploadItem } from '@/components/hiForm/types'
 import { message } from 'ant-design-vue'
 import { generateKey, validateFileType } from '@/utils'
 import { useHiButton } from '@/components/hiButton'
+import { UploadFile } from '@/api/common'
 
 const props = defineProps({
   controller: {
@@ -59,7 +60,9 @@ const {
   maxCount,
   multiple,
   maxCountError,
-  uploadText
+  uploadText,
+  onUploadError,
+  onUploadSuccess
 } = config
 
 const fileList = computed<IFormUploadItem[]>(() => value?.value || [])
@@ -69,19 +72,40 @@ const handleChange = () => {
   onChange && onChange(fileList)
 }
 
-const customRequest = () => {
-  if (maxCount && fileList.value.length >= maxCount) {
+const getFileListItemById = (id: string) => fileList.value.find((item) => item.id === id)
+
+const customRequest = (e: any) => {
+  if (maxCount && fileList.value.length >= maxCount && type !== 'avatar') {
     maxCountError && message.error(maxCountError)
     return false
   }
 
   // 这里添加上传代码
-  const item = {
-    id: generateKey(),
-    url: 'https://static.oouzc.com/avatar/avatar_14.png',
-    name: 'file name'
+  const formData = new FormData()
+  formData.append('file', e.file)
+  const id = generateKey()
+  const data: IFormUploadItem = { id, status: 'uploading', name: e.file.name, url: '' }
+  if (type === 'avatar') {
+    fileList.value[0] = data
+  } else {
+    fileList.value.push(data)
   }
-  fileList.value.push(item)
+  UploadFile(formData)
+    .then((res) => {
+      const item = getFileListItemById(id)
+      if (item) {
+        item.status = 'success'
+        item.url = res.data.url
+        onUploadSuccess && onUploadSuccess(item)
+      }
+    })
+    .catch((err) => {
+      const item = getFileListItemById(id)
+      if (item) {
+        item.status = 'error'
+        onUploadError && onUploadError(item, err)
+      }
+    })
 }
 const beforeUpload = (file: File) => {
   const { size } = file

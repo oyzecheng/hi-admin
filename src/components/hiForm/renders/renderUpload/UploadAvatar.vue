@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { CameraFilled } from '@ant-design/icons-vue'
-import { computed, type PropType, toRef, toRefs } from 'vue'
+import { computed, type PropType, toRefs } from 'vue'
 import type { IFormUploadItem } from '@/components/hiForm/types'
 
 const props = defineProps({

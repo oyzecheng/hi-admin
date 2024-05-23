@@ -56,9 +56,19 @@ export const POST = (url: string, params?: any) => {
   })
 }
 
-export const DELETE = (url: string) => {
+export const POST_UPLOAD = (url: string, params?: any) => {
   return request({
     url,
+    method: 'post',
+    data: params,
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+}
+
+export const DELETE = (url: string, params?: any) => {
+  return request({
+    url,
+    data: params,
     method: 'delete'
   })
 }

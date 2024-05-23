@@ -10,8 +10,15 @@ export class HiFormUploadController extends HiFormItemController<IFormUpload> {
   setDefaultConfig() {
     super.setDefaultConfig()
     const config = this.config
-    const { type, accept, acceptErrorMessage, maxSize, maxSizeErrorMessage, placeholder } = config
-    config.acceptErrorMessage = acceptErrorMessage || '文件格式错误'
+    const {
+      type,
+      accept,
+      acceptErrorMessage,
+      maxSize,
+      maxSizeErrorMessage,
+      placeholder,
+      maxCountError
+    } = config
     if (type === 'avatar') {
       config.accept = accept || '.jpg,.jpeg,.png,.gif'
       config.maxSize = maxSize || 3 * 1024
@@ -35,6 +42,8 @@ export class HiFormUploadController extends HiFormItemController<IFormUpload> {
       config.accept = accept || ''
       config.multiple = true
     }
+    config.acceptErrorMessage = acceptErrorMessage || '文件格式错误'
+    config.maxCountError = maxCountError || `最多只能上传${config.maxCount}个`
   }
 
   getDefaultRule(): IFormItemRule {

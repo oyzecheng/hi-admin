@@ -113,11 +113,8 @@ export class HiTableController {
 
   init() {
     this.config.loading.value = false
-    this.selectedData.selectedRows = []
-    this.selectedData.selectedRowKeys = []
-    if (this.selectedData.selectionConfig) {
-      this.selectedData.selectionConfig.selectedRowKeys = []
-    }
+    this.resetSelectedData()
+    this.setPagination({ total: 0, current: 1, pageSize: 10 })
   }
 
   async reloadData(params: any = {}) {
@@ -147,6 +144,14 @@ export class HiTableController {
 
   getSelectedData() {
     return this.selectedData
+  }
+
+  resetSelectedData() {
+    this.selectedData.selectedRows = []
+    this.selectedData.selectedRowKeys = []
+    if (this.selectedData.selectionConfig) {
+      this.selectedData.selectionConfig.selectedRowKeys = []
+    }
   }
 
   showLoading() {

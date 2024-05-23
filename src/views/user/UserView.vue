@@ -86,7 +86,12 @@ del.onConfirm(async (controller) => {
 batchDel.onClick(() => {
   const { selectedRowKeys } = table.getSelectedData()
   Modal.confirm({
-    content: '确定要删除选中的数据吗？'
+    content: '确定要删除选中的数据吗？',
+    async onOk() {
+      await UserManageDelete('', { ids: selectedRowKeys })
+      table.reloadData()
+      table.resetSelectedData()
+    }
   })
 })
 </script>

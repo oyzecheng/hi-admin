@@ -2,7 +2,7 @@ import { DELETE, GET, PATH, POST } from '@/utils/request'
 
 export const UserManageList = (params?: any) => GET('/userManage', params)
 
-export const UserManageDelete = (id: string) => DELETE(`/userManage/${id}`)
+export const UserManageDelete = (id: string, params: any) => DELETE(`/userManage/${id}`, params)
 
 export const UserManageDetail = (id: string) => GET(`/userManage/${id}`)
 

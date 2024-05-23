@@ -35,6 +35,13 @@ export class Table {
     })
   }
 
+  deleteItemByIdList(list = []) {
+    return new Promise((resolve) => {
+      this._table = this.table.filter((item) => !list.includes(item.id))
+      resolve('success')
+    })
+  }
+
   updateItem(id, data) {
     return new Promise((resolve, reject) => {
       const index = this.table.findIndex((item) => item.id === id)

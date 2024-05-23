@@ -11,8 +11,12 @@ mock.onGet('/userManage').reply(async (config) => {
   return [200, builder(list)]
 })
 
-mock.onDelete(/^\/userManage\/[a-zA-Z0-9-]+$/).reply(async (config) => {
-  const result = await mockDb.userManage.deleteItemById(getUrlId(config))
+mock.onDelete(/^\/userManage(\/[a-zA-Z0-9-]+$)?/).reply(async (config) => {
+  const id = getUrlId(config)
+  const body = getBody(config)
+  const result = id
+    ? await mockDb.userManage.deleteItemById(getUrlId(config))
+    : await mockDb.userManage.deleteItemByIdList(body?.ids || [])
   return [200, builder(result)]
 })
 

@@ -5,8 +5,7 @@ import {
   FormOutlined,
   UserOutlined,
   CloseCircleOutlined,
-  RadarChartOutlined,
-  CustomerServiceOutlined
+  RadarChartOutlined
 } from '@ant-design/icons-vue'
 
 const RouterIcon: { [p: string]: any } = {
@@ -15,8 +14,7 @@ const RouterIcon: { [p: string]: any } = {
   form: () => h(FormOutlined),
   user: () => h(UserOutlined),
   error: () => h(CloseCircleOutlined),
-  system: () => h(RadarChartOutlined),
-  customPage: () => h(CustomerServiceOutlined)
+  system: () => h(RadarChartOutlined)
 }
 
 export default RouterIcon
