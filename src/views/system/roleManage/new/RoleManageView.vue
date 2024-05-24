@@ -3,12 +3,19 @@
     <HiForm :controller="newFormController">
       <template #auth="{ formData, config }">
         <a-tree
+          v-if="routerList.length"
           v-model:checkedKeys="formData[config.model]"
           :tree-data="routerList"
-          :autoExpandParent="true"
+          show-icon
           checkable
+          defaultExpandAll
           :field-names="{ title: 'pageTitle', key: 'id' }"
-        ></a-tree>
+          :selectable="false"
+        >
+          <template #icon>
+            <a-tag color="success" :bordered="false">页面</a-tag>
+          </template>
+        </a-tree>
       </template>
     </HiForm>
   </div>
@@ -43,13 +50,10 @@ const getDetail = async () => {
 const getRouterList = async () => {
   const { data } = await RouterList()
   routerList.value = data
-  console.log('data', data)
 }
 
 newFormController.onDefaultConfirm(async (controller) => {
   const formData = await newFormController.validate()
-  console.log('formData', formData)
-  return
   controller.showLoading()
   try {
     if (isEdit.value) {
@@ -67,4 +71,12 @@ newFormController.onDefaultCancel(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.module-container {
+  :deep(.ant-tree) {
+    .ant-tree-icon__customize {
+      width: auto;
+    }
+  }
+}
+</style>

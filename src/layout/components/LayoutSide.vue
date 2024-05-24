@@ -12,7 +12,9 @@
     breakpoint="xl"
   >
     <HiScrollView height="100%" style="padding: 0 10px">
-      <div class="logo">Hi-Admin</div>
+      <div class="logo">
+        {{ !appStore.sideCollapsible ? 'Hi-Admin' : 'Hi' }}
+      </div>
       <a-menu
         :items="userStore.info.userMenus"
         @click="handleMenuClick"
@@ -83,9 +85,9 @@ watch(
     height: 32px;
     margin: 16px;
     color: var(--color-primary);
-    font-weight: bold;
     text-align: center;
     font-size: 24px;
+    font-weight: bold;
   }
   .ant-menu {
     border: none;

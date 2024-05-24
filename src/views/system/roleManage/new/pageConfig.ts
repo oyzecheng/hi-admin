@@ -15,8 +15,12 @@ const roleStatus = useFormSwitch('角色状态', 'status', {
   unCheckedChildren: '禁用'
 })
 const roleAuth = useFormSlot('权限', 'auth')
+const empty = useFormSlot('', 'empty')
 
-export const newFormController = useHiForm([roleName, roleDescription, roleStatus, roleAuth], {
-  layoutCol: 2,
-  buttonListOffset: 2
-})
+export const newFormController = useHiForm(
+  [roleName, roleDescription, roleStatus, empty, roleAuth],
+  {
+    layoutCol: 2,
+    buttonListOffset: 2
+  }
+)

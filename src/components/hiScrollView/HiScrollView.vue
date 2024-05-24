@@ -1,7 +1,11 @@
 <template>
   <simplebar
     data-simplebar-auto-hide="false"
-    :style="{ maxHeight: typeof height === 'number' ? `${height}px` : height }"
+    :autoHide="true"
+    :style="{
+      maxHeight: typeof height === 'number' ? `${height}px` : height,
+      maxWidth: typeof width === 'number' ? `${width}px` : width
+    }"
   >
     <slot name="default"></slot>
   </simplebar>
@@ -15,6 +19,10 @@ const props = defineProps({
   height: {
     type: [Number, String],
     default: 300
+  },
+  width: {
+    type: [Number, String],
+    default: '100%'
   }
 })
 
@@ -22,17 +30,15 @@ const { height } = props
 </script>
 
 <style>
-.simplebar-track {
-  width: 10px !important;
-}
 .simplebar-scrollbar {
   transition: height 1s;
-  width: 6px !important;
-  margin: 0 2px;
-  background-color: #b5bcc3 !important;
+  margin: 2px;
   border-radius: 10px;
   &:before {
     display: none;
   }
+}
+.simplebar-track .simplebar-visible {
+  background-color: #b5bcc3 !important;
 }
 </style>

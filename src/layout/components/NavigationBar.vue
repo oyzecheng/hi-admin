@@ -1,9 +1,9 @@
 <template>
   <div
     class="navigation-bar"
-    :style="{ padding: appStore.navigationBarList.length ? '2px 40px 8px' : '' }"
+    :style="{ padding: appStore.navigationBarList.length ? '0 40px' : '' }"
   >
-    <div class="bar-list">
+    <HiScrollView class="bar-list" width="100%" style="padding-bottom: 5px">
       <div
         :class="{
           'bar-item': true,
@@ -18,11 +18,12 @@
           <CloseOutlined />
         </span>
       </div>
-    </div>
+    </HiScrollView>
   </div>
 </template>
 
 <script setup>
+import HiScrollView from '@/components/hiScrollView/HiScrollView.vue'
 import { CloseOutlined } from '@ant-design/icons-vue'
 import { useAppStore } from '@/stores/app.ts'
 import { useRoute, useRouter } from 'vue-router'
@@ -61,19 +62,18 @@ watch(route, (value) => {
   z-index: 99;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
-  width: 100%;
-  overflow-x: auto;
   .bar-list {
-    display: flex;
     align-items: center;
-    gap: 16px;
+    white-space: nowrap;
     .bar-item {
+      display: inline-block;
       background-color: #fff;
       padding: 6px 12px;
       border-radius: 4px;
       cursor: pointer;
       position: relative;
       white-space: nowrap;
+      margin: 2px 8px 8px;
       box-shadow:
         rgba(145, 158, 171, 0.2) 0 0 2px 0,
         rgba(145, 158, 171, 0.12) 0 4px 20px -4px;
