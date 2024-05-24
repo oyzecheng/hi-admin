@@ -41,8 +41,8 @@ const handleLogin = async () => {
   loginButton.showLoading()
   try {
     const formData = await loginForm.validate()
-    const result = await Login(formData)
-    SetItem(USER_TOKEN, result)
+    const { data } = await Login(formData)
+    SetItem(USER_TOKEN, data)
     await userStore.initUserConfig()
     router.push({ name: 'home' })
   } finally {

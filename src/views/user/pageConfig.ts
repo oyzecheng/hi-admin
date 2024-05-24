@@ -5,6 +5,7 @@ import { useFormInput, useFormSelect, useFormSwitch, useHiForm } from '@/compone
 import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfirmButton'
 import { h } from 'vue'
 import { DeleteOutlined } from '@ant-design/icons-vue'
+import { RoleManageAll } from '@/api/role'
 
 export const newButton = useHiPrimaryButton('新建')
 
@@ -21,7 +22,15 @@ export const batchDel = useHiButton('', {
 
 const statusDic = useDic([], 'USER_STATUS')
 
-export const roleDic = useDic([], 'USER_ROLE')
+export const roleDic = useDic()
+roleDic.setLoadFn(
+  async () => {
+    const { data } = await RoleManageAll()
+    return data
+  },
+  'name',
+  'id'
+)
 
 export const table = useHiTable(
   [

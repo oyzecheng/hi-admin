@@ -32,7 +32,7 @@ const tableController = useHiTable(
   { pagination: false, scroll: { x: '100%' } }
 )
 
-tableController.setLoadData(() => BestSalesman())
+tableController.setLoadData(BestSalesman)
 </script>
 
 <style scoped lang="less">

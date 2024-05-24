@@ -1,5 +1,6 @@
 import { useFormInput, useFormSwitch } from '@/components/hiForm'
 import { useHiForm } from '@/components/hiForm'
+import { useFormSlot } from '@/components/hiForm/hooks/useFormSlot'
 
 const roleName = useFormInput('角色名称', 'name', { rules: true })
 const roleDescription = useFormInput('角色描述', 'description', {
@@ -13,8 +14,9 @@ const roleStatus = useFormSwitch('角色状态', 'status', {
   checkedChildren: '启用',
   unCheckedChildren: '禁用'
 })
+const roleAuth = useFormSlot('权限', 'auth')
 
-export const newFormController = useHiForm([roleName, roleDescription, roleStatus], {
+export const newFormController = useHiForm([roleName, roleDescription, roleStatus, roleAuth], {
   layoutCol: 2,
   buttonListOffset: 2
 })

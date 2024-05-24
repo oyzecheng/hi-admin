@@ -48,8 +48,9 @@ export class RouterManage extends Table {
     return this.generateRouterTree(list)
   }
 
-  async getUserRouter() {
+  async getUserRouter(authList) {
     const list = await super.getAll()
-    return this.generateRouterTree(list)
+    const result = authList ? list.filter((item) => authList.includes(item.id)) : list
+    return this.generateRouterTree(result)
   }
 }

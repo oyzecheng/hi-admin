@@ -25,7 +25,7 @@
         :layoutCol="formConfig.layoutCol"
       >
         <template v-for="item in Object.keys(slots) || []" :key="item" v-slot:[item]="{ config }">
-          <slot :name="item" :config="config" />
+          <slot :name="item" :formData="formData" :config="config" :rules="rules" />
         </template>
       </HiFormItem>
     </template>

@@ -17,7 +17,7 @@
           </div>
         </template>
         <template v-if="column.dataIndex === 'role'">
-          <a-tag :bordered="false" :color="record.role === 1 ? 'success' : 'blue'">
+          <a-tag :bordered="false" :color="record.role === '1' ? 'success' : 'blue'">
             {{ column.dic.getLabelByValue(record.role) }}
           </a-tag>
         </template>

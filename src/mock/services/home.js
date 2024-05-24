@@ -53,7 +53,7 @@ mock.onGet('/bestSalesman').reply(async () => {
   const list = await mockDb.userManage.getAll()
   const data = {
     list: list
-      .filter((item) => item.role === 2)
+      .filter((item) => item.role === '2')
       .slice(0, 5)
       .map((item, index) => ({
         ...item,
