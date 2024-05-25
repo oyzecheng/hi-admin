@@ -63,7 +63,8 @@ export class HiDicController {
     this.children.splice(0, this.children.length)
   }
 
-  getLabelByValue(value: THiDicValue) {
+  getLabelByValue(value?: THiDicValue) {
+    if (!value) return ''
     const item = this.findOptionByValue(value)
     return item?.label
   }

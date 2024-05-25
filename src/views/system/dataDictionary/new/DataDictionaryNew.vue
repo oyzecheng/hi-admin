@@ -4,16 +4,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HiForm from '@/components/hiForm/HiForm.vue'
-import { newFormController } from './pageConfig.ts'
+import { newFormController } from './pageConfig'
 import { useRoute, useRouter } from 'vue-router'
-import {
-  DataDictionaryAdd,
-  DataDictionaryDetail,
-  DataDictionaryUpdate
-} from '@/api/dataDictionary.ts'
+import { DataDictionaryAdd, DataDictionaryDetail, DataDictionaryUpdate } from '@/api/dataDictionary'
 import { computed, onMounted } from 'vue'
+import { getParamsId } from '@/utils'
 
 const router = useRouter()
 const route = useRoute()
@@ -33,7 +30,7 @@ newFormController.onDefaultConfirm(async (controller) => {
   try {
     controller.showLoading()
     isEdit.value
-      ? await DataDictionaryUpdate(route.params.id, formData)
+      ? await DataDictionaryUpdate(getParamsId(route), formData)
       : await DataDictionaryAdd(formData)
     router.push({ name: 'dataDictionaryList' })
   } finally {
@@ -45,7 +42,7 @@ newFormController.onDefaultCancel(() => {
 })
 
 const getDetail = async () => {
-  const data = await DataDictionaryDetail(route.params.id)
+  const data = await DataDictionaryDetail(getParamsId(route))
   newFormController.setFormData(data)
 }
 </script>

@@ -26,7 +26,7 @@ mock.onPost('/login').reply(async (config) => {
 
 mock.onGet('/userInfo').reply(async (config) => {
   const userInfo = getUserInfo(config)
-  const user = await mockDb.userManage.getUserByEmail(userInfo.email)
+  const user = await mockDb.userManage.getUserByEmail(userInfo?.email)
 
   if (!userInfo || (userInfo.email !== user?.email && userInfo.email !== adminInfo.email)) {
     return [200, builderError('请先登录', 403)]

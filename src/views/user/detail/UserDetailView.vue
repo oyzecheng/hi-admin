@@ -2,10 +2,10 @@
   <div class="user-detail">
     <div class="user-avatar-container module-container">
       <div class="avatar-box">
-        <a-avatar :src="userInfo.avatar" />
+        <a-avatar :src="userInfo?.avatar" />
         <div>
-          <h6 class="user-name">{{ userInfo.name }}</h6>
-          <p class="role">{{ roleDic.getLabelByValue(userInfo.role) }}</p>
+          <h6 class="user-name">{{ userInfo?.name }}</h6>
+          <p class="role">{{ roleDic.getLabelByValue(userInfo?.role) }}</p>
         </div>
       </div>
       <div class="operator-bar"></div>
@@ -13,21 +13,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { UserManageDetail } from '@/api/userManage.ts'
+import { type IUser, UserManageDetail } from '@/api/userManage'
 import { useRoute } from 'vue-router'
-import { roleDic } from '@/views/user/pageConfig.ts'
+import { roleDic } from '@/views/user/pageConfig'
+import { getParamsId } from '@/utils/index.js'
 
 const route = useRoute()
-const userInfo = ref({})
+const userInfo = ref<IUser | null>(null)
 
 onMounted(() => {
   getUserInfo()
 })
 
 const getUserInfo = async () => {
-  const { data } = await UserManageDetail(route.params.id)
+  const { data } = await UserManageDetail(getParamsId(route))
   userInfo.value = data
 }
 </script>

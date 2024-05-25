@@ -16,11 +16,11 @@
   </HomeModule>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HomeModule from '@/views/home/components/HomeModule.vue'
 import HiTable from '@/components/hiTable/HiTable.vue'
-import { useHiTable } from '@/components/hiTable/hooks/useHiTable.ts'
-import { BestSalesman } from '@/api/home.ts'
+import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
+import { BestSalesman, type IBestSalesman } from '@/api/home'
 
 const tableController = useHiTable(
   [
@@ -32,7 +32,7 @@ const tableController = useHiTable(
   { pagination: false, scroll: { x: '100%' } }
 )
 
-tableController.setLoadData(BestSalesman)
+tableController.setLoadData<IBestSalesman[]>(BestSalesman)
 </script>
 
 <style scoped lang="less">

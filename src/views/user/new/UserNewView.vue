@@ -1,5 +1,5 @@
 <template>
-  <div class="user-new-view" :key="route.name">
+  <div class="user-new-view" :key="route.path">
     <HiForm :controller="newUserForm" :button-config="null">
       <template #content="{ formData, rules, controllerList }">
         <a-row :gutter="[20, 20]">
@@ -11,8 +11,10 @@
           <a-col :span="24" :lg="16">
             <div class="module-container" style="padding-top: 40px">
               <HiFormItem
-                v-for="controller in controllerList.filter((item) => item.model !== 'avatar')"
-                :key="controller.key"
+                v-for="controller in controllerList.filter(
+                  (item) => !Array.isArray(item) && item.model !== 'avatar'
+                )"
+                :key="controller"
                 :formData="formData"
                 :rules="rules"
                 :config="controller"
@@ -28,14 +30,15 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HiForm from '@/components/hiForm/HiForm.vue'
 import HiFormItem from '@/components/hiForm/HiFormItem'
 import HiButton from '@/components/hiButton/HiButton.vue'
-import { newUserForm, newUserButton, editUserButton } from './pageConfig.ts'
+import { newUserForm, newUserButton, editUserButton } from './pageConfig'
 import { useRouter, useRoute } from 'vue-router'
-import { UserManageAdd, UserManageDetail, UserManageUpdate } from '@/api/userManage.ts'
+import { UserManageAdd, UserManageDetail, UserManageUpdate } from '@/api/userManage'
 import { computed, watch } from 'vue'
+import { getParamsId } from '@/utils/index.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -45,7 +48,7 @@ const isEdit = computed(() => {
 })
 
 const getUserInfo = async () => {
-  const { data } = await UserManageDetail(route.params.id)
+  const { data } = await UserManageDetail(getParamsId(route))
   newUserForm.setFormData(data)
 }
 watch(
@@ -73,7 +76,7 @@ editUserButton.onClick(async (controller) => {
   const formData = await newUserForm.validate()
   controller.showLoading()
   try {
-    await UserManageUpdate(route.params.id, formData)
+    await UserManageUpdate(getParamsId(route), formData)
     router.push({ name: 'user' })
   } finally {
     controller.hideLoading()

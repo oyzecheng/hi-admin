@@ -3,6 +3,13 @@ import { USER_TOKEN } from '@/constant/user'
 import { notification } from 'ant-design-vue'
 import { RemoveAll } from '@/utils/storage'
 
+export interface IResponse<T> {
+  message: string
+  timestamp: number
+  code: number
+  data: T
+}
+
 const request = axios.create({
   baseURL: '',
   timeout: 10 * 60 * 1000
@@ -38,8 +45,8 @@ request.interceptors.response.use((response) => {
   return response
 })
 
-export const GET = (url: string, params?: any) => {
-  return request({
+export const GET = <T = any>(url: string, params?: any) => {
+  return request<any, IResponse<T>>({
     url,
     method: 'get',
     params,
@@ -47,8 +54,8 @@ export const GET = (url: string, params?: any) => {
   })
 }
 
-export const POST = (url: string, params?: any) => {
-  return request({
+export const POST = <T = any>(url: string, params?: any) => {
+  return request<any, IResponse<T>>({
     url,
     method: 'post',
     data: params,
@@ -56,8 +63,8 @@ export const POST = (url: string, params?: any) => {
   })
 }
 
-export const POST_UPLOAD = (url: string, params?: any) => {
-  return request({
+export const POST_UPLOAD = <T = any>(url: string, params?: any) => {
+  return request<any, IResponse<T>>({
     url,
     method: 'post',
     data: params,
@@ -65,16 +72,16 @@ export const POST_UPLOAD = (url: string, params?: any) => {
   })
 }
 
-export const DELETE = (url: string, params?: any) => {
-  return request({
+export const DELETE = <T = any>(url: string, params?: any) => {
+  return request<any, IResponse<T>>({
     url,
     data: params,
     method: 'delete'
   })
 }
 
-export const PATH = (url: string, params?: any) => {
-  return request({
+export const PATH = <T = any>(url: string, params?: any) => {
+  return request<any, IResponse<T>>({
     url,
     method: 'patch',
     data: params,

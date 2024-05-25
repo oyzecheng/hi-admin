@@ -20,20 +20,17 @@ import HiPage from '@/components/hiPage/HiPage.vue'
 import { tableController, delRouter, topCreateRouter, editRouter } from './pageConfig'
 import RouterIcon from '@/router/routerIcon'
 import { useRouter } from 'vue-router'
-import { RouterDelete, RouterList, RouterUpdate } from '@/api/router'
+import { type IRouter, RouterDelete, RouterList, RouterUpdate } from '@/api/router'
 
 const router = useRouter()
 
 tableController.setLoadData(() => {
-  return new Promise((resolve) => {
-    RouterList().then((res) => {
-      resolve({ data: { list: res.data, page: 1, pageSize: 10, count: 10 } })
-    })
-  })
+  return new Promise(RouterList)
 })
 
 const renderIcon = (record: any) => {
-  const icon = RouterIcon[record.meta?.icon]
+  const iconKey = record.meta?.icon as IRouter['routeIcon']
+  const icon = iconKey ? RouterIcon[iconKey] : ''
   return icon ? icon() : undefined
 }
 

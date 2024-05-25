@@ -1,6 +1,6 @@
 import type {
   IHiTableConfig,
-  IHiTableData,
+  THiTableData,
   IHiTableSelectedData,
   THiTableColumns,
   THiTableLoadData,
@@ -8,9 +8,9 @@ import type {
 } from '@/components/hiTable/types'
 
 export class HiTableController {
-  tableData: IHiTableData['data']
+  tableData: THiTableData['data']
   private readonly selectedData: IHiTableSelectedData
-  private loadData: THiTableLoadData | undefined
+  private loadData: THiTableLoadData<Array<any>> | undefined
   private readonly columns: THiTableColumns
   private readonly config: IHiTableConfig
   private oldParams: TObject
@@ -19,7 +19,7 @@ export class HiTableController {
   constructor(
     loadData: THiTableLoadData | undefined,
     columns: THiTableColumns,
-    tableData: IHiTableData['data'],
+    tableData: THiTableData['data'],
     selectedData: IHiTableSelectedData,
     tableConfig: IHiTableConfig
   ) {
@@ -178,7 +178,7 @@ export class HiTableController {
     this.config[key] = value
   }
 
-  setLoadData(loadData: THiTableLoadData) {
+  setLoadData<T extends Array<any> = any[]>(loadData: THiTableLoadData<T>) {
     this.loadData = loadData
   }
 

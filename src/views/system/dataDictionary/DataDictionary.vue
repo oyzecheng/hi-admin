@@ -2,11 +2,11 @@
   <HiPage :table-controller="tableController" :top-button-controller="[createButton]" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HiPage from '@/components/hiPage/HiPage.vue'
-import { tableController, editButton, delButton, createButton } from './pageConfig.ts'
+import { tableController, editButton, delButton, createButton } from './pageConfig'
 import { useRouter } from 'vue-router'
-import { DataDictionaryList, DataDictionaryDel } from '@/api/dataDictionary.ts'
+import { DataDictionaryList, DataDictionaryDel } from '@/api/dataDictionary'
 
 const router = useRouter()
 

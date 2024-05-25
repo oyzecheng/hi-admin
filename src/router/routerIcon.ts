@@ -8,7 +8,7 @@ import {
   RadarChartOutlined
 } from '@ant-design/icons-vue'
 
-const RouterIcon: { [p: string]: any } = {
+const RouterIcon = {
   home: () => h(HomeOutlined),
   table: () => h(TableOutlined),
   form: () => h(FormOutlined),

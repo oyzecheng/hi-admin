@@ -13,12 +13,13 @@
   </HomeModule>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HomeModule from '@/views/home/components/HomeModule.vue'
-import { SellWellProducts } from '@/api/home.ts'
+import { SellWellProducts } from '@/api/home'
 import { onMounted, ref } from 'vue'
+import type { ISellWellProduct } from '@/api/home'
 
-const products = ref([])
+const products = ref<Array<ISellWellProduct>>([])
 
 onMounted(() => {
   getSellWellProducts()

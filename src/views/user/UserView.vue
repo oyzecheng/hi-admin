@@ -29,7 +29,7 @@
             un-checked-children="禁用"
             :checked="record.status"
             :loading="record.loading"
-            @update:checked="(val) => handleChangeStatus(val, record)"
+            @update:checked="(val: TStatus) => handleChangeStatus(val, record)"
           />
         </template>
       </template>
@@ -37,22 +37,23 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HiPage from '@/components/hiPage/HiPage.vue'
-import { newButton, show, edit, table, searchForm, del, batchDel } from './pageConfig.ts'
+import { newButton, show, edit, table, searchForm, del, batchDel } from './pageConfig'
 import { useRouter } from 'vue-router'
-import { UserManageList, UserManageDelete, UserManageUpdate } from '@/api/userManage.ts'
+import { UserManageList, UserManageDelete, UserManageUpdate } from '@/api/userManage'
 import { Modal } from 'ant-design-vue'
+import type { TParams, TStatus } from '@/api/types'
 
 const router = useRouter()
 
-const loadData = (params) => {
+const loadData = (params: TParams) => {
   return UserManageList(params)
 }
 table.setLoadData(loadData)
 table.appendData({ loading: false })
 
-const handleChangeStatus = async (val, record) => {
+const handleChangeStatus = async (val: TStatus, record: any) => {
   record.loading = true
   const { id } = record
   try {

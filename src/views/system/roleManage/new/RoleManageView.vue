@@ -28,6 +28,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { RoleManageDetail, RoleManageAdd, RoleManageUpdate } from '@/api/role'
 import { RouterList } from '@/api/router'
+import { getParamsId } from '@/utils'
 
 const route = useRoute()
 const router = useRouter()
@@ -43,7 +44,7 @@ onMounted(() => {
 const isEdit = computed(() => route.name === 'roleManageEdit')
 
 const getDetail = async () => {
-  const { data } = await RoleManageDetail(route.params.id)
+  const { data } = await RoleManageDetail(getParamsId(route))
   newFormController.setFormData(data)
 }
 
@@ -57,7 +58,7 @@ newFormController.onDefaultConfirm(async (controller) => {
   controller.showLoading()
   try {
     if (isEdit.value) {
-      await RoleManageUpdate(route.params.id, formData)
+      await RoleManageUpdate(getParamsId(route), formData)
     } else {
       await RoleManageAdd(formData)
     }

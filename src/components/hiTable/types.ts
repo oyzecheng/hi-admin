@@ -3,6 +3,8 @@ import type { Ref } from 'vue'
 import type { TButtonController } from '@/components/hiButton/types'
 import type { HiDicController } from '@/components/hiDic/controller/hiDicController'
 import type { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
+import type { IResponse } from '@/utils/request'
+import type { IList } from '@/api/types'
 
 export interface IHITableColumnItem extends TableColumnType {
   buttonConfigList?: TButtonController[]
@@ -11,14 +13,7 @@ export interface IHITableColumnItem extends TableColumnType {
 
 export type THiTableColumns = IHITableColumnItem[]
 
-export interface IHiTableData {
-  data: {
-    page: number
-    pageSize: number
-    count: number
-    list: any[]
-  }
-}
+export type THiTableData<T = any[]> = IResponse<IList<T>>
 
 export interface IHiTableConfig extends Omit<TableProps, 'loading'> {
   loading: Ref<boolean>
@@ -26,7 +21,7 @@ export interface IHiTableConfig extends Omit<TableProps, 'loading'> {
   pagination?: false | TableProps['pagination']
 }
 
-export type THiTableLoadData = (params: any) => Promise<IHiTableData>
+export type THiTableLoadData<T = any[]> = (params: any) => Promise<THiTableData<T>>
 
 export interface IHiTableSelectedData {
   selectedRowKeys: (string | number)[]

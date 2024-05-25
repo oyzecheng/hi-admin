@@ -1,3 +1,5 @@
+import type { RouteLocationNormalizedLoaded, RouteParams } from 'vue-router'
+
 export const generateKey = (length = 8) => {
   const values = new Uint8Array(length)
   window.crypto.getRandomValues(values)
@@ -101,4 +103,11 @@ export const deepClone = (source: any) => {
 
 export const random = (min = 0, max = 10000) => {
   return Math.floor(Math.random() * (max - min) + min)
+}
+
+export const getParamsId = (route: RouteLocationNormalizedLoaded) => {
+  if (Array.isArray(route.params.id)) {
+    return route.params.id[0]
+  }
+  return route.params.id
 }

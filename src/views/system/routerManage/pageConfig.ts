@@ -2,6 +2,7 @@ import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
 import { useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
 import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfirmButton'
 import RouterIcon from '@/router/routerIcon'
+import type { IRouter } from '@/api/router'
 
 export const delRouter = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
 export const editRouter = useHISmallTextButton('编辑')
@@ -20,7 +21,8 @@ export const tableController = useHiTable(
       title: '图标',
       key: 'routeIcon',
       width: 80,
-      customRender: ({ value }) => (value ? RouterIcon[value]() : '')
+      customRender: ({ value }: { value: IRouter['routeIcon'] }) =>
+        value ? RouterIcon[value]() : ''
     },
     { title: '显示/隐藏', key: 'hidden', width: 100 },
     {

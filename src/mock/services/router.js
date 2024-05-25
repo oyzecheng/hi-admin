@@ -8,7 +8,7 @@ mock.onGet(/^\/router\/[a-zA-Z0-9-]+$/).reply(async (config) => {
 
 mock.onGet('/router').reply(async () => {
   const list = await mockDb.routerManage.getSortAll()
-  return [200, builder(list)]
+  return [200, builder({ list, page: 1, pageSize: 10 })]
 })
 
 mock.onPatch(/^\/router\/[a-zA-Z0-9-]+$/).reply(async (config) => {
