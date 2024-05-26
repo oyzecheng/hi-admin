@@ -11,6 +11,18 @@
           @update:checked="(val: any) => handleChangeSwitch(val, record)"
         />
       </template>
+      <template v-if="column.key === 'buttons'">
+        <div class="buttons">
+          <a-space :size="8" wrap>
+            <a-tooltip v-for="button in record.buttons || []" :key="button.key">
+              <template #title> auth: {{ record.routeName }}.{{ button.key }} </template>
+              <a-tag color="success" @click="handleCopy(`${record.routeName}.${button.key}`)">
+                {{ button.name }}
+              </a-tag>
+            </a-tooltip>
+          </a-space>
+        </div>
+      </template>
     </template>
   </HiPage>
 </template>
@@ -21,12 +33,11 @@ import { tableController, delRouter, topCreateRouter, editRouter } from './pageC
 import RouterIcon from '@/router/routerIcon'
 import { useRouter } from 'vue-router'
 import { type IRouter, RouterDelete, RouterList, RouterUpdate } from '@/api/router'
+import { copyToClipboard } from '@/utils'
 
 const router = useRouter()
 
-tableController.setLoadData(() => {
-  return new Promise(RouterList)
-})
+tableController.setLoadData(RouterList)
 
 const renderIcon = (record: any) => {
   const iconKey = record.meta?.icon as IRouter['routeIcon']
@@ -67,6 +78,17 @@ const handleChangeSwitch = async (val: boolean, record: any) => {
     record.loading = false
   }
 }
+
+const handleCopy = (auth: string) => {
+  copyToClipboard(auth)
+}
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.buttons {
+  .ant-tag {
+    margin-right: 0;
+    cursor: pointer;
+  }
+}
+</style>

@@ -8,6 +8,7 @@ import {
 } from '@/components/hiForm'
 import { useDic } from '@/components/hiDic'
 import { useUserStore } from '@/stores/user'
+import { useFormSlot } from '@/components/hiForm/hooks/useFormSlot'
 
 const routerDic = useDic()
 routerDic.setLoadFn(
@@ -28,6 +29,7 @@ const showOrHide = useFormSwitch('隐藏菜单', 'hidden')
 const redirectRouteName = useFormInput('跳转路由名称', 'redirectRouteName')
 const routeSort = useFormInputNumber('排序', 'sort')
 const parentRouter = useFormCascader('父级路由', 'parentId', { children: routerDic, format: true })
+const buttons = useFormSlot('按钮', 'buttons', { defaultValue: [] })
 
 export const newFormController = useHiForm(
   [
@@ -39,7 +41,8 @@ export const newFormController = useHiForm(
     showOrHide,
     parentRouter,
     redirectRouteName,
-    routeSort
+    routeSort,
+    buttons
   ],
-  { layoutCol: 2, buttonListOffset: 2 }
+  { layoutCol: 2, buttonListOffset: 3, labelCol: { span: 6 } }
 )

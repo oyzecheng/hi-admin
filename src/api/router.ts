@@ -1,20 +1,22 @@
-import { DELETE, GET, type IResponse, PATH, POST } from '@/utils/request'
+import { DELETE, GET, PATH, POST } from '@/utils/request'
 import routerResource from '@/router/routerResource'
 import routerIcon from '@/router/routerIcon'
+import type { IList } from '@/api/types'
 
 export interface IRouter {
   id: string
   routeName: string
   routePath: string
   componentName: keyof typeof routerResource
-  pathTitle: string
+  pageTitle: string
   routeIcon?: keyof typeof routerIcon
   redirectRouteName?: string
   sort?: number
   children?: IRouter[]
+  buttons?: { key: string; name: string }[]
 }
 
-export const RouterList = () => GET<IResponse<IRouter[]>>('/router')
+export const RouterList = () => GET<IList<IRouter[]>>('/router')
 
 export const RouterAdd = (params: any) => POST<string>('/router', params)
 

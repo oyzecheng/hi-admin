@@ -1,11 +1,16 @@
 <template>
   <div class="module-container">
-    <HiForm :controller="newFormController" />
+    <HiForm :controller="newFormController">
+      <template #buttons="{ formData, config }">
+        <RouterButtons v-model:value="formData[config.model]" />
+      </template>
+    </HiForm>
   </div>
 </template>
 
 <script setup lang="ts">
 import HiForm from '@/components/hiForm/HiForm.vue'
+import RouterButtons from '@/views/system/routerManage/new/components/RouterButtons.vue'
 import { newFormController } from './pageConfig'
 import { useRoute, useRouter } from 'vue-router'
 import { RouterAdd, RouterDetail, RouterUpdate } from '@/api/router'

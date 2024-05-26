@@ -24,6 +24,10 @@ export const tableController = useHiTable(
       customRender: ({ value }: { value: IRouter['routeIcon'] }) =>
         value ? RouterIcon[value]() : ''
     },
+    {
+      title: '按钮',
+      key: 'buttons'
+    },
     { title: '显示/隐藏', key: 'hidden', width: 100 },
     {
       title: '操作',

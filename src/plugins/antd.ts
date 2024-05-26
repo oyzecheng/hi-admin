@@ -27,7 +27,8 @@ import {
   Popconfirm,
   Pagination,
   Segmented,
-  Tree
+  Tree,
+  Tooltip
 } from 'ant-design-vue'
 import type { App } from 'vue'
 
@@ -61,6 +62,7 @@ const useAntd = (app: App<Element>) => {
   app.use(Pagination)
   app.use(Segmented)
   app.use(Tree)
+  app.use(Tooltip)
 }
 
 export default useAntd

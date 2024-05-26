@@ -16,7 +16,7 @@ mock.onPatch(/^\/router\/[a-zA-Z0-9-]+$/).reply(async (config) => {
   return [200, builder(result)]
 })
 
-mock.onPost('/router$').reply(async (config) => {
+mock.onPost('/router').reply(async (config) => {
   const result = await mockDb.routerManage.add(getBody(config))
   return [200, builder(result)]
 })

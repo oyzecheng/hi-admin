@@ -1,4 +1,5 @@
-import type { RouteLocationNormalizedLoaded, RouteParams } from 'vue-router'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
+import { message } from 'ant-design-vue'
 
 export const generateKey = (length = 8) => {
   const values = new Uint8Array(length)
@@ -110,4 +111,19 @@ export const getParamsId = (route: RouteLocationNormalizedLoaded) => {
     return route.params.id[0]
   }
   return route.params.id
+}
+
+export const copyToClipboard = (text: string) => {
+  if (navigator.clipboard) {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        message.success('复制成功！')
+      })
+      .catch(() => {
+        message.error('复制失败！')
+      })
+  } else {
+    message.error('当前浏览器不支持自动复制，请手动复制！')
+  }
 }

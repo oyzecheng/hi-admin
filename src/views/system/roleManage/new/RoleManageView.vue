@@ -11,9 +11,12 @@
           defaultExpandAll
           :field-names="{ title: 'pageTitle', key: 'id' }"
           :selectable="false"
+          :checkStrictly="true"
         >
-          <template #icon>
-            <a-tag color="success" :bordered="false">页面</a-tag>
+          <template #title="{ pageTitle, routeName }">
+            <a-tag v-if="routeName !== 'button'" color="success" :bordered="false">页面</a-tag>
+            <a-tag v-else color="orange" :bordered="false">按钮</a-tag>
+            <span>{{ pageTitle }}</span>
           </template>
         </a-tree>
       </template>
@@ -27,12 +30,12 @@ import { newFormController } from './pageConfig'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { RoleManageDetail, RoleManageAdd, RoleManageUpdate } from '@/api/role'
-import { RouterList } from '@/api/router'
+import { type IRouter, RouterList } from '@/api/router'
 import { getParamsId } from '@/utils'
 
 const route = useRoute()
 const router = useRouter()
-const routerList = ref([])
+const routerList = ref<IRouter[]>([])
 
 onMounted(() => {
   getRouterList()
@@ -50,7 +53,26 @@ const getDetail = async () => {
 
 const getRouterList = async () => {
   const { data } = await RouterList()
-  routerList.value = data
+  const traversal = (list: IRouter[]) => {
+    for (const item of list) {
+      const { children, buttons } = item
+      if (buttons?.length) {
+        const list: IRouter[] = buttons.map<IRouter>(({ key, name }) => ({
+          id: `${item.routeName}.${key}`,
+          routeName: 'button',
+          routePath: key,
+          componentName: 'RouterView',
+          pageTitle: name
+        }))
+        item.children = [...list, ...(children || [])]
+      }
+      if (children?.length) {
+        traversal(children)
+      }
+    }
+  }
+  traversal(data.list)
+  routerList.value = data.list
 }
 
 newFormController.onDefaultConfirm(async (controller) => {
