@@ -36,6 +36,10 @@ const getDetail = async () => {
 
 newFormController.onDefaultConfirm(async (controller) => {
   const formData = await newFormController.validate()
+  formData.buttons = formData.buttons?.map((btn: any) => ({
+    ...btn,
+    key: `${formData.routeName}.${btn.key}`
+  }))
   controller.showLoading()
   if (isEdit.value) {
     await RouterUpdate(route.params.id, formData)

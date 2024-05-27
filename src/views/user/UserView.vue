@@ -23,6 +23,7 @@
         </template>
         <template v-if="column.dataIndex === 'status'">
           <a-switch
+            v-if="userStore.validateButtonAuth('userListPage.f5f2de16471c790c')"
             :checked-value="1"
             :un-checked-value="2"
             checked-children="启用"
@@ -31,6 +32,7 @@
             :loading="record.loading"
             @update:checked="(val: TStatus) => handleChangeStatus(val, record)"
           />
+          <span v-else>{{ statusDic.getLabelByValue(record.status.toString()) }}</span>
         </template>
       </template>
     </HiPage>
@@ -39,13 +41,15 @@
 
 <script setup lang="ts">
 import HiPage from '@/components/hiPage/HiPage.vue'
-import { newButton, show, edit, table, searchForm, del, batchDel } from './pageConfig'
+import { newButton, show, edit, table, searchForm, del, batchDel, statusDic } from './pageConfig'
 import { useRouter } from 'vue-router'
 import { UserManageList, UserManageDelete, UserManageUpdate } from '@/api/userManage'
 import { Modal } from 'ant-design-vue'
 import type { TParams, TStatus } from '@/api/types'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
+const userStore = useUserStore()
 
 const loadData = (params: TParams) => {
   return UserManageList(params)

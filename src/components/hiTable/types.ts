@@ -9,6 +9,7 @@ import type { IList } from '@/api/types'
 export interface IHITableColumnItem extends TableColumnType {
   buttonConfigList?: TButtonController[]
   dic?: HiDicController
+  auth?: string
 }
 
 export type THiTableColumns = IHITableColumnItem[]

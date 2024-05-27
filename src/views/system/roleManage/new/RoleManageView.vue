@@ -58,7 +58,7 @@ const getRouterList = async () => {
       const { children, buttons } = item
       if (buttons?.length) {
         const list: IRouter[] = buttons.map<IRouter>(({ key, name }) => ({
-          id: `${item.routeName}.${key}`,
+          id: key,
           routeName: 'button',
           routePath: key,
           componentName: 'RouterView',
@@ -77,6 +77,7 @@ const getRouterList = async () => {
 
 newFormController.onDefaultConfirm(async (controller) => {
   const formData = await newFormController.validate()
+  formData.auth = Array.isArray(formData.auth) ? formData.auth : formData?.auth?.check || []
   controller.showLoading()
   try {
     if (isEdit.value) {

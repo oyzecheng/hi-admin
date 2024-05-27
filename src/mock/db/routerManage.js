@@ -50,7 +50,15 @@ export class RouterManage extends Table {
 
   async getUserRouter(authList) {
     const list = await super.getAll()
-    const result = authList ? list.filter((item) => authList.includes(item.id)) : list
+    const result = authList
+      ? list.filter((item) => {
+          const result = authList.includes(item.id)
+          if (result && item.buttons) {
+            item.buttons = item.buttons.filter((btn) => authList.includes(btn.key))
+          }
+          return result
+        })
+      : list
     return this.generateRouterTree(result)
   }
 }

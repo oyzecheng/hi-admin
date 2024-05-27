@@ -15,8 +15,8 @@
         <div class="buttons">
           <a-space :size="8" wrap>
             <a-tooltip v-for="button in record.buttons || []" :key="button.key">
-              <template #title> auth: {{ record.routeName }}.{{ button.key }} </template>
-              <a-tag color="success" @click="handleCopy(`${record.routeName}.${button.key}`)">
+              <template #title> auth: {{ button.key }} </template>
+              <a-tag color="success" @click="handleCopy(button.key)">
                 {{ button.name }}
               </a-tag>
             </a-tooltip>

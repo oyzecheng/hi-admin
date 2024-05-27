@@ -137,7 +137,7 @@ export class HiFormController {
     return this.config
   }
 
-  validate() {
+  validate(): Promise<{ [k: string]: any }> {
     return new Promise((resolve, reject) => {
       this.formRef
         ?.validate()

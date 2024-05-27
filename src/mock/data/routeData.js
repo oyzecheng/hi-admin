@@ -55,19 +55,19 @@ export const routeData = [
             hidden: true,
             buttons: [
               {
-                key: 'e9287ac5276d6c7f',
+                key: 'userListPage.e9287ac5276d6c7f',
                 name: '新建/编辑'
               },
               {
-                key: 'a5b5b4cb83679665',
+                key: 'userListPage.a5b5b4cb83679665',
                 name: '查看'
               },
               {
-                key: '6330e59450d8f970',
+                key: 'userListPage.6330e59450d8f970',
                 name: '删除'
               },
               {
-                key: 'f5f2de16471c790c',
+                key: 'userListPage.f5f2de16471c790c',
                 name: '启用/禁用'
               }
             ]
@@ -122,15 +122,15 @@ export const routeData = [
         sort: 1,
         buttons: [
           {
-            key: 'd7c30928d23eaaff',
+            key: 'routerManage.d7c30928d23eaaff',
             name: '创建/编辑'
           },
           {
-            key: '3c85a1d6743c02a0',
+            key: 'routerManage.3c85a1d6743c02a0',
             name: '删除'
           },
           {
-            key: '71a89e7b993f4817',
+            key: 'routerManage.71a89e7b993f4817',
             name: '显示/隐藏'
           }
         ],
@@ -174,11 +174,11 @@ export const routeData = [
         sort: 2,
         buttons: [
           {
-            key: 'b2e7501ee7e3eebf',
+            key: 'dataDictionary.b2e7501ee7e3eebf',
             name: '创建/编辑'
           },
           {
-            key: 'addb37696b9cbba3',
+            key: 'dataDictionary.addb37696b9cbba3',
             name: '删除'
           }
         ],
@@ -222,11 +222,11 @@ export const routeData = [
         sort: 3,
         buttons: [
           {
-            key: '8ecf5acf12743a3c',
+            key: 'roleManage.8ecf5acf12743a3c',
             name: '创建/编辑'
           },
           {
-            key: 'beabc395a59d6973',
+            key: 'roleManage.beabc395a59d6973',
             name: '删除'
           }
         ],

@@ -22,6 +22,7 @@
 
 <script lang="ts" setup>
 import { HiButtonController } from '@/components/hiButton/controller/hiButtonController'
+import { useUserStore } from '@/stores/user'
 
 const props = defineProps({
   controller: {
@@ -33,6 +34,8 @@ const props = defineProps({
     default: null
   }
 })
+
+const userStore = useUserStore()
 
 const { controller, clickParams } = props
 const buttonConfig = controller?.getConfig()
@@ -56,7 +59,7 @@ const {
 } = buttonConfig
 
 const validateButtonAuth = () => {
-  return true
+  return auth ? userStore.validateButtonAuth(auth) : true
 }
 
 const handleButtonClick = () => {

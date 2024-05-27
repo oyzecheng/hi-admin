@@ -6,6 +6,7 @@ import type {
   THiTableLoadData
 } from '@/components/hiTable/types'
 import { reactive, ref } from 'vue'
+import { useUserStore } from '@/stores/user'
 
 interface IUseHiTableConfig extends Omit<IHiTableConfig, 'loading'> {
   loading?: boolean
@@ -16,6 +17,7 @@ export const useHiTable = (
   config: IUseHiTableConfig = {},
   loadData?: THiTableLoadData
 ) => {
+  const userStore = useUserStore()
   const tableData = reactive({ page: 0, pageSize: 0, count: 0, list: [] })
 
   const loading = ref(config.loading || false)
@@ -27,10 +29,16 @@ export const useHiTable = (
     selectionConfig: config.rowSelection || {}
   })
 
-  return new HiTableController(loadData, columns, tableData, selectedData, {
-    ...config,
-    loading,
-    pagination,
-    scroll
-  })
+  return new HiTableController(
+    loadData,
+    columns.filter((item) => (item.auth ? userStore.validateButtonAuth(item.auth) : true)),
+    tableData,
+    selectedData,
+    {
+      ...config,
+      loading,
+      pagination,
+      scroll
+    }
+  )
 }
