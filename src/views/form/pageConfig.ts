@@ -56,16 +56,19 @@ const cascader = useFormCascader('cascader', 'cascader', { children: cascaderChi
 const datePicker = useFormDatePicker('datePicker', 'datePicker')
 const dateRangePicker = useFormDateRangePicker('dateRangePicker', 'dateRangePicker')
 
-export const form = useHiForm([
-  input,
-  select,
-  checkbox,
-  radio,
-  upload,
-  formSwitch,
-  inputNumber,
-  rate,
-  cascader,
-  datePicker,
-  dateRangePicker
-])
+export const form = useHiForm(
+  [
+    input,
+    select,
+    checkbox,
+    radio,
+    upload,
+    formSwitch,
+    inputNumber,
+    rate,
+    cascader,
+    datePicker,
+    dateRangePicker
+  ],
+  { layoutCol: 2, labelCol: { span: 8 }, buttonListOffset: 4 }
+)

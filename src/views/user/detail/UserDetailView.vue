@@ -41,7 +41,7 @@ const getUserInfo = async () => {
     padding: 0;
     background:
       linear-gradient(rgba(0, 75, 80, 0.8), rgba(0, 75, 80, 0.8)) center center / cover no-repeat,
-      url(https://api-prod-minimal-v510.vercel.app/assets/images/cover/cover_4.jpg);
+      url(https://static.oouzc.com/cover/cover_4.jpg);
     .avatar-box {
       position: absolute;
       left: 50px;

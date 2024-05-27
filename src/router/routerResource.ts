@@ -7,9 +7,6 @@ export default {
   // 表单
   FormView: () => import('@/views/form/FormView.vue'),
 
-  //表格
-  TableView: () => import('@/views/table/TableView.vue'),
-
   // 用户
   UserView: () => import('@/views/user/UserView.vue'),
   UserNewView: () => import('@/views/user/new/UserNewView.vue'),
@@ -24,8 +21,5 @@ export default {
   DataDictionaryNew: () => import('@/views/system/dataDictionary/new/DataDictionaryNew.vue'),
   // 角色管理
   RoleManage: () => import('@/views/system/roleManage/RoleManage.vue'),
-  RoleManageNew: () => import('@/views/system/roleManage/new/RoleManageView.vue'),
-
-  // 错误页
-  Error404View: () => import('@/views/errors/Error404View.vue')
+  RoleManageNew: () => import('@/views/system/roleManage/new/RoleManageView.vue')
 }

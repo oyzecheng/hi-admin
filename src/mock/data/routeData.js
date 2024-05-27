@@ -18,15 +18,6 @@ export const routeData = [
     sort: 2
   },
   {
-    id: '3',
-    routeName: 'table',
-    routePath: '/table',
-    componentName: 'TableView',
-    pageTitle: '表格',
-    routeIcon: 'table',
-    sort: 3
-  },
-  {
     id: '4',
     routeName: 'user',
     routePath: '/user',
@@ -259,26 +250,6 @@ export const routeData = [
             sort: 3
           }
         ]
-      }
-    ]
-  },
-  {
-    id: '6',
-    routeName: 'error',
-    routePath: '/error',
-    componentName: 'RouterView',
-    pageTitle: '错误页',
-    routeIcon: 'error',
-    redirectRouteName: 'error404',
-    sort: 6,
-    children: [
-      {
-        id: '61',
-        routeName: 'error404',
-        routePath: '404',
-        componentName: 'Error404View',
-        pageTitle: '404',
-        sort: 1
       }
     ]
   }
