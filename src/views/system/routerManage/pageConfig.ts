@@ -4,9 +4,13 @@ import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfir
 import RouterIcon from '@/router/routerIcon'
 import type { IRouter } from '@/api/router'
 
-export const delRouter = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
-export const editRouter = useHISmallTextButton('编辑')
-export const topCreateRouter = useHiPrimaryButton('创建路由', { auth: 'add' })
+export const delRouter = useDelPopConfirmButton(
+  useHISmallTextButton('删除', { danger: true, auth: 'routerManage.3c85a1d6743c02a0' })
+)
+export const editRouter = useHISmallTextButton('编辑', { auth: 'routerManage.d7c30928d23eaaff' })
+export const topCreateRouter = useHiPrimaryButton('创建路由', {
+  auth: 'routerManage.d7c30928d23eaaff'
+})
 
 export const tableController = useHiTable(
   [

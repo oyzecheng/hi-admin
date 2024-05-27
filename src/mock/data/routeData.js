@@ -18,6 +18,58 @@ export const routeData = [
     sort: 2
   },
   {
+    id: '0eb8ec2426a71556',
+    pageTitle: '产品',
+    routeName: 'product',
+    routePath: '/product',
+    componentName: 'RouterView',
+    routeIcon: 'product',
+    redirectRouteName: 'productList',
+    sort: 3,
+    children: [
+      {
+        id: '95aef3adc7417309',
+        pageTitle: '列表',
+        routeName: 'productList',
+        routePath: '',
+        componentName: 'ProductView',
+        hidden: true,
+        parentId: '0eb8ec2426a71556',
+        sort: 1,
+        buttons: [
+          {
+            key: 'productList.4ba33a94a7a13e09',
+            name: '新建/编辑'
+          },
+          {
+            key: 'productList.d15601472b4a56fd',
+            name: '删除'
+          }
+        ]
+      },
+      {
+        id: '4835c0a9c0892234',
+        pageTitle: '新建',
+        routeName: 'productNew',
+        routePath: '/new',
+        componentName: 'ProductNew',
+        hidden: true,
+        parentId: '0eb8ec2426a71556',
+        sort: 2
+      },
+      {
+        id: '2a833622ccf3767f',
+        pageTitle: '编辑',
+        routeName: 'productEdit',
+        routePath: ':id',
+        componentName: 'ProductNew',
+        hidden: true,
+        parentId: '0eb8ec2426a71556',
+        sort: 3
+      }
+    ]
+  },
+  {
     id: '4',
     routeName: 'user',
     routePath: '/user',
@@ -219,6 +271,10 @@ export const routeData = [
           {
             key: 'roleManage.beabc395a59d6973',
             name: '删除'
+          },
+          {
+            key: 'roleManage.f18d43f744436418',
+            name: '启用/禁用'
           }
         ],
         children: [

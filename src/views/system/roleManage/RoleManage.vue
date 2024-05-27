@@ -3,12 +3,14 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'status'">
         <a-switch
+          v-if="userStore.validateButtonAuth('roleManage.f18d43f744436418')"
           checked-children="启用"
           un-checked-children="禁用"
           :checked="record.status === 1"
           :loading="record.loading"
           @update:checked="(val: any) => handleChangeSwitch(val, record)"
         />
+        <span v-else>{{ statusDic.getLabelByValue(record.status.toString()) }}</span>
       </template>
     </template>
   </HiPage>
@@ -19,10 +21,13 @@ import HiPage from '@/components/hiPage/HiPage.vue'
 import { topCreateRole, tableController, delRole, editRole } from './pageConfig'
 import { RoleManageList, RoleManageUpdate, RoleManageDelete } from '@/api/role'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+import { statusDic } from '@/views/user/pageConfig'
 
 tableController.setLoadData(RoleManageList)
 
 const router = useRouter()
+const userStore = useUserStore()
 
 topCreateRole.onClick(() => {
   router.push({ name: 'roleManageNew' })

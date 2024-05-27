@@ -4,12 +4,14 @@
       <template v-if="column.key === 'icon'"><component :is="renderIcon(record)" /></template>
       <template v-if="column.key === 'hidden'">
         <a-switch
+          v-if="userStore.validateButtonAuth('routerManage.71a89e7b993f4817')"
           checked-children="显示"
           un-checked-children="隐藏"
           :checked="record.hidden !== true"
           :loading="record.loading"
           @update:checked="(val: any) => handleChangeSwitch(val, record)"
         />
+        <span v-else>{{ record.hidden ? '隐藏' : '显示' }}</span>
       </template>
       <template v-if="column.key === 'buttons'">
         <div class="buttons">
@@ -34,8 +36,10 @@ import RouterIcon from '@/router/routerIcon'
 import { useRouter } from 'vue-router'
 import { type IRouter, RouterDelete, RouterList, RouterUpdate } from '@/api/router'
 import { copyToClipboard } from '@/utils'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
+const userStore = useUserStore()
 
 tableController.setLoadData(RouterList)
 

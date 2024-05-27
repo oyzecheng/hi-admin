@@ -2,9 +2,11 @@ import { useHiTable } from '@/components/hiTable/hooks/useHiTable'
 import { useHiPrimaryButton, useHISmallTextButton } from '@/components/hiButton'
 import { useDelPopConfirmButton } from '@/components/hiButton/hooks/usePopConfirmButton'
 
-export const delRole = useDelPopConfirmButton(useHISmallTextButton('删除', { danger: true }))
-export const editRole = useHISmallTextButton('编辑')
-export const topCreateRole = useHiPrimaryButton('创建角色', { auth: 'add' })
+export const delRole = useDelPopConfirmButton(
+  useHISmallTextButton('删除', { danger: true, auth: 'roleManage.beabc395a59d6973' })
+)
+export const editRole = useHISmallTextButton('编辑', { auth: 'roleManage.8ecf5acf12743a3c' })
+export const topCreateRole = useHiPrimaryButton('创建角色', { auth: 'roleManage.8ecf5acf12743a3c' })
 
 export const tableController = useHiTable(
   [

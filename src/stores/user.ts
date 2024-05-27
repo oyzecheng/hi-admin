@@ -4,7 +4,6 @@ import { type RouteRecordRaw } from 'vue-router'
 import { layoutRoute } from '@/router/routes'
 import { formatToRoute, generateItems, addRouter } from '@/router/tools'
 import { UserInfo, UserRoutes } from '@/api/user'
-import { RemoveAll } from '@/utils/storage'
 
 export const useUserStore = defineStore('user', () => {
   const userRoutes = shallowRef<RouteRecordRaw[]>([])
@@ -13,6 +12,7 @@ export const useUserStore = defineStore('user', () => {
 
   const getUserRoutes = async () => {
     const { data } = await UserRoutes()
+    console.log('--data', data)
     userRoutes.value = data
     userButtons.splice(0, userButtons.length)
     const userRouteList = formatToRoute(data, ({ buttons }) => {

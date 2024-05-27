@@ -83,6 +83,7 @@ const customRequest = (e: any) => {
   // 这里添加上传代码
   const formData = new FormData()
   formData.append('file', e.file)
+  formData.append('type', type)
   const id = generateKey()
   const data: IFormUploadItem = { id, status: 'uploading', name: e.file.name, url: '' }
   if (type === 'avatar') {

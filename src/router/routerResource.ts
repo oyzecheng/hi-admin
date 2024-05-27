@@ -7,6 +7,10 @@ export default {
   // 表单
   FormView: () => import('@/views/form/FormView.vue'),
 
+  // 产品
+  ProductView: () => import('@/views/product/ProductVIew.vue'),
+  ProductNew: () => import('@/views/product/new/ProductNew.vue'),
+
   // 用户
   UserView: () => import('@/views/user/UserView.vue'),
   UserNewView: () => import('@/views/user/new/UserNewView.vue'),

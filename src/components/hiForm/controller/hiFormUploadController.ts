@@ -1,6 +1,7 @@
 import { HiFormItemController } from '@/components/hiForm/controller/hiFormItemController'
 import type { IFormItemRule, IFormUpload, IFormUploadItem } from '@/components/hiForm/types'
 import { generateKey } from '@/utils'
+import { nextTick } from 'vue'
 
 export class HiFormUploadController extends HiFormItemController<IFormUpload> {
   constructor(config: IFormUpload) {
@@ -54,13 +55,13 @@ export class HiFormUploadController extends HiFormItemController<IFormUpload> {
       trigger: 'change',
       validator(rule, value) {
         return new Promise((resolve, reject) => {
-          setTimeout(() => {
+          nextTick(() => {
             if (value.length) {
               resolve(value)
             } else {
               reject(new Error(rule.message))
             }
-          }, 10)
+          })
         })
       }
     }
