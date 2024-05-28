@@ -3,9 +3,6 @@ import { mockDb } from '@/mock/db/index.js'
 
 mock.onGet('/products').reply(async (config) => {
   const list = await mockDb.productManage.getList(config.params)
-  list.list.forEach((item) => {
-    item.cover = typeof item.cover === 'string' ? item.cover.split(',') : item.cover
-  })
   return [200, builder(list)]
 })
 

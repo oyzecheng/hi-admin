@@ -7,7 +7,7 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'cover'">
         <div class="cover">
-          <img :src="record.cover[0]" alt="cover" />
+          <img :src="getProductCover(record.cover)" alt="cover" />
         </div>
       </template>
     </template>
@@ -36,6 +36,10 @@ del.onConfirm(async (buttonController) => {
   await ProductDelete(record.id)
   table.reloadData()
 })
+
+const getProductCover = (cover: string) => {
+  return cover.split(',')?.[0] || ''
+}
 </script>
 
 <style scoped lang="less">

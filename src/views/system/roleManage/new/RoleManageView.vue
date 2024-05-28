@@ -77,7 +77,7 @@ const getRouterList = async () => {
 
 newFormController.onDefaultConfirm(async (controller) => {
   const formData = await newFormController.validate()
-  formData.auth = Array.isArray(formData.auth) ? formData.auth : formData?.auth?.check || []
+  formData.auth = Array.isArray(formData.auth) ? formData.auth : formData?.auth?.checked || []
   controller.showLoading()
   try {
     if (isEdit.value) {

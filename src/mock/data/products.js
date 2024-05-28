@@ -5,7 +5,7 @@ export const products = [
     price: 954,
     stock: 11,
     description: 'Nike Air Force 1 NDESTRUKT',
-    cover: ['https://static.oouzc.com/products/product_10.jpg'],
+    cover: 'https://static.oouzc.com/products/product_10.jpg',
     createAt: 1716801941445
   },
   {
@@ -14,10 +14,8 @@ export const products = [
     price: 56,
     stock: 22,
     description: 'Foundations Matte Flip Flop',
-    cover: [
-      'https://static.oouzc.com/products/product_12.jpg',
-      'https://static.oouzc.com/products/product_8.jpg'
-    ],
+    cover:
+      'https://static.oouzc.com/products/product_12.jpg,https://static.oouzc.com/products/product_8.jpg',
     createAt: 1716802027077
   },
   {
@@ -26,7 +24,7 @@ export const products = [
     price: 45,
     stock: 1,
     description: 'Nike Air Zoom Pegasus 37 A.I.R. Chaz Bear',
-    cover: ['https://static.oouzc.com/products/product_11.jpg'],
+    cover: 'https://static.oouzc.com/products/product_11.jpg',
     createAt: 1716802071379
   },
   {
@@ -35,11 +33,8 @@ export const products = [
     price: 657,
     stock: 5,
     description: 'Arizona Soft Footbed Sandal',
-    cover: [
-      'https://static.oouzc.com/products/product_17.jpg',
-      'https://static.oouzc.com/products/product_17.jpg',
-      'https://static.oouzc.com/products/product_18.jpg'
-    ],
+    cover:
+      'https://static.oouzc.com/products/product_17.jpg,https://static.oouzc.com/products/product_17.jpg,https://static.oouzc.com/products/product_18.jpg',
     createAt: 1716802106080
   },
   {
@@ -48,7 +43,7 @@ export const products = [
     price: 442,
     stock: 12,
     description: 'Boston Soft Footbed Sandal',
-    cover: ['https://static.oouzc.com/products/product_2.jpg'],
+    cover: 'https://static.oouzc.com/products/product_2.jpg',
     createAt: 1716802128857
   },
   {
@@ -57,7 +52,7 @@ export const products = [
     price: 546,
     stock: 3,
     description: 'Jordan Delta',
-    cover: ['https://static.oouzc.com/products/product_1.jpg'],
+    cover: 'https://static.oouzc.com/products/product_1.jpg',
     createAt: 1716802154980
   }
 ]
