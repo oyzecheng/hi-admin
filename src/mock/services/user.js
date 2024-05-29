@@ -9,7 +9,11 @@ const adminInfo = {
 }
 
 mock.onPost('/login').reply(async (config) => {
-  const { email } = getBody(config)
+  const { email, password } = getBody(config)
+  if (password !== '123') {
+    return [200, builderError('用户名或密码错误')]
+  }
+
   if (email === adminInfo.email) {
     return [200, builder(adminInfo)]
   }

@@ -12,7 +12,6 @@ export const useUserStore = defineStore('user', () => {
 
   const getUserRoutes = async () => {
     const { data } = await UserRoutes()
-    console.log('--data', data)
     userRoutes.value = data
     userButtons.splice(0, userButtons.length)
     const userRouteList = formatToRoute(data, ({ buttons }) => {

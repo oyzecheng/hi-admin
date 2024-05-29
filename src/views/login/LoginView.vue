@@ -18,6 +18,10 @@
           <h6 class="title">登陆</h6>
           <HiForm :controller="loginForm" :button-config="null" />
           <HiButton :controller="loginButton" />
+          <div class="tips">
+            <p>超级管理员账号：admin@gmail.com 密码：123（拥有所有权限）</p>
+            <p>普通账号：user@gmail.com 密码：123（拥有部分权限）</p>
+          </div>
         </div>
       </a-col>
     </a-row>
@@ -44,7 +48,7 @@ const handleLogin = async () => {
     const { data } = await Login(formData)
     SetItem(USER_TOKEN, data)
     await userStore.initUserConfig()
-    router.push({ name: 'home' })
+    router.push({ name: userStore.info?.userMenus?.[0]?.key || 'home' })
   } finally {
     loginButton.hideLoading()
   }
@@ -85,6 +89,11 @@ password.setConfigItemByKey('onPressEnter', handleLogin)
       font-weight: 500;
       font-size: 22px;
       margin-bottom: 20px;
+    }
+    .tips {
+      color: var(--color-sub-content-text);
+      font-size: 12px;
+      padding-top: 10px;
     }
   }
 }
