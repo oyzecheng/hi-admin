@@ -20,9 +20,11 @@ mock.onPost('/login').reply(async (config) => {
   // 判断用户是否存在以及是否启用
   // 判断用户的角色是否存在以及启用
   const user = await mockDb.userManage.getUserByEmail(email)
-  const roleInfo = await mockDb.roleManage.getItemById(user.role)
-  if (user && user.status === 1 && roleInfo && roleInfo.status === 1) {
-    return [200, builder(user)]
+  if (user) {
+    const roleInfo = await mockDb.roleManage.getItemById(user.role)
+    if (user && user.status === 1 && roleInfo && roleInfo.status === 1) {
+      return [200, builder(user)]
+    }
   }
 
   return [200, builderError('用户名或密码错误')]
