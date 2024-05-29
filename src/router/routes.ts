@@ -37,12 +37,6 @@ export const privateRoutes: RouteRecordRaw[] = [
     meta: { title: '表单', icon: 'form' }
   },
   {
-    name: 'table',
-    path: '/table',
-    component: () => import('@/views/table/TableView.vue'),
-    meta: { title: '表格', icon: 'table' }
-  },
-  {
     name: 'user',
     path: '/user',
     component: () => import('@/layout/RouterView.vue'),
