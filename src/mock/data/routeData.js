@@ -51,7 +51,7 @@ export const routeData = [
         id: '4835c0a9c0892234',
         pageTitle: '新建',
         routeName: 'productNew',
-        routePath: '/new',
+        routePath: 'new',
         componentName: 'ProductNew',
         hidden: true,
         parentId: '0eb8ec2426a71556',

@@ -18,3 +18,23 @@ export async function loginSuperAdmin(page: Page) {
 export async function loginUser(page: Page) {
   await userLogin(page, userInfo)
 }
+
+async function goToPage(page: Page, menuName: string) {
+  await page
+    .locator(`.ant-layout-sider-children .ant-menu .ant-menu-item`, { hasText: menuName })
+    .click()
+}
+
+export async function goToProduct(page: Page) {
+  await goToPage(page, '产品')
+}
+
+export async function waitTableLoading(page: Page) {
+  await page.locator('.hi-table .ant-spin-spinning').waitFor({ state: 'detached' })
+}
+
+export async function findTableItemByText(page: Page, text: string) {
+  return page.locator('.hi-table .ant-table-tbody .ant-table-row', {
+    hasText: text
+  })
+}
