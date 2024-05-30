@@ -57,7 +57,12 @@ export class HiFormUploadController extends HiFormItemController<IFormUpload> {
         return new Promise((resolve, reject) => {
           nextTick(() => {
             if (value.length) {
-              resolve(value)
+              const list = value.filter((item: IFormUploadItem) => item.status === 'success')
+              if (list.length) {
+                resolve(value)
+              } else {
+                reject(new Error('请等待文件上传完成或重新上传文件'))
+              }
             } else {
               reject(new Error(rule.message))
             }
@@ -80,7 +85,7 @@ export class HiFormUploadController extends HiFormItemController<IFormUpload> {
       const arr = value.split(',')
       return arr.map((url: string) => {
         const key = generateKey()
-        return { id: key, url, name: key }
+        return { id: key, url, name: key, status: 'success' }
       })
     } catch (err) {
       return value
