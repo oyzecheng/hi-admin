@@ -1,17 +1,18 @@
 import { expect, Page, test } from '@playwright/test'
-import { findTableItemByText, goToProduct, loginSuperAdmin, waitTableLoading } from './utils'
-import * as path from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+import {
+  filePath,
+  findTableItemByText,
+  goToProduct,
+  loginSuperAdmin,
+  waitTableLoading
+} from './utils'
 
 const productOne = {
   name: 'testProductOne',
   price: '12',
   stock: '22',
   description: 'test product one description',
-  cover: path.join(__dirname, '../src/assets/images/red-blur.png')
+  cover: filePath
 }
 
 test.beforeEach(async ({ page }) => {

@@ -1,7 +1,7 @@
 <template>
   <div class="hi-page" ref="pageRef">
     <div class="search-box" v-if="searchFormController || topButtonController">
-      <div>
+      <div class="form-box">
         <HiForm
           v-if="searchFormController"
           :controller="searchFormController"
@@ -153,11 +153,25 @@ defineExpose({
   .search-box {
     padding: 25px;
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
     :deep(.clear-button) {
       font-weight: bold;
       .anticon {
         color: var(--color-error);
+      }
+    }
+    .form-box {
+      margin-top: 20px;
+    }
+  }
+}
+@media screen and (min-width: 1000px) {
+  .hi-page {
+    .search-box {
+      flex-direction: row;
+      .form-box {
+        margin-top: 0;
       }
     }
   }
