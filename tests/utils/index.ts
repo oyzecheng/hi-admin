@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-export const filePath = path.join(__dirname, '../src/assets/images/red-blur.png')
+export const filePath = path.join(__dirname, '../../src/assets/images/red-blur.png')
 
 const adminInfo = { email: 'admin@gmail.com', password: '123' }
 const userInfo = { email: 'user@gmail.com', password: '123' }
@@ -44,4 +44,8 @@ export async function findTableItemByText(page: Page, text: string) {
   return page.locator('.hi-table .ant-table-tbody .ant-table-row', {
     hasText: text
   })
+}
+
+export async function chooseSelectItemByText(page: Page, text: string) {
+  await page.locator('.ant-select-dropdown .ant-select-item-option', { hasText: text }).click()
 }
