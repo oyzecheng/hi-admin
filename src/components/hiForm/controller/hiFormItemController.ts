@@ -6,12 +6,14 @@ export class HiFormItemController<T extends IFormItemBase> {
   readonly key: string
   readonly model: string
   readonly controllerType: TFormItemType | undefined
+  validate: (() => void) | null
 
   constructor(config: T, controllerType: TFormItemType) {
     this.config = config
     this.key = generateKey()
     this.controllerType = controllerType
     this.model = config.model
+    this.validate = null
   }
 
   private setDefaultStyle(config: T) {

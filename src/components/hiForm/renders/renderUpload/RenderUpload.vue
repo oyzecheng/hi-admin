@@ -107,6 +107,9 @@ const customRequest = (e: any) => {
         onUploadError && onUploadError(item, err)
       }
     })
+    .finally(() => {
+      controller.value.validate?.()
+    })
 }
 const beforeUpload = (file: File) => {
   const { size } = file

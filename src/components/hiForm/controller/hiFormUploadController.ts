@@ -52,7 +52,7 @@ export class HiFormUploadController extends HiFormItemController<IFormUpload> {
       ...super.getDefaultRule(),
       type: 'array',
       message: `请上传${this.config.label}`,
-      trigger: 'change',
+      trigger: 'blur', // 使用blur是为了在选择完文件后不触发，而是在上传后手动触发校验
       validator(rule, value) {
         return new Promise((resolve, reject) => {
           nextTick(() => {

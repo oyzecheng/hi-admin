@@ -39,6 +39,7 @@ export class HiFormController {
         this.rules[item.model] = this.getItemRules(item)
         this.formData[item.model] = item.getDefaultValue()
         item.setDefaultConfig()
+        item.validate = () => this.validateFields([item.model])
       }
     })
   }
