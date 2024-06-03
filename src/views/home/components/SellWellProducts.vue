@@ -2,7 +2,7 @@
   <HomeModule class="sell-well-products" title="畅销商品">
     <div class="list">
       <div class="item" v-for="item in products" :key="item.id">
-        <a-avatar shape="square" :size="46" :src="item.poster" />
+        <a-avatar shape="square" :size="46" :src="item.cover.split(',')[0]" />
         <div class="info">
           <span class="name">{{ item.name }}</span>
           <p class="price">¥{{ item.price }}</p>

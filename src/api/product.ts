@@ -1,12 +1,24 @@
 import { GET, POST, PATH, DELETE } from '@/utils/request'
-import type { TParams } from '@/api/types'
+import type { IList, TParams } from '@/api/types'
 
-export const ProductList = (params?: TParams) => GET('/products', params)
+export interface IProduct {
+  id: string
+  name: string
+  price: number
+  description: string
+  stock: number
+  createAt: number
+  cover: string
+}
 
-export const ProductAdd = (params: TParams) => POST('/products', params)
+export const ProductList = (params?: TParams) => GET<IList<IProduct[]>>('/products', params)
 
-export const ProductUpdate = (id: string, params: TParams) => PATH(`/products/${id}`, params)
+export const ProductAdd = (params: TParams) => POST<string>('/products', params)
 
-export const ProductDelete = (id: string, params?: TParams) => DELETE(`/products/${id}`, params)
+export const ProductUpdate = (id: string, params: TParams) =>
+  PATH<IProduct>(`/products/${id}`, params)
 
-export const ProductDetail = (id: string) => GET(`/products/${id}`)
+export const ProductDelete = (id: string, params?: TParams) =>
+  DELETE<string>(`/products/${id}`, params)
+
+export const ProductDetail = (id: string) => GET<IProduct>(`/products/${id}`)

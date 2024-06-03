@@ -5,7 +5,7 @@ export const products = [
     price: 954,
     stock: 11,
     description: 'Nike Air Force 1 NDESTRUKT',
-    cover: 'https://static.oouzc.com/products/product_10.jpg',
+    cover: 'https://static.oouzc.com/products/product_6.jpg',
     createAt: 1716801941445
   },
   {
@@ -15,7 +15,7 @@ export const products = [
     stock: 22,
     description: 'Foundations Matte Flip Flop',
     cover:
-      'https://static.oouzc.com/products/product_12.jpg,https://static.oouzc.com/products/product_8.jpg',
+      'https://static.oouzc.com/products/product_5.jpg,https://static.oouzc.com/products/product_8.jpg',
     createAt: 1716802027077
   },
   {
@@ -24,7 +24,7 @@ export const products = [
     price: 45,
     stock: 1,
     description: 'Nike Air Zoom Pegasus 37 A.I.R. Chaz Bear',
-    cover: 'https://static.oouzc.com/products/product_11.jpg',
+    cover: 'https://static.oouzc.com/products/product_4.jpg',
     createAt: 1716802071379
   },
   {
@@ -34,7 +34,7 @@ export const products = [
     stock: 5,
     description: 'Arizona Soft Footbed Sandal',
     cover:
-      'https://static.oouzc.com/products/product_17.jpg,https://static.oouzc.com/products/product_17.jpg,https://static.oouzc.com/products/product_18.jpg',
+      'https://static.oouzc.com/products/product_3.jpg,https://static.oouzc.com/products/product_17.jpg,https://static.oouzc.com/products/product_18.jpg',
     createAt: 1716802106080
   },
   {
