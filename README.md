@@ -6,6 +6,8 @@
 
 封装了HiTable,HiForm,HiPage组件，可以通过配置化快速的开发增删改查页面。
 
+示例：http://hiadmin.oouzc.com/
+
 ## Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
@@ -25,7 +27,7 @@ npm run dev
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-npm run build
+npm run build-only
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
