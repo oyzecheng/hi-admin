@@ -1,7 +1,7 @@
 <template>
   <component
     :is="currentComponent"
-    v-model:value="formData[controller.model]"
+    v-model:value.trim="formData[controller.model]"
     :formData="formData"
     :controller="controller"
   />
