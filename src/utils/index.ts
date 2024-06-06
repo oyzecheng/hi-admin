@@ -127,3 +127,7 @@ export const copyToClipboard = (text: string) => {
     message.error('当前浏览器不支持自动复制，请手动复制！')
   }
 }
+
+export const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+}

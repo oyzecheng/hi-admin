@@ -82,5 +82,15 @@ onMounted(() => {
       margin-bottom: 20px;
     }
   }
+  :deep(.ant-table) {
+    .ant-table-cell {
+      padding: 16px;
+    }
+    @media screen and (max-width: 640px) {
+      .ant-table-cell {
+        padding: 10px;
+      }
+    }
+  }
 }
 </style>

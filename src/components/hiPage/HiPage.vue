@@ -151,7 +151,7 @@ defineExpose({
   border-radius: 16px;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   .search-box {
-    padding: 25px;
+    padding: 15px;
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
@@ -162,7 +162,15 @@ defineExpose({
       }
     }
     .form-box {
-      margin-top: 20px;
+      margin-top: 10px;
+    }
+  }
+  @media screen and (min-width: 640px) {
+    .search-box {
+      padding: 25px;
+      .form-box {
+        margin-top: 20px;
+      }
     }
   }
 }

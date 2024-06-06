@@ -9,7 +9,7 @@
     >
       <LayoutHeader />
       <NavigationBar v-if="appStore.navigationBarShow" />
-      <a-layout-content style="padding: 20px 40px">
+      <a-layout-content>
         <router-view />
       </a-layout-content>
     </a-layout>
@@ -43,5 +43,15 @@ const handleClickMask = () => {
   bottom: 0;
   background-color: var(--color-mask-bg);
   z-index: 888;
+}
+.ant-layout {
+  :deep(.ant-layout-content) {
+    padding: 20px 40px;
+  }
+  @media screen and (max-width: 640px) {
+    :deep(.ant-layout-content) {
+      padding: 20px;
+    }
+  }
 }
 </style>

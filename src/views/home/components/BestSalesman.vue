@@ -26,7 +26,7 @@ const tableController = useHiTable(
   [
     { title: '销售员', key: 'name' },
     { title: '产品', key: 'product' },
-    { title: '总销售额', key: 'price', customRender: ({ value }) => `¥${value}` },
+    { title: '销售额', key: 'price', customRender: ({ value }) => `¥${value}` },
     { title: '排名', key: 'rank' }
   ],
   { pagination: false, scroll: { x: '100%' } }

@@ -1,4 +1,4 @@
-import { deepClone, generateKey } from '@/utils'
+import { deepClone, generateKey, isMobile } from '@/utils'
 import type {
   TFormItemControllers,
   TFormData,
@@ -51,11 +51,13 @@ export class HiFormController {
   }
 
   private setDefaultConfig(config: IHiForm): IHiForm {
-    const { layout, layoutCol = 0 } = config
+    const { layout, layoutCol = 0, buttonListOffset } = config
     return {
       labelAlign: layout === 'horizontal' ? 'right' : undefined,
       labelCol: layout === 'horizontal' ? { span: 4 + layoutCol } : undefined,
-      ...config
+      ...config,
+      layoutCol: isMobile() ? undefined : layoutCol,
+      buttonListOffset: isMobile() ? 0 : buttonListOffset
     }
   }
 

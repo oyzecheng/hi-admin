@@ -7,7 +7,7 @@
         </template>
       </a-input>
     </div>
-    <HiScrollView class="list" :height="500">
+    <HiScrollView class="list" height="60vh">
       <div
         class="item"
         v-for="item in state.menuFlatList"
@@ -67,6 +67,8 @@ const filterMenuListByLabel = (val, list) => {
 
 <style scoped>
 .search-modal-content {
+  border-radius: 20px;
+  overflow: hidden;
   .search-input {
     border-bottom: 1px solid var(--color-border);
     padding: 22px 20px;
