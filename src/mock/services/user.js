@@ -5,6 +5,7 @@ const adminInfo = {
   id: '12admin',
   userName: 'admin',
   email: 'admin@gmail.com',
+  avatar: 'https://static.oouzc.com/avatar/avatar_4.png',
   role: 1
 }
 

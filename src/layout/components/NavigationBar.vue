@@ -1,7 +1,9 @@
 <template>
   <div
     class="navigation-bar"
-    :style="{ padding: appStore.navigationBarList.length ? '0 40px' : '' }"
+    :style="{
+      padding: appStore.navigationBarList.length ? (isMobile() ? '0 20px' : '0 40px') : ''
+    }"
   >
     <HiScrollView class="bar-list" width="100%" style="padding-bottom: 5px">
       <div
@@ -28,6 +30,7 @@ import { CloseOutlined } from '@ant-design/icons-vue'
 import { useAppStore } from '@/stores/app.ts'
 import { useRoute, useRouter } from 'vue-router'
 import { computed, watch } from 'vue'
+import { isMobile } from '@/utils/index.ts'
 
 const appStore = useAppStore()
 const router = useRouter()

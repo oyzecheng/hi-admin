@@ -14,7 +14,7 @@
       <SettingFilled class="setting" @click="handleSettingClick" />
       <a-dropdown trigger="click" v-model:open="state.menuOpen">
         <div :class="{ avatar: true, 'avatar-active': state.menuOpen }">
-          <a-avatar src="https://static.oouzc.com/avatar/avatar_4.png" />
+          <a-avatar :src="info.userInfo.avatar" />
         </div>
         <template #overlay>
           <div class="user-container">
@@ -166,6 +166,12 @@ const handleMenuClick = ({ key }) => {
     &-active {
       border-color: var(--color-primary);
     }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .ant-layout-header {
+    padding: 0 20px;
   }
 }
 </style>
